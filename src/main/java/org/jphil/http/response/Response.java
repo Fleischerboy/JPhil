@@ -1,4 +1,4 @@
-package org.jphil.http;
+package org.jphil.http.response;
 
 import jakarta.servlet.http.HttpServletResponse;
 

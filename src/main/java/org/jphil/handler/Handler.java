@@ -1,8 +1,8 @@
 package org.jphil.handler;
 
 
-import org.jphil.http.Request;
-import org.jphil.http.Response;
+import org.jphil.http.request.Request;
+import org.jphil.http.response.Response;
 
 public interface Handler {
 

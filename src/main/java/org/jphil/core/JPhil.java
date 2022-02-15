@@ -1,6 +1,6 @@
 package org.jphil.core;
-
 import org.jphil.handler.Handler;
+import org.jphil.http.HttpMethod;
 import org.jphil.webserver.jettyServer;
 
 public class JPhil {
@@ -11,8 +11,6 @@ public class JPhil {
     public JPhil() {
 
     }
-
-
 
     /**
      *
@@ -25,13 +23,15 @@ public class JPhil {
 
     }
 
+
+
     /**
      * HTTP GET
       @param path
       @param handler
      */
     public void get(String path, Handler handler) {
-
+         //   addRequestMapping(HttpMethod.GET, path, handler);
     }
 
     /**
@@ -41,7 +41,7 @@ public class JPhil {
      */
 
     public void post(String path, Handler handler) {
-
+         //   addRequestMapping(HttpMethod.POST, path, handler);
     }
 
 
@@ -51,7 +51,7 @@ public class JPhil {
      * @param handler
      */
     public void put(String path, Handler handler) {
-
+      //  addRequestMapping(HttpMethod.PUT, path, handler);
     }
 
     /**
@@ -60,7 +60,7 @@ public class JPhil {
      * @param handler
      */
     public void delete(String path, Handler handler) {
-
+       // addRequestMapping(HttpMethod.DELETE, path, handler);
     }
 
 
@@ -78,7 +78,7 @@ public class JPhil {
      * @param handler
      */
     public void before(String path, Handler handler) {
-
+      //  addRequestMapping(path, handler);
     }
 
 
@@ -97,9 +97,17 @@ public class JPhil {
      * @param handler
      */
     public void after(String path, Handler handler) {
-
+       // addRequestMapping(path, handler);
     }
 
+
+    public void addStaticFilePath(String path) {
+        JPhilConfig.setStaticFilePath(path);
+    }
+
+    public void addTemplatePath(String path) {
+        JPhilConfig.setTemplatePath(path);
+    }
 
 
 
