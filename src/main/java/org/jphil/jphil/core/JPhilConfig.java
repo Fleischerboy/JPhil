@@ -1,4 +1,4 @@
-package org.jphil.core;
+package org.jphil.jphil.core;
 
 public class JPhilConfig {
 

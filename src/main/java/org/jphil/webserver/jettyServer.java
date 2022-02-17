@@ -2,7 +2,7 @@ package org.jphil.webserver;
 
 import org.eclipse.jetty.server.Server;
 
-public class jettyServer {
+public class jettyServer implements Runnable {
 
 
     private static int serverPort;
@@ -20,7 +20,12 @@ public class jettyServer {
 
     public static void startServer() {
 
-        // logic for init the jetty server
+        // logic for init/start the jetty server
+
+    }
+
+    @Override
+    public void run() {
 
     }
 }

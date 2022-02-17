@@ -7,6 +7,10 @@ public class Request {
 
     HttpServletRequest servletRequest;
 
+    /**
+     *
+     * @param servletRequest
+     */
     public Request(HttpServletRequest servletRequest) {
         this.servletRequest = servletRequest;
     }

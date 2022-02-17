@@ -1,14 +1,16 @@
-package org.jphil.http.mapping;
+package org.jphil.http.routing;
 
-public class RequestMapping {
+public class EndPointRouting {
 
     private String method;
     private String path;
 
-    public RequestMapping(String method, String path) {
+    public EndPointRouting(String method, String path) {
         this.method = method;
         this.path = path;
     }
+
+
 
     public String getMethod() {
         return method;
