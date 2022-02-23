@@ -2,6 +2,9 @@ package org.jphil.handler.chain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import static org.jphil.handler.HandlerWrapper.handle;
+
+
 public class HandleGet implements HandlerChain {
 
     private HandlerChain nextInChain;
@@ -15,7 +18,8 @@ public class HandleGet implements HandlerChain {
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) {
         if(request.getMethod().equals("GET")) {
-            System.out.println("handle this get request");
+            handle(request, response);
+
         }
         else {
             nextInChain.handleRequest(request, response);

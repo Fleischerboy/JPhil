@@ -1,6 +1,6 @@
 package org.jphil.http;
 
 
-public enum HttpMethod {
+public enum Method {
     GET, POST, PUT, DELETE, BEFORE, AFTER
 }

@@ -3,6 +3,9 @@ package org.jphil.handler.chain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import static org.jphil.handler.HandlerWrapper.handle;
+
+
 public class HandlePost implements HandlerChain {
 
     private HandlerChain nextInChain;
@@ -14,11 +17,11 @@ public class HandlePost implements HandlerChain {
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        if(request.getMethod().equals("POST")) {
-            System.out.println("handle this post request");
+        if(request.getMethod().equals("POST") || request.getMethod().equals("PUT")) {
+            handle(request, response);
         }
         else {
-            System.out.println("Only works for GET and POST");
+            System.out.println("Only works for GET and POST atm");
         }
     }
 }

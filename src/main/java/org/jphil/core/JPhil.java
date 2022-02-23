@@ -1,12 +1,16 @@
-package org.jphil.jphil.core;
+package org.jphil.core;
 import org.jphil.handler.Handler;
-import org.jphil.http.HttpMethod;
+import org.jphil.http.Method;
 import org.jphil.webserver.jettyServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import static org.jphil.http.routing.EndPointRoutingFactory.*;
 
 public class JPhil {
 
+   Logger logger = LoggerFactory.getLogger(JPhil.class);
 
     private boolean isJettyServerRunning = false;
 
@@ -22,7 +26,7 @@ public class JPhil {
         jettyServer.setServerPort(port);
         jettyServer.startServer();
         isJettyServerRunning = true;
-
+        logger.info("Server started on port : " + port);
     }
 
 
@@ -33,7 +37,7 @@ public class JPhil {
       @param handler
      */
     public void get(String path, Handler handler) {
-           addRoute(HttpMethod.GET, path, handler);
+           addRoute(Method.GET, path, handler);
     }
 
     /**
@@ -42,7 +46,7 @@ public class JPhil {
      * @param handler
      */
     public void post(String path, Handler handler) {
-        addRoute(HttpMethod.POST, path, handler);
+        addRoute(Method.POST, path, handler);
     }
 
 
@@ -52,7 +56,7 @@ public class JPhil {
      * @param handler
      */
     public void put(String path, Handler handler) {
-        addRoute(HttpMethod.PUT, path, handler);
+        addRoute(Method.PUT, path, handler);
     }
 
     /**
@@ -61,7 +65,7 @@ public class JPhil {
      * @param handler
      */
     public void delete(String path, Handler handler) {
-        addRoute(HttpMethod.DELETE, path, handler);
+        addRoute(Method.DELETE, path, handler);
     }
 
 
@@ -70,7 +74,7 @@ public class JPhil {
      * @param handler
      */
     public void before(Handler handler) {
-        addBeforeHandler(handler);
+       // addBeforeHandler(handler);
     }
 
 
@@ -80,7 +84,7 @@ public class JPhil {
      * @param handler
      */
     public void before(String path, Handler handler) {
-        addBeforeHandlerWithRoutePath(HttpMethod.BEFORE, path, handler);
+     //   addBeforeHandlerWithRoutePath(Method.BEFORE, path, handler);
     }
 
 
@@ -90,7 +94,7 @@ public class JPhil {
      * @param handler
      */
     public void after(Handler handler) {
-        addAfterHandler(handler);
+    //    addAfterHandler(handler);
     }
 
 
@@ -102,17 +106,17 @@ public class JPhil {
      * @param handler
      */
     public void after(String path, Handler handler) {
-        addAfterHandlerWithRoutePath(HttpMethod.AFTER, path, handler);
+     //   addAfterHandlerWithRoutePath(Method.AFTER, path, handler);
     }
 
 
 
 
-    public void addStaticFilePath(String path) {
+    public void setStaticFilePath(String path) {
         JPhilConfig.setStaticFilePath(path);
     }
 
-    public void addTemplatePath(String path) {
+    public void setTemplatePath(String path) {
         JPhilConfig.setTemplatePath(path);
     }
 

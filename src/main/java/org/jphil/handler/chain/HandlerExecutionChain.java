@@ -1,16 +1,31 @@
 package org.jphil.handler.chain;
-
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
+
 
 public class HandlerExecutionChain {
 
+    public HandleGet handlerChain;
+    private HttpServletRequest request;
 
+    public HandlerExecutionChain(HttpServletRequest request) {
+        this.request = request;
+        // initialize the chain
+        this.handlerChain = new HandleGet();
+        HandlePost handlePost = new HandlePost();
 
-
-    public void handle(HttpServletRequest request, HttpServletResponse response) {
-
+        // set the chain of responsibility
+        handlerChain.setNextChain(handlePost);
     }
+
+
+
+
+
+
+
+
+
 
 
 }
