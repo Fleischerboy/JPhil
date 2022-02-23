@@ -74,7 +74,7 @@ public class JPhil {
      * @param handler
      */
     public void before(Handler handler) {
-       // addBeforeHandler(handler);
+       addRoute(Method.BEFORE, "*", handler);
     }
 
 
@@ -84,7 +84,7 @@ public class JPhil {
      * @param handler
      */
     public void before(String path, Handler handler) {
-     //   addBeforeHandlerWithRoutePath(Method.BEFORE, path, handler);
+         addRoute(Method.BEFORE, path, handler);
     }
 
 
@@ -94,7 +94,7 @@ public class JPhil {
      * @param handler
      */
     public void after(Handler handler) {
-    //    addAfterHandler(handler);
+         addRoute(Method.AFTER,"*",handler);
     }
 
 
@@ -106,7 +106,7 @@ public class JPhil {
      * @param handler
      */
     public void after(String path, Handler handler) {
-     //   addAfterHandlerWithRoutePath(Method.AFTER, path, handler);
+        addRoute(Method.AFTER, path, handler);
     }
 
 

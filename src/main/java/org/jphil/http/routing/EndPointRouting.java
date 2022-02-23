@@ -4,12 +4,12 @@ import org.jphil.http.Method;
 
 import java.util.Objects;
 
-public class EndPointRout {
+public class EndPointRouting {
 
     private Method method;
     private String path;
 
-    public EndPointRout(Method method, String path) {
+    public EndPointRouting(Method method, String path) {
         this.method = method;
         this.path = path;
     }
@@ -34,7 +34,7 @@ public class EndPointRout {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EndPointRout that = (EndPointRout) o;
+        EndPointRouting that = (EndPointRouting) o;
         return method == that.method && Objects.equals(path, that.path);
     }
 
