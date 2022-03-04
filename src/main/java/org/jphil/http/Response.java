@@ -80,6 +80,11 @@ public class Response {
 
     }
 
+
+    public void setHeader(String headerName, String value) {
+
+    }
+
     /**
      * Set content type
      * @param contentType

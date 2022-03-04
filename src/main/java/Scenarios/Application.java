@@ -133,7 +133,7 @@ public class Application {
 
         });
 
-        // show picture of the user-detail file
+
 
 
 
@@ -153,7 +153,7 @@ public class Application {
         // only users with an admin role will have access to this recourse.
         }, Role.ADMIN);
 
-        // show picture of the users file
+
 
 
 
