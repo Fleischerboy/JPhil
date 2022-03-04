@@ -1,6 +1,8 @@
 package org.jphil.http;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jphil.templaterender.FreemarkerRender;
+
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
@@ -11,52 +13,56 @@ public class Response {
     private HttpServletResponse servletResponse;
 
     /**
-     *
      * @param servletResponse
+     * Response constructor
      */
     public Response(HttpServletResponse servletResponse) {
         this.servletResponse = servletResponse;
     }
 
-
     /**
-     *
+     * Send plain text in response
      * @param text
+     * Text to send in the response
      */
-    public void renderPainText(String text) {
-
-    }
-
-
-    /**
-     *
-     * @param htmlContent
-     */
-    public void renderHtmlContent(String htmlContent) {
-
+    public void text(String text) {
+        setContentType(ContentType.TYPE_TEXT);
+        // Todo: Write text to the response
     }
 
     /**
-     *
-     * @param fileName
+     * Send html in response
+     * @param htmlString
+     * The html to send
      */
-    public void sendStaticFile(String fileName) {
+    public void html(String htmlString) {
+        setContentType(ContentType.TYPE_HTML);
+    }
+
+    /**
+     * Method to send a file in the response
+     * @param filePath
+     * Path to the file
+     */
+    public void file(String filePath) {
 
     }
 
-
-    public void renderTemplate(String Filename, Map<String, Object> models) {
-        FreemarkerRender.renderTemplate(Filename, models, getWriter());
+    public void json(Object json) {
+        setContentType(ContentType.CONTENT_TYPE_JSON);
     }
 
-    public void renderTemplate(String Filename, Object model) {
-        FreemarkerRender.renderTemplate(Filename, model, getWriter());
+    public void renderTemplate(String fileName, Map<String, Object> models) throws IOException {
+        FreemarkerRender.renderTemplate(fileName, models, servletResponse.getWriter());
     }
 
-    public void renderTemplate(String Filename, List<?> models) {
-        FreemarkerRender.renderTemplate(Filename, models, getWriter());
+    public void renderTemplate(String fileName, Object model) throws IOException {
+        FreemarkerRender.renderTemplate(fileName, model, servletResponse.getWriter());
     }
 
+    public void renderTemplate(String fileName, List<?> models) throws IOException {
+        FreemarkerRender.renderTemplate(fileName, models, servletResponse.getWriter());
+    }
 
     /**
      *
@@ -65,7 +71,6 @@ public class Response {
     public void redirect(String pathTo) {
 
     }
-
 
     /**
      *
@@ -82,21 +87,4 @@ public class Response {
     public void setContentType(String contentType) {
 
     }
-
-
-
-
-    public PrintWriter getWriter() {
-        return null;
-    }
-
-
-
-
-
-
-
-
-
-
 }

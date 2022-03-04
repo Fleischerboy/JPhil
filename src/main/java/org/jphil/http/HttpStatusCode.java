@@ -2,7 +2,6 @@ package org.jphil.http;
 
 public class HttpStatusCode {
 
-
     /**
      * Status code (200) indicating the request succeeded normally.
      */
@@ -13,7 +12,6 @@ public class HttpStatusCode {
      * available.
      */
     public static final int NOT_FOUND = 404;
-
 
     /**
      * Status code (401) indicating that the request requires HTTP

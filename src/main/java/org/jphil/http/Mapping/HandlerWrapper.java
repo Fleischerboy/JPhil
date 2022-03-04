@@ -11,22 +11,12 @@ public class HandlerWrapper {
         this.handler = handler;
     }
 
-
-
-
-
-
     public static void handle(HttpServletRequest request, HttpServletResponse response) {
 
     }
 
-
-
-
     @Override
     public String toString() {
-        return "HandlerWrapper{" +
-                "handler=" + handler +
-                '}';
+        return  String.format("HandlerWrapper{ handler = %s }", handler);
     }
 }

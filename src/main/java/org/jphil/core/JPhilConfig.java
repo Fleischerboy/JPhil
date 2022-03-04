@@ -12,12 +12,9 @@ public class JPhilConfig {
 
     }
 
-
     public static void setTemplatePath(String path) {
         JPhilConfig.templatesPath = path;
     }
-
-
 
     public static String getStaticFilePath() {
         return staticFilePath;

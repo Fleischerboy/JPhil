@@ -14,13 +14,13 @@ public class LoginController {
     @GetMapping(path = "/", httpMethod = HttpMethod.GET)
     public Handler login() {
         return (request, response) -> {
-            response.sendStaticFile("login.html");
+            response.file("login.html");
         };
     }
 
 
     public void login2(Request request, Response response) {
-        response.sendStaticFile("login.html");
+        response.file("login.html");
     }
     
 }

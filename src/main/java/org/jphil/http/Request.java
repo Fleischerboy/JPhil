@@ -18,7 +18,6 @@ public class Request {
         this.servletRequest = servletRequest;
     }
 
-
     /**
      * @return http method from the request
      */
@@ -37,8 +36,6 @@ public class Request {
     public String getPathUrl() {
         return null;
     }
-
-
 
     /**
      * @return contentType of the request
@@ -75,19 +72,16 @@ public class Request {
 
     /**
      * @param name
+     * Name of the header value
      * @return header value of the given header name
      */
     public String getHeader(String name) {
         return null;
     }
 
-
-
     public Map<String, String> getHeaders() {
      return null;
     }
-
-
 
     /*
      * @param name
@@ -100,14 +94,9 @@ public class Request {
         return servletRequest.getParameter(name);
     }
 
-
-
     public Map<String, String[]> getFormData() {
         return servletRequest.getParameterMap();
     }
-
-
-
 
     public String getPathParam(String name) {
     return null;
@@ -117,13 +106,9 @@ public class Request {
         return pathVariables;
     }
 
-
-
-
     public Map<String, String> getPathVariable() {
         return pathVariables;
     }
-
 
     public String getCookie(String role) {
         return null;

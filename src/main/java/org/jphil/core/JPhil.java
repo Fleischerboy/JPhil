@@ -7,24 +7,22 @@ import org.jphil.webserver.jettyWebServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-import static org.jphil.http.Mapping.EndPointMappingFactory.*;
-
 public class JPhil {
-
-   private static final Logger logger = LoggerFactory.getLogger(JPhil.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(JPhil.class);
     private static boolean isJettyServerRunning = false;
 
-    private JPhil() {
-
+    public static JPhil startServer() {
+        JPhil app = new JPhil();
+        startJettyServer();
+        logger.info("Server started on port 8080");
+        return app;
     }
-
-
 
     /**
      * @param port
+     * Port number for the server to listen on
      * @return
+     * Instance of Application
      */
     public static JPhil startServer(int port) {
         JPhil app = new JPhil();
@@ -34,22 +32,10 @@ public class JPhil {
         return app;
     }
 
-
-
-    public static JPhil startServer() {
-        JPhil app = new JPhil();
-        startJettyServer();
-        logger.info("Server started on port 8080");
-        return app;
-    }
-
-
     private static void startJettyServer() {
         jettyWebServer.startServer();
         isJettyServerRunning = true;
-
     }
-
 
     /**
      * HTTP GET
@@ -88,7 +74,6 @@ public class JPhil {
         EndPointMappingFactory.addRoute(HttpMethod.DELETE, path, handler);
     }
 
-
     /**
      *
      * @param path
@@ -98,7 +83,6 @@ public class JPhil {
     public void get(String path, Handler handler, RouteRole... roles) {
         EndPointMappingFactory.addRoute(HttpMethod.GET, path, handler, roles);
     }
-
 
     /**
      *
@@ -110,7 +94,6 @@ public class JPhil {
         EndPointMappingFactory.addRoute(HttpMethod.POST, path, handler, roles);
     }
 
-
     /**
      *
      * @param path
@@ -120,8 +103,6 @@ public class JPhil {
     public void put(String path, Handler handler, RouteRole... roles) {
         EndPointMappingFactory.addRoute(HttpMethod.PUT, path, handler, roles);
     }
-
-
 
     /**
      *
@@ -133,20 +114,13 @@ public class JPhil {
         EndPointMappingFactory.addRoute(HttpMethod.DELETE, path, handler, roles);
     }
 
-
-
-
-
     /**
      * will execute before all request
      * @param handler
      */
     public void before(Handler handler) {
-       addInterceptorRoute(HttpMethod.BEFORE, "/*", handler);
+        EndPointMappingFactory.addInterceptorRoute(HttpMethod.BEFORE, "/*", handler);
     }
-
-
-
 
     /**
      * will execute before request to /path
@@ -154,9 +128,8 @@ public class JPhil {
      * @param handler
      */
     public void before(String path, Handler handler) {
-         addInterceptorRoute(HttpMethod.BEFORE, path, handler);
+        EndPointMappingFactory.addInterceptorRoute(HttpMethod.BEFORE, path, handler);
     }
-
 
 
     /**
@@ -164,10 +137,8 @@ public class JPhil {
      * @param handler
      */
     public void after(Handler handler) {
-         addInterceptorRoute(HttpMethod.AFTER,"/*", handler);
+        EndPointMappingFactory.addInterceptorRoute(HttpMethod.AFTER,"/*", handler);
     }
-
-
 
 
     /**
@@ -176,11 +147,8 @@ public class JPhil {
      * @param handler
      */
     public void after(String path, Handler handler) {
-        addInterceptorRoute(HttpMethod.AFTER, path, handler);
+        EndPointMappingFactory.addInterceptorRoute(HttpMethod.AFTER, path, handler);
     }
-
-
-
 
     public JPhil endPoint(String path) {
        return null;
@@ -194,9 +162,6 @@ public class JPhil {
 
     }
 
-
-
-
     public void setStaticFilePath(String path) {
         JPhilConfig.setStaticFilePath(path);
     }
@@ -206,12 +171,8 @@ public class JPhil {
     }
 
 
-
-
-
     public boolean isJettyServerRunning() {
         return isJettyServerRunning;
     }
-
 
 }

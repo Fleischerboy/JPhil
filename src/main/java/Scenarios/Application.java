@@ -1,10 +1,14 @@
 package Scenarios;
 import Scenarios.models.User;
+import freemarker.template.TemplateException;
 import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;
+import org.jphil.handler.Handler;
 import org.jphil.http.Request;
 import org.jphil.http.Response;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.jphil.core.JPhil.startServer;
@@ -25,16 +29,23 @@ public class Application {
         // Scenario 1: start webserver (default port is 8080)
         JPhil app = JPhil.startServer();
 
-
         // optional: start webserver on port 7777.
         JPhil app2 = JPhil.startServer(7777);
 
 
+        //Scenario 2: Create an endpoint with url-path "/" on the webserver and send "Hello world" in text form.
+        // use the response object to call on the method text() and write "Hello world"
+        app.get("/", new Handler() {
+            @Override
+            public void handle(Request request, Response response)  {
+                response.text("Hello World");
+            }
+        });
 
         //Scenario 2: Create an endpoint on the webserver with the http method "GET" with URL-path: "/" and give your clients some html code.
-        // use the response object to call on renderHtmlContent() with the html content inside the parenthesis/parameter.
+        // use the response object to call on html() with the html content inside the parenthesis/parameter.
         app.get("/home", (request, response) -> {
-            response.renderHtmlContent("<h1>Welcome to this amazing web application</h1><br>" +
+            response.html("<h1>Welcome to this amazing web application</h1><br>" +
                     "<a href=\"http://localhost:7777/login\" class=\"button\">Go to login page</a>" +
                     "<style> body{background-color: #E7E8D1;}" +
                     ".button {background-color: #B85042; color:white; text-decoration: none; padding: 15px 32px; margin: 5px; text-align: center; cursor: pointer; font-size: 14;}" +
@@ -53,11 +64,10 @@ public class Application {
 
 
         //Scenario 4: Create an endpoint on the webserver with the http method GET with URL-path: "/login" and send a html file to your clients.
-        // and use the response object to call on sendStaticFile() with a file name "login.html" inside the parenthesis.
+        // and use the response object to call on file() with a file name "login.html" inside the parenthesis.
         app.get("/login", (request, response) -> {
             // this will send login.html file which contains a login form.
-            response.sendStaticFile("login.html");
-
+            response.file("login.html");
         });
 
 
@@ -67,11 +77,11 @@ public class Application {
         // Model-view-controller pattern for a better scalability and readability of your web app when it gets big!.
 
         // option 1:
-         app.endPoint("/login").with(LoginController.class);
+        // app.endPoint("/login").with(LoginController.class);
 
         // option 2:
-        LoginController loginController = new LoginController();
-        app.get("/login", loginController::login2);
+       // LoginController loginController = new LoginController();
+      // app.get("/login", loginController::login2);
 
 
 
@@ -85,7 +95,7 @@ public class Application {
             if(loginValidate(username, password)) {
                 User user = getSpecificUserByUsername(username);
                 if (user != null) {
-                    response.redirect("/" + user.getUserId());
+                    response.redirect("/profile/" + user.getUserId());
                 }
             }
             else {
@@ -110,7 +120,7 @@ public class Application {
         // step 1: fetch the pathParameter/pathVariable with the getPathParam() with a key name "userId" inside the parenthesis/parameter.
         // step 2: if the user was found in the database we will use the response object to call on renderTemplate() method which will
         // take the file name of the template and the model as parameters.
-        app.get("/{userId}", (request, response) -> {
+        app.get("/profile/{userId}", (request, response) -> {
             String userId = request.getPathParam("userId");
             User user = getSpecificUserById(userId);
             if(user != null) {
@@ -146,9 +156,10 @@ public class Application {
         // show picture of the users file
 
 
+
+
         //Scenario 9: create a before-handler on path "/{userId}/*" and implement logic for authentication for our users before the actual endpoint-handler is executed.
         app.before("/{userId}/*", (request, response) -> {
-        // coming soon
 
         });
 
@@ -158,6 +169,7 @@ public class Application {
         app.after((request, response) -> {
 
         });
+
 
 
 
