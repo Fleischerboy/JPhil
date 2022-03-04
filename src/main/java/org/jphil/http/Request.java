@@ -1,14 +1,15 @@
-package org.jphil.http.request;
+package org.jphil.http;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class Request {
 
-    HttpServletRequest servletRequest;
-
-    private final Map<String, String> pathVariable = new HashMap<>();
+   private final HttpServletRequest servletRequest;
+   private final Map<String, String> pathVariables = new HashMap<>();
 
     /**
      * @param servletRequest
@@ -113,25 +114,19 @@ public class Request {
     }
 
     public Map<String,String> getPathParams() {
-        return pathVariable;
+        return pathVariables;
     }
 
 
 
 
     public Map<String, String> getPathVariable() {
-        return pathVariable;
+        return pathVariables;
     }
 
 
-
-    public void addPathVariable(String name, String value) {
-
-    }
-
-
-    public void addPathVariables(Map<String , String> map){
-
+    public String getCookie(String role) {
+        return null;
     }
 
 }

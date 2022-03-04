@@ -2,8 +2,8 @@ package org.jphil.handler;
 
 
 import freemarker.template.TemplateException;
-import org.jphil.http.request.Request;
-import org.jphil.http.response.Response;
+import org.jphil.http.Request;
+import org.jphil.http.Response;
 
 import java.io.IOException;
 

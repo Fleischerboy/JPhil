@@ -1,11 +1,11 @@
 package org.jphil.webserver;
 import org.eclipse.jetty.server.Server;
-public class jettyServer {
+public class jettyWebServer {
 
 
-    private static int serverPort;
+    private static int serverPort = 8080;
 
-    private static final Server jettyServer = new Server();
+    private static Server jettyServer = new Server();
 
 
     /**
@@ -21,7 +21,7 @@ public class jettyServer {
 
     }
 
- public static void initJettyServer() {
+     public static void initJettyServer() {
 
  }
 }

@@ -1,34 +1,54 @@
 package org.jphil.core;
+import org.jphil.core.security.RouteRole;
 import org.jphil.handler.Handler;
-import org.jphil.http.Method;
-import org.jphil.webserver.jettyServer;
+import org.jphil.http.HttpMethod;
+import org.jphil.http.Mapping.EndPointMappingFactory;
+import org.jphil.webserver.jettyWebServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-import static org.jphil.http.routing.EndPointRoutingFactory.*;
+import static org.jphil.http.Mapping.EndPointMappingFactory.*;
 
 public class JPhil {
 
-   Logger logger = LoggerFactory.getLogger(JPhil.class);
+   private static final Logger logger = LoggerFactory.getLogger(JPhil.class);
 
-    private boolean isJettyServerRunning = false;
+    private static boolean isJettyServerRunning = false;
 
-    public JPhil() {
+    private JPhil() {
 
     }
+
+
 
     /**
-     *
      * @param port
+     * @return
      */
-    public void start(int port) {
-        jettyServer.setServerPort(port);
-        jettyServer.startServer();
-        isJettyServerRunning = true;
-        logger.info("Server started on port : " + port);
+    public static JPhil startServer(int port) {
+        JPhil app = new JPhil();
+        jettyWebServer.setServerPort(port);
+        startJettyServer();
+        logger.info("Server started on port " + port);
+        return app;
     }
 
+
+
+    public static JPhil startServer() {
+        JPhil app = new JPhil();
+        startJettyServer();
+        logger.info("Server started on port 8080");
+        return app;
+    }
+
+
+    private static void startJettyServer() {
+        jettyWebServer.startServer();
+        isJettyServerRunning = true;
+
+    }
 
 
     /**
@@ -37,7 +57,7 @@ public class JPhil {
       @param handler
      */
     public void get(String path, Handler handler) {
-           addRoute(Method.GET, path, handler);
+        EndPointMappingFactory.addRoute(HttpMethod.GET, path, handler);
     }
 
     /**
@@ -46,7 +66,7 @@ public class JPhil {
      * @param handler
      */
     public void post(String path, Handler handler) {
-        addRoute(Method.POST, path, handler);
+        EndPointMappingFactory.addRoute(HttpMethod.POST, path, handler);
     }
 
 
@@ -56,7 +76,7 @@ public class JPhil {
      * @param handler
      */
     public void put(String path, Handler handler) {
-        addRoute(Method.PUT, path, handler);
+        EndPointMappingFactory.addRoute(HttpMethod.PUT, path, handler);
     }
 
     /**
@@ -65,8 +85,56 @@ public class JPhil {
      * @param handler
      */
     public void delete(String path, Handler handler) {
-        addRoute(Method.DELETE, path, handler);
+        EndPointMappingFactory.addRoute(HttpMethod.DELETE, path, handler);
     }
+
+
+    /**
+     *
+     * @param path
+     * @param handler
+     * @param roles
+     */
+    public void get(String path, Handler handler, RouteRole... roles) {
+        EndPointMappingFactory.addRoute(HttpMethod.GET, path, handler, roles);
+    }
+
+
+    /**
+     *
+     * @param path
+     * @param handler
+     * @param roles
+     */
+    public void post(String path, Handler handler, RouteRole... roles) {
+        EndPointMappingFactory.addRoute(HttpMethod.POST, path, handler, roles);
+    }
+
+
+    /**
+     *
+     * @param path
+     * @param handler
+     * @param roles
+     */
+    public void put(String path, Handler handler, RouteRole... roles) {
+        EndPointMappingFactory.addRoute(HttpMethod.PUT, path, handler, roles);
+    }
+
+
+
+    /**
+     *
+     * @param path
+     * @param handler
+     * @param roles
+     */
+    public void delete(String path, Handler handler, RouteRole... roles) {
+        EndPointMappingFactory.addRoute(HttpMethod.DELETE, path, handler, roles);
+    }
+
+
+
 
 
     /**
@@ -74,8 +142,10 @@ public class JPhil {
      * @param handler
      */
     public void before(Handler handler) {
-       addRoute(Method.BEFORE, "*", handler);
+       addInterceptorRoute(HttpMethod.BEFORE, "/*", handler);
     }
+
+
 
 
     /**
@@ -84,7 +154,7 @@ public class JPhil {
      * @param handler
      */
     public void before(String path, Handler handler) {
-         addRoute(Method.BEFORE, path, handler);
+         addInterceptorRoute(HttpMethod.BEFORE, path, handler);
     }
 
 
@@ -94,7 +164,7 @@ public class JPhil {
      * @param handler
      */
     public void after(Handler handler) {
-         addRoute(Method.AFTER,"*",handler);
+         addInterceptorRoute(HttpMethod.AFTER,"/*", handler);
     }
 
 
@@ -106,7 +176,22 @@ public class JPhil {
      * @param handler
      */
     public void after(String path, Handler handler) {
-        addRoute(Method.AFTER, path, handler);
+        addInterceptorRoute(HttpMethod.AFTER, path, handler);
+    }
+
+
+
+
+    public JPhil endPoint(String path) {
+       return null;
+    }
+
+    public JPhil endPoint(String path, RouteRole... roles) {
+        return null;
+    }
+
+    public void with(Class<?> cls) {
+
     }
 
 
@@ -127,5 +212,6 @@ public class JPhil {
     public boolean isJettyServerRunning() {
         return isJettyServerRunning;
     }
+
 
 }

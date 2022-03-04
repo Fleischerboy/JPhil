@@ -1,13 +1,14 @@
-package org.jphil.http.response;
+package org.jphil.http;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jphil.templaterender.FreemarkerRender;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 
 
 public class Response {
     private PrintWriter writer;
-    HttpServletResponse servletResponse;
+    private HttpServletResponse servletResponse;
 
     /**
      *
@@ -44,9 +45,18 @@ public class Response {
     }
 
 
-    public void renderTemplate(String name, Map<String, Object> models) {
-        FreemarkerRender.renderTemplate(name, models, getWriter());
+    public void renderTemplate(String Filename, Map<String, Object> models) {
+        FreemarkerRender.renderTemplate(Filename, models, getWriter());
     }
+
+    public void renderTemplate(String Filename, Object model) {
+        FreemarkerRender.renderTemplate(Filename, model, getWriter());
+    }
+
+    public void renderTemplate(String Filename, List<?> models) {
+        FreemarkerRender.renderTemplate(Filename, models, getWriter());
+    }
+
 
     /**
      *
@@ -60,11 +70,9 @@ public class Response {
     /**
      *
      * @param code
-     * @return
      */
-    public Response statusCode(int code) {
+    public void statusCode(int code) {
 
-        return null;
     }
 
     /**
