@@ -22,6 +22,7 @@ public class Request {
         this.servletRequest = servletRequest;
     }
 
+    
 
     /**
      * @return the protocol of the request eg: http/https

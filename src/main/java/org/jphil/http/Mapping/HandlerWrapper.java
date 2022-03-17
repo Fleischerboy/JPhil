@@ -1,7 +1,5 @@
 package org.jphil.http.Mapping;
 import freemarker.template.TemplateException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.jphil.handler.Handler;
 import org.jphil.http.Request;
 import org.jphil.http.Response;
