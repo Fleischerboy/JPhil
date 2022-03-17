@@ -103,7 +103,7 @@ public class Request {
      * @param name of the header value
      * @return header value of the given header name
      */
-    public String getHeader(String name) {
+    public String header(String name) {
         return servletRequest.getHeader(name);
     }
 
@@ -112,7 +112,7 @@ public class Request {
      *
      * @return headers of the request
      */
-    public Map<String, String> getHeaders() {
+    public Map<String, String> headers() {
         return null;
     }
 
@@ -122,7 +122,7 @@ public class Request {
      * @param name
      * @return
      */
-    public String getFormParam(String name) {
+    public String formParam(String name) {
         if (name.isEmpty()) {
             return null;
         }
@@ -131,7 +131,7 @@ public class Request {
 
 
 
-    public Map<String, String[]> getFormData() {
+    public Map<String, String[]> formParams() {
         return servletRequest.getParameterMap();
     }
 
@@ -146,7 +146,7 @@ public class Request {
     }
 
 
-    public Map<String, String> getPathVariables() {
+    public Map<String, String> pathParams() {
         return pathVariables;
     }
 

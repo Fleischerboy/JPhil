@@ -20,20 +20,30 @@ public class EndPointMappingFactory {
     private static final PathMatcher pathMatcher = new AntPathMatcher();
 
     public static void addRoute(HttpMethod method, String path, Handler handler) {
-        if (method == null || path.isEmpty() || handler == null) {
-            return;
-        }
+        path = validateEndpoint(method, path, handler);
         HandlerWrapper handlerWrapper = new HandlerWrapper(handler);
         endpointHandleMap.put(new EndPointMapping(method, path), handlerWrapper);
     }
 
     public static void addRoute(HttpMethod method, String path, Handler handler, RouteRole... roles) {
         Set<RouteRole> roleSet = new HashSet<>(Arrays.asList(roles));
-        if (method == null || path.isEmpty() || handler == null) {
-            return;
-        }
+        path = validateEndpoint(method, path, handler);
+        if (path == null) return;
         HandlerWrapper handlerWrapper = new HandlerWrapper(handler);
         endpointHandleMap.put(new EndPointMapping(method, path, roleSet), handlerWrapper);
+    }
+
+    private static String validateEndpoint(HttpMethod method, String path, Handler handler) {
+        if (method == null || path.isEmpty() || handler == null) {
+            return null;
+        }
+        if (!path.startsWith("/")) {
+            return null;
+        }
+        if (path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
+        return path;
     }
 
     public static void addInterceptorRoute(HttpMethod method, String path, Handler handler) {

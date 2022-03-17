@@ -88,8 +88,8 @@ public class Application {
         // Scenario 5: Create an endpoint on the webserver with http method POST with URL-path: "/login" to receive data from the clients.
         // use the request object to call on getFormParam("uname") & getFormParam("psw") to fetch the username and password data values from the form.
         app.post("/login", (request, response) -> {
-            String username = request.getFormParam("uname");
-            String password = request.getFormParam("psw");
+            String username = request.formParam("uname");
+            String password = request.formParam("psw");
             if(loginValidate(username, password)) {
                 User user = getSpecificUserByUsername(username);
                 if (user != null) {

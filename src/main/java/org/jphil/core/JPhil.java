@@ -11,6 +11,9 @@ public class JPhil {
     private static final Logger logger = LoggerFactory.getLogger(JPhil.class);
     private static boolean isJettyServerRunning = false;
 
+    private JPhil() {
+    }
+
     public static JPhil startServer() {
         JPhil app = new JPhil();
         startJettyServer();
