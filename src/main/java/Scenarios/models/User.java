@@ -2,22 +2,25 @@ package Scenarios.models;
 
 public class User {
    private String userId;
-   private  String name;
-   private String ProfileImage;
-   private  String username;
+   private String firstName;
+   private String lastName;
+   private String email;
+   private String profileImage;
+   private String username;
    private String password;
    private String role;
 
 
-    public User(String userId, String name, String profileImage, String username, String password, String role) {
+    public User(String userId, String firstName, String lastName, String email, String profileImage, String username, String password, String role) {
         this.userId = userId;
-        this.name = name;
-        this.ProfileImage = profileImage;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.profileImage = profileImage;
         this.username = username;
         this.password = password;
         this.role = role;
     }
-
 
     public String getUserId() {
         return userId;
@@ -27,20 +30,36 @@ public class User {
         this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getProfileImage() {
-        return ProfileImage;
+        return profileImage;
     }
 
     public void setProfileImage(String profileImage) {
-        ProfileImage = profileImage;
+        this.profileImage = profileImage;
     }
 
     public String getUsername() {
@@ -71,8 +90,13 @@ public class User {
     public String toString() {
         return "User{" +
                 "userId='" + userId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", profileImage='" + profileImage + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

@@ -1,14 +1,12 @@
 package Scenarios;
 import Scenarios.models.User;
-import freemarker.template.TemplateException;
+import jakarta.servlet.http.Cookie;
 import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;
 import org.jphil.handler.Handler;
 import org.jphil.http.Request;
 import org.jphil.http.Response;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.jphil.core.JPhil.startServer;
@@ -30,7 +28,7 @@ public class Application {
         JPhil app = JPhil.startServer();
 
         // optional: start webserver on port 7777.
-        JPhil app2 = JPhil.startServer(7777);
+       // JPhil app2 = JPhil.startServer(7777);
 
 
         //Scenario 2: Create an endpoint with url-path "/" on the webserver and send "Hello world" in text form.
@@ -121,7 +119,7 @@ public class Application {
         // step 2: if the user was found in the database we will use the response object to call on renderTemplate() method which will
         // take the file name of the template and the model as parameters.
         app.get("/profile/{userId}", (request, response) -> {
-            String userId = request.getPathParam("userId");
+            String userId = request.pathParam("userId");
             User user = getSpecificUserById(userId);
             if(user != null) {
                 // This will generate the html code with the correct data variables/attributes from the user model.
@@ -181,7 +179,7 @@ public class Application {
             ADMIN, ANYONE
     }
     public static Role getUserRole(Request request, Response response) {
-        String role = request.getCookie("role");
+        Cookie role = request.cookie("role");
         if(role == null) {
             return Role.ANYONE;
         }
