@@ -61,6 +61,7 @@ public class CoreServletFilter implements Filter {
 
     }
 
+
     private static HandlerExecution getHandler(HttpServletRequest request) {
         Map<String, String> variables = new HashMap<>();
         String method = request.getMethod();
