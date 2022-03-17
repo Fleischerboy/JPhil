@@ -8,6 +8,7 @@ import org.jphil.utils.PathMatcher;
 
 import java.util.*;
 
+import static org.jphil.utils.StringUtils.compute;
 
 
 public class EndPointMappingFactory {
