@@ -2,6 +2,7 @@ package org.jphil.http;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -22,7 +23,7 @@ public class Request {
         this.servletRequest = servletRequest;
     }
 
-    
+
 
     /**
      * @return the protocol of the request eg: http/https
@@ -182,6 +183,40 @@ public class Request {
             cookieMap.put(cookieName, cookieValue);
         }
         return cookieMap;
+    }
+
+
+    /**
+     * returns current session related to this request. and if the request does not have a session, it will create one.
+     * @return
+     */
+    public HttpSession session() {
+        return servletRequest.getSession();
+    }
+
+
+    public String requestSessionId() {
+        return servletRequest.getRequestedSessionId();
+    }
+
+
+    public String changeSessionId() {
+        return servletRequest.changeSessionId();
+    }
+
+
+    public boolean isRequestedSessionIdValid() {
+        return servletRequest.isRequestedSessionIdValid();
+    }
+
+
+    public boolean isRequestedSessionIdFromCookie() {
+        return servletRequest.isRequestedSessionIdFromCookie();
+    }
+
+
+    public boolean isRequestedSessionIdFromURL() {
+        return servletRequest.isRequestedSessionIdFromURL();
     }
 
 

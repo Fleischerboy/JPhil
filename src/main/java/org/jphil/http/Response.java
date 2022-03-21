@@ -3,6 +3,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtil;
 import org.jphil.core.JPhilConfig;
 import org.jphil.templaterender.FreemarkerRender;
@@ -91,19 +92,38 @@ public class Response {
         }
     }
 
+
+    /**
+     *
+     * @param fileName to the specific template file
+     * @param models to the associated/related template file send as a map
+     * @throws IOException
+     */
     public void renderTemplate(String fileName, Map<String, Object> models) throws IOException {
         FreemarkerRender.renderTemplate(fileName, models, servletResponse.getWriter());
     }
 
+    /**
+     *
+     * @param fileName fileName to the specific template file
+     * @param model model to the associated/related template file send as a single object
+     * @throws IOException
+     */
     public void renderTemplate(String fileName, Object model) throws IOException {
         FreemarkerRender.renderTemplate(fileName, model, servletResponse.getWriter());
     }
 
 
-
+    /**
+     *
+     * @param fileName fileName to the specific template file
+     * @param models models to the associated/related template file send as a list.
+     * @throws IOException
+     */
     public void renderTemplate(String fileName, List<?> models) throws IOException {
         FreemarkerRender.renderTemplate(fileName, models, servletResponse.getWriter());
     }
+
 
 
     /**
@@ -130,8 +150,8 @@ public class Response {
 
     /**
      *
-     * @param headerName
-     * @param value
+     * @param headerName for the header
+     * @param value for the header
      */
     public void setHeader(String headerName, String value) {
         servletResponse.setHeader(headerName, value);
@@ -150,13 +170,14 @@ public class Response {
 
     /**
      * Adds cookie to the response.
-     * @param name
-     * @param value
+     * @param name of the cookie
+     * @param value of the cookie
      * @param maxAge
      */
     public void cookie(String name, String value, int maxAge) {
         cookie("/",name, value, maxAge, false,  false);
     }
+
 
     /**
      * Adds cookie to the response.
