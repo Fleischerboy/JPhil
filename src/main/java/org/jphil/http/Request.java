@@ -158,12 +158,12 @@ public class Request {
      * @param name of the cookie
      * @return cookie value of the given cookie name
      */
-    public Cookie cookie(String name) {
+    public String cookie(String name) {
       Cookie[] cookies = servletRequest.getCookies();
       if(cookies != null) {
           for (Cookie cookie: cookies) {
               if(cookie.getName().equals(name)) {
-                  return cookie;
+                  return cookie.getValue();
               }
           }
       }
@@ -193,6 +193,7 @@ public class Request {
     public HttpSession session() {
         return servletRequest.getSession();
     }
+
 
 
     public String requestSessionId() {

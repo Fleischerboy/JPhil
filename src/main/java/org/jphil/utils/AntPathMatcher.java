@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /*
- * Copyright 2002-2021 the original author or authors.
+ * Copyright 2002-2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -880,28 +880,6 @@ public class AntPathMatcher implements PathMatcher {
             return null;
         }
         return collection.toArray(new String[collection.size()]);
-    }
-
-
-    /**
-     * Delete any character in a given {@code String}.
-     * @param inString the original {@code String}
-     * @param charsToDelete a set of characters to delete.
-     * E.g. "az\n" will delete 'a's, 'z's and new lines.
-     * @return the resulting {@code String}
-     */
-    public static String deleteAny(String inString, String charsToDelete) {
-        if (!hasLength(inString) || !hasLength(charsToDelete)) {
-            return inString;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < inString.length(); i++) {
-            char c = inString.charAt(i);
-            if (charsToDelete.indexOf(c) == -1) {
-                sb.append(c);
-            }
-        }
-        return sb.toString();
     }
 
     /**

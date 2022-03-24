@@ -1,4 +1,5 @@
 package org.jphil.core;
+import org.jphil.core.security.AccessManager;
 import org.jphil.core.security.RouteRole;
 import org.jphil.handler.Handler;
 import org.jphil.http.HttpMethod;
@@ -153,6 +154,17 @@ public class JPhil {
         EndPointMappingFactory.addInterceptorRoute(HttpMethod.AFTER, path, handler);
     }
 
+
+    public void accessManager(AccessManager accessManager) {
+        EndPointMappingFactory.setAccessManager(accessManager);
+
+
+    }
+
+
+
+
+
     public JPhil endPoint(String path) {
        return null;
     }
@@ -164,6 +176,7 @@ public class JPhil {
     public void with(Class<?> cls) {
 
     }
+
 
     public void setStaticFilePath(String path) {
         JPhilConfig.setStaticFilePath(path);

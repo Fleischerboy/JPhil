@@ -29,6 +29,8 @@ public class EndPointMapping {
         return method;
     }
 
+
+
     public void setMethod(HttpMethod method) {
         this.method = method;
     }

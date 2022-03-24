@@ -1,6 +1,5 @@
 package Scenarios;
 import Scenarios.models.User;
-import jakarta.servlet.http.Cookie;
 import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;
 import org.jphil.handler.Handler;
@@ -10,12 +9,15 @@ import org.jphil.http.Response;
 import java.util.List;
 
 import static org.jphil.core.JPhil.startServer;
+import static org.jphil.http.Mapping.EndPointMappingFactory.printMap;
 
 
 /**
  * @hidden Class made for demonstrating scenarios using JPhil framework. this code is not part of the framework.
  */
 public class Application {
+
+
 
 
     public static void main(String[] args) {
@@ -48,7 +50,7 @@ public class Application {
                     "<style> body{background-color: #E7E8D1;}" +
                     ".button {background-color: #B85042; color:white; text-decoration: none; padding: 15px 32px; margin: 5px; text-align: center; cursor: pointer; font-size: 14;}" +
                     "</style>");
-        });
+        }, Role.ADMIN);
 
 
 
@@ -139,7 +141,7 @@ public class Application {
         // Scenario 8: put an admin role on an endpoint with the http method GET with a URL-path /admin.
         // use response object and call on renderTemplate() method which will take the file name of the template and the list of models as parameters.
         app.get("/admin", (request, response) -> {
-           if (getUserRole(request, response) == Role.ADMIN) {
+           if (getUserRole(request) == Role.ADMIN) {
                // here we want to list out all our users on the platform.
                List<User> allUsers = getAllUsers();
                response.renderTemplate("users", allUsers);
@@ -150,6 +152,10 @@ public class Application {
 
         // only users with an admin role will have access to this recourse.
         }, Role.ADMIN);
+
+
+
+
 
 
 
@@ -171,20 +177,51 @@ public class Application {
 
 
 
+        app.accessManager((handler, request, response, routeRoles) -> {
+            Role userRole = getUserRole(request);
+            if(routeRoles.contains(userRole)) {
+                  handler.handle(request, response);
+            } else {
+                response.statusCode(401);
+            }
+
+        });
+
+
+
+
+
+
+        app.get("/a", (request, response) -> {
+            response.cookie("role", "admin");
+        });
+
+
+        app.get("/abc", (request, response) -> {
+            response.html("<h1> hello </h1>");
+        }, Role.ADMIN, Role.USER);
+
+
+        System.out.println("*****************");
+        printMap();
+
 
 }
 
 
     enum Role implements RouteRole {
-            ADMIN, ANYONE
+            ADMIN, USER, ANYONE
     }
-    public static Role getUserRole(Request request, Response response) {
-        Cookie role = request.cookie("role");
+    public static Role getUserRole(Request request) {
+        String role = request.cookie("role");
         if(role == null) {
             return Role.ANYONE;
         }
-        else if(role.equals("Admin")) {
+        else if(role.equalsIgnoreCase("admin")) {
             return Role.ADMIN;
+        }
+        else if (role.equalsIgnoreCase("user")){
+            return Role.USER;
         }
         else {
             return Role.ANYONE;

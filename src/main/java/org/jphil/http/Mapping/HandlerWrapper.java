@@ -8,21 +8,16 @@ import java.io.IOException;
 
 public class HandlerWrapper {
 
-    private final Handler handler;
+    private Handler handler;
+
 
     public HandlerWrapper(Handler handler) {
         this.handler = handler;
     }
 
 
-
     public void handle(Request request, Response response) {
-        try {
             handler.handle(request, response);
-        } catch (TemplateException | IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
 
