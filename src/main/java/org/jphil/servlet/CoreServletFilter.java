@@ -8,14 +8,15 @@ import org.jphil.handler.HandlerExecution;
 import org.jphil.http.Mapping.AccessManagerWrapper;
 import org.jphil.http.Mapping.EndPointMappingFactory;
 import org.jphil.http.Mapping.HandlerWrapper;
+import org.jphil.http.Mapping.Interceptor.Interceptor;
+import org.jphil.http.Mapping.Interceptor.InterceptorFactory;
+import org.jphil.http.RequestFactory;
+import org.jphil.http.ResponseFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.jphil.utils.PathUtils.extractPathFromRequest;
 
@@ -41,16 +42,17 @@ public class CoreServletFilter implements Filter {
      * @param servletResponse
      * @param filterChain
      * @throws IOException
-     * @throws ServletException
      */
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException {
         logger.info("Filter is starting...");
         HandlerExecution handlerExecution = null;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        RequestFactory.create(request);
+        ResponseFactory.create(response);
         if (request.getRequestURI().equals("/favicon.ico")) {
             return;
         }
@@ -60,6 +62,11 @@ public class CoreServletFilter implements Filter {
             handlerExecution.handle(request, response);
         } catch (Exception e) {
             System.out.println(e);
+        }
+        finally {
+            RequestFactory.remove();
+            ResponseFactory.remove();
+
         }
 
 
@@ -72,7 +79,9 @@ public class CoreServletFilter implements Filter {
         String method = request.getMethod();
         String path = extractPathFromRequest(request);
         HandlerWrapper handlerWrapper = EndPointMappingFactory.getHandlerWrapper(method, path, variables, roleSet);
-        HandlerExecution handlerExecution = new HandlerExecution(handlerWrapper);
+        Stack<HandlerWrapper> beforeInterceptors = InterceptorFactory.getInterceptors(path, Interceptor.BEFORE);
+        Stack<HandlerWrapper> afterInterceptors =  InterceptorFactory.getInterceptors(path, Interceptor.AFTER);
+        HandlerExecution handlerExecution = new HandlerExecution(beforeInterceptors, handlerWrapper, afterInterceptors);
         if (!(variables.isEmpty())) {
             handlerExecution.setVariables(variables);
         }

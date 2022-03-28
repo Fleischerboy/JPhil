@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.jphil.core.JPhil.startServer;
 import static org.jphil.http.Mapping.EndPointMappingFactory.printMap;
+import static org.jphil.http.Mapping.Interceptor.InterceptorFactory.printInterceptorMap;
 
 
 /**
@@ -50,7 +51,8 @@ public class Application {
                     "<style> body{background-color: #E7E8D1;}" +
                     ".button {background-color: #B85042; color:white; text-decoration: none; padding: 15px 32px; margin: 5px; text-align: center; cursor: pointer; font-size: 14;}" +
                     "</style>");
-        }, Role.ADMIN);
+            System.out.println("endpoint");
+        });
 
 
 
@@ -156,16 +158,30 @@ public class Application {
 
 
 
+        app.get("/home/a", (request, response) -> {
+            response.text("hello");
+            System.out.println("endpoint");
+
+        });
 
 
+        app.get("/home/b", (request, response) -> {
+            response.text("hello");
+
+        });
 
 
 
 
         //Scenario 9: create a before-handler on path "/{userId}/*" and implement logic for authentication for our users before the actual endpoint-handler is executed.
-        app.before("/{userId}/*", (request, response) -> {
+        app.before("/home", (request, response) -> {
+            System.out.println("before");
 
         });
+
+
+
+
 
 
 
@@ -176,7 +192,6 @@ public class Application {
 
 
 
-
         app.accessManager((handler, request, response, routeRoles) -> {
             Role userRole = getUserRole(request);
             if(routeRoles.contains(userRole)) {
@@ -184,13 +199,7 @@ public class Application {
             } else {
                 response.statusCode(401);
             }
-
         });
-
-
-
-
-
 
         app.get("/a", (request, response) -> {
             response.cookie("role", "admin");
@@ -202,8 +211,17 @@ public class Application {
         }, Role.ADMIN, Role.USER);
 
 
+
+        app.before((request, response) -> {
+
+        });
+
         System.out.println("*****************");
         printMap();
+
+
+        System.out.println("********aop***********");
+        printInterceptorMap();
 
 
 }
@@ -244,7 +262,6 @@ public class Application {
 
 
     private static User getSpecificUserById(String userId) {
-
         return null;
     }
 

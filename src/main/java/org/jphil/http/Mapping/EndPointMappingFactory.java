@@ -5,10 +5,8 @@ import org.jphil.handler.Handler;
 import org.jphil.http.HttpMethod;
 import org.jphil.utils.AntPathMatcher;
 import org.jphil.utils.PathMatcher;
-
-
 import java.util.*;
-
+import static org.jphil.http.Mapping.EndPointMapping.validateEndpoint;
 import static org.jphil.utils.StringUtils.compute;
 
 
@@ -16,9 +14,6 @@ public class EndPointMappingFactory {
 
 
     private static final Map<EndPointMapping, HandlerWrapper> endpointHandleMap = new HashMap<>();
-
-
-    private static final Map<EndPointMapping, HandlerWrapper> interceptorMap = new HashMap<>();
 
 
     private static AccessManagerWrapper accessManagerWrapper;
@@ -38,16 +33,10 @@ public class EndPointMappingFactory {
     public static void addRoute(HttpMethod method, String path, Handler handler, RouteRole... roles) {
         Set<RouteRole> roleSet = new HashSet<>(Arrays.asList(roles));
         path = validateEndpoint(method, path, handler);
-        if (path == null) return;
         HandlerWrapper handlerWrapper = new HandlerWrapper(handler);
         endpointHandleMap.put(new EndPointMapping(method, path, roleSet), handlerWrapper);
     }
 
-
-
-    public static void addInterceptorRoute(HttpMethod method, String path, Handler handler) {
-
-    }
 
 
    public static void setAccessManager(AccessManager accessManager) {
@@ -57,18 +46,7 @@ public class EndPointMappingFactory {
    }
 
 
-    private static String validateEndpoint(HttpMethod method, String path, Handler handler) {
-        if (method == null || path.isEmpty() || handler == null) {
-            return null;
-        }
-        if (!path.startsWith("/")) {
-            return null;
-        }
-        if (path.endsWith("/")) {
-            path = path.substring(0, path.length() - 1);
-        }
-        return path;
-    }
+
 
     public static Map<EndPointMapping, HandlerWrapper> getEndpointHandleMap() {
         return endpointHandleMap;
@@ -99,6 +77,7 @@ public class EndPointMappingFactory {
             if (matchedPaths.size() == 1) {
                 bestPath = matchedPaths.get(0);
             }
+            //
             else {
                 for (String onePath: matchedPaths) {
                     if(onePath.length() == bestPath.length()) {
@@ -106,7 +85,7 @@ public class EndPointMappingFactory {
                             bestPath = onePath;
                         }
                     }
-                    if(bestPath.length()< onePath.length()) {
+                    if(bestPath.length() < onePath.length()) {
                         bestPath = onePath;
                     }
                 }
@@ -134,10 +113,6 @@ public class EndPointMappingFactory {
                 return HttpMethod.PUT;
             case "DELETE":
                 return HttpMethod.DELETE;
-            case "BEFORE":
-                return HttpMethod.BEFORE;
-            case "AFTER":
-                return HttpMethod.AFTER;
             default:
                 return null;
         }

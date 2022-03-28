@@ -1,14 +1,12 @@
 package org.jphil.http.Mapping;
-import freemarker.template.TemplateException;
 import org.jphil.handler.Handler;
 import org.jphil.http.Request;
 import org.jphil.http.Response;
 
-import java.io.IOException;
 
 public class HandlerWrapper {
 
-    private Handler handler;
+    private final Handler handler;
 
 
     public HandlerWrapper(Handler handler) {

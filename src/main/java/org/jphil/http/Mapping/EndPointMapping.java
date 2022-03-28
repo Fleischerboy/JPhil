@@ -1,6 +1,7 @@
 package org.jphil.http.Mapping;
 
 import org.jphil.core.security.RouteRole;
+import org.jphil.handler.Handler;
 import org.jphil.http.HttpMethod;
 
 import java.util.Objects;
@@ -19,6 +20,7 @@ public class EndPointMapping {
         this.path = path;
     }
 
+
     public EndPointMapping(HttpMethod method, String path, Set<RouteRole> roleSet) {
         this.method = method;
         this.path = path;
@@ -29,11 +31,6 @@ public class EndPointMapping {
         return method;
     }
 
-
-
-    public void setMethod(HttpMethod method) {
-        this.method = method;
-    }
 
     public String getPath() {
         return path;
@@ -71,5 +68,17 @@ public class EndPointMapping {
                 ", path='" + path + '\'' +
                 ", roleSet=" + roleSet +
                 '}';
+    }
+    static String validateEndpoint(HttpMethod method, String path, Handler handler) {
+        if (method == null || path.isEmpty() || handler == null) {
+            return null;
+        }
+        if (!path.startsWith("/")) {
+            return null;
+        }
+        if (path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
+        return path;
     }
 }
