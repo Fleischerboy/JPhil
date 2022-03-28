@@ -126,9 +126,9 @@ public class Response {
      * @param fileName fileName to the specific template file
      * @param models models to the associated/related template file send as a list.
      */
-    public void renderTemplate(String fileName, List<?> models) {
+    public void renderTemplate(String fileName, String key, List<?> models) {
         try {
-            FreemarkerRender.renderTemplate(fileName, models, servletResponse.getWriter());
+            FreemarkerRender.renderTemplate(fileName, key, models, servletResponse.getWriter());
         } catch (IOException e) {
             e.printStackTrace();
         }
