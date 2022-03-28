@@ -8,9 +8,7 @@ import freemarker.template.TemplateExceptionHandler;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static org.jphil.core.JPhilConfig.getTemplatesPath;
 import static org.jphil.utils.PathUtils.getResourcePath;
@@ -25,7 +23,9 @@ public class FreemarkerRender {
     }
 
     public static void renderTemplate(String fileName, List<?> models, PrintWriter output) {
-        render(fileName, models, output);
+        Map<String, Object> params = new HashMap<>();
+        params.put("content", List.of(models));
+        render(fileName, params, output);
     }
 
     public static void renderTemplate(String fileName, Map<?, ?> models, PrintWriter output) {
