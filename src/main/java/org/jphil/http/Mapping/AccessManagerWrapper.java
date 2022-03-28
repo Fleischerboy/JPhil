@@ -21,7 +21,6 @@ public class AccessManagerWrapper {
     }
 
 
-
     public void setHandler(HandlerWrapper handler) {
         this.handler = handler;
     }

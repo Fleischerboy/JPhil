@@ -8,15 +8,15 @@ import org.jphil.http.Mapping.HandlerWrapper;
 import org.jphil.http.Request;
 import org.jphil.http.Response;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class HandlerExecution {
 
 
+    private Stack<HandlerWrapper> beforeInterceptors;
     private final HandlerWrapper handlerWrapper;
+    private Stack<HandlerWrapper> afterInterceptors;
+
 
 
     /**
@@ -30,15 +30,58 @@ public class HandlerExecution {
 
     private AccessManagerWrapper accessManagerWrapper;
 
-    public HandlerExecution(HandlerWrapper handlerWrapper) {
+    public HandlerExecution(Stack<HandlerWrapper> beforeInterceptors, HandlerWrapper handlerWrapper, Stack<HandlerWrapper> afterInterceptors) {
+        this.beforeInterceptors = beforeInterceptors;
         this.handlerWrapper = handlerWrapper;
+        this.afterInterceptors = afterInterceptors;
     }
 
     public void handle(HttpServletRequest request, HttpServletResponse response) {
+        if (beforeInterceptors != null) {
+            invokeBeforeInterceptors(request, response);
+
+        }
+
         invoke(request, response);
+
+        if(afterInterceptors != null) {
+            invokeAfterInterceptors(request, response);
+        }
+
 
 
     }
+
+
+    private void invokeBeforeInterceptors(HttpServletRequest request, HttpServletResponse response) {
+        Request req = new Request(request);
+        Response res = new Response(response);
+        if(!(beforeInterceptors.isEmpty())) {
+            for (HandlerWrapper oneHandler : beforeInterceptors) {
+                 oneHandler.handle(req, res);
+            }
+        }
+
+
+    }
+
+
+    private void invokeAfterInterceptors(HttpServletRequest request, HttpServletResponse response) {
+        Request req = new Request(request);
+        Response res = new Response(response);
+        if(!(afterInterceptors.isEmpty())) {
+            for (HandlerWrapper oneHandler : afterInterceptors) {
+                oneHandler.handle(req, res);
+            }
+        }
+
+
+
+    }
+
+
+
+
 
     private void invoke(HttpServletRequest request, HttpServletResponse response) {
         Request req = new Request(request);
@@ -46,9 +89,7 @@ public class HandlerExecution {
         if(!(variables.isEmpty())) {
             req.addPathVariables(variables);
         }
-
         if(!(roleSet.isEmpty())) {
-            System.out.println("yes this handler has roles");
             if(accessManagerWrapper != null) {
                 accessManagerWrapper.manage(handlerWrapper.getHandler(), req ,res, roleSet);
             }
@@ -56,8 +97,6 @@ public class HandlerExecution {
         else {
             handlerWrapper.handle(req, res);
         }
-
-
     }
 
     public void setVariables(Map<String, String> templateVariables) {

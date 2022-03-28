@@ -4,6 +4,8 @@ import org.jphil.core.security.RouteRole;
 import org.jphil.handler.Handler;
 import org.jphil.http.HttpMethod;
 import org.jphil.http.Mapping.EndPointMappingFactory;
+import org.jphil.http.Mapping.Interceptor.Interceptor;
+import org.jphil.http.Mapping.Interceptor.InterceptorFactory;
 import org.jphil.webserver.jettyWebServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,7 +125,7 @@ public class JPhil {
      * @param handler
      */
     public void before(Handler handler) {
-        EndPointMappingFactory.addInterceptorRoute(HttpMethod.BEFORE, "/*", handler);
+        InterceptorFactory.setBeforeHandler(handler);
     }
 
     /**
@@ -132,16 +134,7 @@ public class JPhil {
      * @param handler
      */
     public void before(String path, Handler handler) {
-        EndPointMappingFactory.addInterceptorRoute(HttpMethod.BEFORE, path, handler);
-    }
-
-
-    /**
-     * After handler that will run after every request.
-     * @param handler
-     */
-    public void after(Handler handler) {
-        EndPointMappingFactory.addInterceptorRoute(HttpMethod.AFTER,"/*", handler);
+        InterceptorFactory.addInterceptor(Interceptor.BEFORE, path, handler);
     }
 
 
@@ -151,8 +144,20 @@ public class JPhil {
      * @param handler
      */
     public void after(String path, Handler handler) {
-        EndPointMappingFactory.addInterceptorRoute(HttpMethod.AFTER, path, handler);
+        InterceptorFactory.addInterceptor(Interceptor.AFTER, path, handler);
     }
+
+
+    /**
+     * After handler that will run after every request.
+     * @param handler
+     */
+    public void after(Handler handler) {
+        InterceptorFactory.setAfterHandler(handler);
+    }
+
+
+
 
 
     public void accessManager(AccessManager accessManager) {
