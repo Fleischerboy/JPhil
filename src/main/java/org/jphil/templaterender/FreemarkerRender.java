@@ -22,9 +22,9 @@ public class FreemarkerRender {
 
     }
 
-    public static void renderTemplate(String fileName, List<?> models, PrintWriter output) {
+    public static void renderTemplate(String fileName, String key, List<?> models, PrintWriter output) {
         Map<String, Object> params = new HashMap<>();
-        params.put("content", List.of(models));
+        params.put(key, models);
         render(fileName, params, output);
     }
 
