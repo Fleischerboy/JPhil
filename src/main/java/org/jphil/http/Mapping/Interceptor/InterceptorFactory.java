@@ -10,6 +10,7 @@ public class InterceptorFactory {
 
     private static final Map<InterceptorMapping, HandlerWrapper> interceptorMap = new HashMap<>();
 
+
     private static Handler beforeHandler;
 
     private static Handler afterHandler;

@@ -7,7 +7,6 @@ import org.jphil.utils.AntPathMatcher;
 import org.jphil.utils.PathMatcher;
 import java.util.*;
 import static org.jphil.http.Mapping.EndPointMapping.validateEndpoint;
-import static org.jphil.utils.StringUtils.compute;
 
 
 public class EndPointMappingFactory {
@@ -72,16 +71,17 @@ public class EndPointMappingFactory {
                 }
             }
         }
+        System.out.println(matchedPaths);
         if (!matchedPaths.isEmpty()) {
             String bestPath = "";
             if (matchedPaths.size() == 1) {
                 bestPath = matchedPaths.get(0);
             }
-            //
             else {
                 for (String onePath: matchedPaths) {
                     if(onePath.length() == bestPath.length()) {
-                        if(compute(onePath, '*') < compute(bestPath,'*')){
+                        System.out.println("yesyes");
+                        if(measure(onePath, '*') < measure(bestPath,'*')){
                             bestPath = onePath;
                         }
                     }
@@ -129,6 +129,16 @@ public class EndPointMappingFactory {
         }
     }
 
+
+    public static int measure(String str, char ch){
+        int count = 0;
+        for(char oneChar : str.toCharArray()){
+            if(oneChar==ch){
+                count++;
+            }
+        }
+        return count;
+    }
 
 
 

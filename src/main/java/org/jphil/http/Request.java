@@ -1,5 +1,6 @@
 package org.jphil.http;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -80,6 +81,10 @@ public class Request {
     }
 
 
+    /**
+     *
+     * @return content length
+     */
     public int contentLength() {
         return servletRequest.getContentLength();
     }
@@ -122,7 +127,7 @@ public class Request {
 
     /*
      * @param name
-     * @return
+     * @return form parameter by name, as string
      */
     public String formParam(String name) {
         if (name.isEmpty()) {
@@ -132,13 +137,20 @@ public class Request {
     }
 
 
-
+    /**
+     *
+     * @return map
+     */
     public Map<String, String[]> formParams() {
         return servletRequest.getParameterMap();
     }
 
 
-
+    /**
+     *
+     * @param name
+     * @return path parameter by name as string
+     */
     public String pathParam(String name) {
         String value = pathVariables.get(name);
         if (value == null) {
@@ -147,7 +159,10 @@ public class Request {
         return value;
     }
 
-
+    /**
+     *
+     * @return return map of all path parameters
+     */
     public Map<String, String> pathParams() {
         return pathVariables;
     }
@@ -187,8 +202,8 @@ public class Request {
 
 
     /**
-     * returns current session related to this request. and if the request does not have a session, it will create one.
-     * @return
+     *
+     * @return returns current session related to this request. and if the request does not have a session, it will create one.
      */
     public HttpSession session() {
         return servletRequest.getSession();
@@ -220,6 +235,10 @@ public class Request {
         return servletRequest.isRequestedSessionIdFromURL();
     }
 
+
+    public RequestDispatcher getRequestDispatcher(String resource) {
+        return servletRequest.getRequestDispatcher(resource);
+    }
 
 
     public void addPathVariable(String name, String value) {

@@ -78,6 +78,7 @@ public class Response {
     /**
      * will render an object as Json
      * @param json
+     *
      */
     public void json(Object json) {
         setContentType(ContentType.CONTENT_TYPE_JSON);
@@ -181,7 +182,7 @@ public class Response {
      * Adds cookie to the response.
      * @param name of the cookie
      * @param value of the cookie
-     * @param maxAge
+     * @param maxAge max age of the cookie in seconds (negative for the not persistent cookie, zero - deletes the cookie)
      */
     public void cookie(String name, String value, int maxAge) {
         cookie("/",name, value, maxAge, false,  false);
@@ -234,9 +235,10 @@ public class Response {
     }
 
 
-
-
-
+    /**
+     *
+     * @param cookie
+     */
     public void cookie(Cookie cookie) {
         servletResponse.addCookie(cookie);
     }

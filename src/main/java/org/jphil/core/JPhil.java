@@ -17,7 +17,7 @@ public class JPhil {
     private JPhil() {
     }
 
-    public static JPhil startServer() {
+    public static JPhil startWebServer() {
         JPhil app = new JPhil();
         startJettyServer();
         logger.info("Server started on port 8080");
@@ -30,7 +30,7 @@ public class JPhil {
      * @return
      * Instance of Application
      */
-    public static JPhil startServer(int port) {
+    public static JPhil startWebServer(int port) {
         JPhil app = new JPhil();
         jettyWebServer.setServerPort(port);
         startJettyServer();
@@ -165,6 +165,7 @@ public class JPhil {
 
 
     }
+
 
 
 

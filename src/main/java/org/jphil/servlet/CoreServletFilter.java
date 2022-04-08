@@ -23,7 +23,7 @@ import static org.jphil.utils.PathUtils.extractPathFromRequest;
 public class CoreServletFilter implements Filter {
 
     Logger logger = LoggerFactory.getLogger(CoreServletFilter.class);
-    private static ServletContext servletContext;
+
 
 
     /**
@@ -34,7 +34,7 @@ public class CoreServletFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         logger.info("CoreServletFilter Init");
-        servletContext = filterConfig.getServletContext();
+
     }
 
     /**
