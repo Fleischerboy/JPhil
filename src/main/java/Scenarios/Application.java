@@ -223,11 +223,11 @@ public class Application {
         printInterceptorMap();
 
 
-        app.get("/**", (request, response) ->  {
+        app.get("/abc/*", (request, response) ->  {
             response.html("shop and whatever");
         });
 
-        app.get("/*", (request, response) ->  {
+        app.get("/abc/h", (request, response) ->  {
             response.html("shop home");
         });
 

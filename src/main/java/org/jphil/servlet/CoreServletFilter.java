@@ -61,7 +61,7 @@ public class CoreServletFilter implements Filter {
         try {
             handlerExecution.handle(request, response);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
         finally {
             RequestFactory.remove();

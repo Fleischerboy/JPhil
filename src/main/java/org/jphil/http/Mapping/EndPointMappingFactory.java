@@ -71,7 +71,7 @@ public class EndPointMappingFactory {
                 }
             }
         }
-        System.out.println(matchedPaths);
+        System.out.println("MatchedPaths: " + matchedPaths);
         if (!matchedPaths.isEmpty()) {
             String bestPath = "";
             if (matchedPaths.size() == 1) {
@@ -80,7 +80,6 @@ public class EndPointMappingFactory {
             else {
                 for (String onePath: matchedPaths) {
                     if(onePath.length() == bestPath.length()) {
-                        System.out.println("yesyes");
                         if(measure(onePath, '*') < measure(bestPath,'*')){
                             bestPath = onePath;
                         }
@@ -90,7 +89,7 @@ public class EndPointMappingFactory {
                     }
                 }
             }
-            variables.putAll(pathMatcher.extractUriTemplateVariables(bestPath,path));
+            variables.putAll(pathMatcher.extractUriTemplateVariables(bestPath, path));
             if(!(roleSet.isEmpty())) {
                 return endpointHandleMap.get(new EndPointMapping(getHttpMethod(method), bestPath, roleSet));
             }

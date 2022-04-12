@@ -16,7 +16,6 @@ public class HandlerExecution {
     private Stack<HandlerWrapper> beforeInterceptors;
     private final HandlerWrapper handlerWrapper;
     private Stack<HandlerWrapper> afterInterceptors;
- 
 
 
     /**
@@ -24,9 +23,7 @@ public class HandlerExecution {
      */
     private Map<String, String> variables = new HashMap<>();
 
-
     private Set<RouteRole> roleSet = new HashSet<>();
-
 
     private AccessManagerWrapper accessManagerWrapper;
 
@@ -39,11 +36,8 @@ public class HandlerExecution {
     public void handle(HttpServletRequest request, HttpServletResponse response) {
         if (beforeInterceptors != null) {
             invokeBeforeInterceptors(request, response);
-
         }
-
         invoke(request, response);
-
         if(afterInterceptors != null) {
             invokeAfterInterceptors(request, response);
         }
@@ -60,22 +54,7 @@ public class HandlerExecution {
                  oneHandler.handle(req, res);
             }
         }
-
-
     }
-
-
-    private void invokeAfterInterceptors(HttpServletRequest request, HttpServletResponse response) {
-        Request req = new Request(request);
-        Response res = new Response(response);
-        if(!(afterInterceptors.isEmpty())) {
-            for (HandlerWrapper oneHandler : afterInterceptors) {
-                oneHandler.handle(req, res);
-            }
-        }
-
-    }
-
 
 
 
@@ -94,6 +73,21 @@ public class HandlerExecution {
             handlerWrapper.handle(req, res);
         }
     }
+
+
+
+    private void invokeAfterInterceptors(HttpServletRequest request, HttpServletResponse response) {
+        Request req = new Request(request);
+        Response res = new Response(response);
+        if(!(afterInterceptors.isEmpty())) {
+            for (HandlerWrapper oneHandler : afterInterceptors) {
+                oneHandler.handle(req, res);
+            }
+        }
+
+    }
+
+
 
     public void setVariables(Map<String, String> templateVariables) {
         this.variables = templateVariables;
