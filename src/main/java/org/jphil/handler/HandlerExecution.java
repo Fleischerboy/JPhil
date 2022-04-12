@@ -13,9 +13,9 @@ import java.util.*;
 public class HandlerExecution {
 
 
-    private Stack<HandlerWrapper> beforeInterceptors;
+    private final Stack<HandlerWrapper> beforeInterceptors;
     private final HandlerWrapper handlerWrapper;
-    private Stack<HandlerWrapper> afterInterceptors;
+    private final Stack<HandlerWrapper> afterInterceptors;
 
 
     /**
@@ -34,36 +34,30 @@ public class HandlerExecution {
     }
 
     public void handle(HttpServletRequest request, HttpServletResponse response) {
-        if (beforeInterceptors != null) {
-            invokeBeforeInterceptors(request, response);
-        }
-        invoke(request, response);
-        if(afterInterceptors != null) {
-            invokeAfterInterceptors(request, response);
-        }
-
-
-    }
-
-
-    private void invokeBeforeInterceptors(HttpServletRequest request, HttpServletResponse response) {
-        Request req = new Request(request);
-        Response res = new Response(response);
-        if(!(beforeInterceptors.isEmpty())) {
-            for (HandlerWrapper oneHandler : beforeInterceptors) {
-                 oneHandler.handle(req, res);
-            }
-        }
-    }
-
-
-
-    private void invoke(HttpServletRequest request, HttpServletResponse response) {
         Request req = new Request(request);
         Response res = new Response(response);
         if(!(variables.isEmpty())) {
             req.addPathVariables(variables);
         }
+        if (!(beforeInterceptors.isEmpty())) {
+            invokeBeforeInterceptors(req, res);
+        }
+        invoke(req, res);
+        if(!(afterInterceptors.isEmpty())) {
+            invokeAfterInterceptors(req, res);
+        }
+    }
+
+
+    private void invokeBeforeInterceptors(Request request, Response response) {
+            for (HandlerWrapper oneHandler : beforeInterceptors) {
+                 oneHandler.handle(request, response);
+            }
+    }
+
+
+
+    private void invoke(Request req, Response res) {
         if(!(roleSet.isEmpty())) {
             if(accessManagerWrapper != null) {
                 accessManagerWrapper.manage(handlerWrapper.getHandler(), req ,res, roleSet);
@@ -76,15 +70,10 @@ public class HandlerExecution {
 
 
 
-    private void invokeAfterInterceptors(HttpServletRequest request, HttpServletResponse response) {
-        Request req = new Request(request);
-        Response res = new Response(response);
-        if(!(afterInterceptors.isEmpty())) {
+    private void invokeAfterInterceptors(Request req, Response res) {
             for (HandlerWrapper oneHandler : afterInterceptors) {
                 oneHandler.handle(req, res);
             }
-        }
-
     }
 
 

@@ -71,24 +71,8 @@ public class EndPointMappingFactory {
                 }
             }
         }
-        System.out.println("MatchedPaths: " + matchedPaths);
         if (!matchedPaths.isEmpty()) {
-            String bestPath = "";
-            if (matchedPaths.size() == 1) {
-                bestPath = matchedPaths.get(0);
-            }
-            else {
-                for (String onePath: matchedPaths) {
-                    if(onePath.length() == bestPath.length()) {
-                        if(measure(onePath, '*') < measure(bestPath,'*')){
-                            bestPath = onePath;
-                        }
-                    }
-                    if(bestPath.length() < onePath.length()) {
-                        bestPath = onePath;
-                    }
-                }
-            }
+            String bestPath = getBestPath(matchedPaths);
             variables.putAll(pathMatcher.extractUriTemplateVariables(bestPath, path));
             if(!(roleSet.isEmpty())) {
                 return endpointHandleMap.get(new EndPointMapping(getHttpMethod(method), bestPath, roleSet));
@@ -98,6 +82,26 @@ public class EndPointMappingFactory {
             }
         }
         return null;
+    }
+
+    private static String getBestPath(List<String> matchedPaths) {
+        String bestPath = "";
+        if (matchedPaths.size() == 1) {
+            bestPath = matchedPaths.get(0);
+        }
+        else {
+            for (String onePath: matchedPaths) {
+                if(onePath.length() == bestPath.length()) {
+                    if(measure(onePath, '*') < measure(bestPath,'*')){
+                        bestPath = onePath;
+                    }
+                }
+                if(bestPath.length() < onePath.length()) {
+                    bestPath = onePath;
+                }
+            }
+        }
+        return bestPath;
     }
 
 

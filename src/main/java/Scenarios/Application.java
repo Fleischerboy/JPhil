@@ -222,14 +222,14 @@ public class Application {
         System.out.println("********aop***********");
         printInterceptorMap();
 
-
-        app.get("/abc/*", (request, response) ->  {
-            response.html("shop and whatever");
+        app.before("/book/{userId}", (request, response) -> {
+            System.out.println("Hello before");
+            String id = request.pathParam("userId");
+            System.out.println(id);
         });
 
-        app.get("/abc/h", (request, response) ->  {
-            response.html("shop home");
-        });
+
+
 
 
 }

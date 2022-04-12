@@ -79,8 +79,8 @@ public class CoreServletFilter implements Filter {
         String method = request.getMethod();
         String path = extractPathFromRequest(request);
         HandlerWrapper handlerWrapper = EndPointMappingFactory.getHandlerWrapper(method, path, variables, roleSet);
-        Stack<HandlerWrapper> beforeInterceptors = InterceptorFactory.getInterceptors(path, Interceptor.BEFORE);
-        Stack<HandlerWrapper> afterInterceptors =  InterceptorFactory.getInterceptors(path, Interceptor.AFTER);
+        Stack<HandlerWrapper> beforeInterceptors = InterceptorFactory.getInterceptors(path, Interceptor.BEFORE, variables);
+        Stack<HandlerWrapper> afterInterceptors =  InterceptorFactory.getInterceptors(path, Interceptor.AFTER, variables);
         HandlerExecution handlerExecution = new HandlerExecution(beforeInterceptors, handlerWrapper, afterInterceptors);
         if (!(variables.isEmpty())) {
             handlerExecution.setVariables(variables);
