@@ -6,6 +6,7 @@ import org.jphil.http.Response;
 
 import java.util.Set;
 
+@FunctionalInterface
 public interface AccessManager {
 
     /**

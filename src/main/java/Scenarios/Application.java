@@ -5,10 +5,7 @@ import org.jphil.core.security.RouteRole;
 import org.jphil.handler.Handler;
 import org.jphil.http.Request;
 import org.jphil.http.Response;
-
 import java.util.List;
-
-import static org.jphil.core.JPhil.startServer;
 import static org.jphil.http.Mapping.EndPointMappingFactory.printMap;
 import static org.jphil.http.Mapping.Interceptor.InterceptorFactory.printInterceptorMap;
 
@@ -28,7 +25,7 @@ public class Application {
          * */
 
         // Scenario 1: start webserver (default port is 8080)
-        JPhil app = JPhil.startServer();
+        JPhil app = JPhil.startWebServer();
 
         // optional: start webserver on port 7777.
        // JPhil app2 = JPhil.startServer(7777);
@@ -185,6 +182,8 @@ public class Application {
 
 
 
+
+
         //Scenario 10: coming soon
         app.after((request, response) -> {
 
@@ -222,6 +221,15 @@ public class Application {
 
         System.out.println("********aop***********");
         printInterceptorMap();
+
+        app.before("/book/{userId}", (request, response) -> {
+            System.out.println("Hello before");
+            String id = request.pathParam("userId");
+            System.out.println(id);
+        });
+
+
+
 
 
 }

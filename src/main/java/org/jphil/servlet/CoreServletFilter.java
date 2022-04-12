@@ -23,7 +23,7 @@ import static org.jphil.utils.PathUtils.extractPathFromRequest;
 public class CoreServletFilter implements Filter {
 
     Logger logger = LoggerFactory.getLogger(CoreServletFilter.class);
-    private static ServletContext servletContext;
+
 
 
     /**
@@ -34,7 +34,7 @@ public class CoreServletFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         logger.info("CoreServletFilter Init");
-        servletContext = filterConfig.getServletContext();
+
     }
 
     /**
@@ -61,7 +61,7 @@ public class CoreServletFilter implements Filter {
         try {
             handlerExecution.handle(request, response);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
         finally {
             RequestFactory.remove();
@@ -79,8 +79,8 @@ public class CoreServletFilter implements Filter {
         String method = request.getMethod();
         String path = extractPathFromRequest(request);
         HandlerWrapper handlerWrapper = EndPointMappingFactory.getHandlerWrapper(method, path, variables, roleSet);
-        Stack<HandlerWrapper> beforeInterceptors = InterceptorFactory.getInterceptors(path, Interceptor.BEFORE);
-        Stack<HandlerWrapper> afterInterceptors =  InterceptorFactory.getInterceptors(path, Interceptor.AFTER);
+        Stack<HandlerWrapper> beforeInterceptors = InterceptorFactory.getInterceptors(path, Interceptor.BEFORE, variables);
+        Stack<HandlerWrapper> afterInterceptors =  InterceptorFactory.getInterceptors(path, Interceptor.AFTER, variables);
         HandlerExecution handlerExecution = new HandlerExecution(beforeInterceptors, handlerWrapper, afterInterceptors);
         if (!(variables.isEmpty())) {
             handlerExecution.setVariables(variables);

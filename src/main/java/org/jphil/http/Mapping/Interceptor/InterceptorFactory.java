@@ -10,6 +10,7 @@ public class InterceptorFactory {
 
     private static final Map<InterceptorMapping, HandlerWrapper> interceptorMap = new HashMap<>();
 
+
     private static Handler beforeHandler;
 
     private static Handler afterHandler;
@@ -32,13 +33,14 @@ public class InterceptorFactory {
 
     }
 
-    public static Stack<HandlerWrapper> getInterceptors(String path, Interceptor interceptor) {
+    public static Stack<HandlerWrapper> getInterceptors(String path, Interceptor interceptor, Map<String, String> variables) {
         Stack<HandlerWrapper> interceptors = new Stack<>();
         for (Map.Entry<InterceptorMapping, HandlerWrapper> entries : interceptorMap.entrySet()) {
             InterceptorMapping mapping = entries.getKey();
             if(mapping.getInterceptor() == interceptor) {
                 if(pathMatcher.match(mapping.getPath(), path)) {
                     HandlerWrapper interceptorHandler = interceptorMap.get(new InterceptorMapping(interceptor, mapping.getPath()));
+                    variables.putAll(pathMatcher.extractUriTemplateVariables(mapping.getPath(), path));
                     interceptors.add(interceptorHandler);
                 }
             }
