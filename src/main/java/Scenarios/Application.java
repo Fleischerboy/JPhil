@@ -155,17 +155,6 @@ public class Application {
 
 
 
-        app.get("/home/a", (request, response) -> {
-            response.text("hello");
-            System.out.println("endpoint");
-
-        });
-
-
-        app.get("/home/b", (request, response) -> {
-            response.text("hello");
-
-        });
 
 
 
@@ -228,6 +217,14 @@ public class Application {
             System.out.println(id);
         });
 
+
+
+        app.get("/lol", (request, response) -> {
+            System.out.println(request.body());
+            response.text("hello");
+
+
+        });
 
 
 

@@ -1,10 +1,15 @@
 package org.jphil.http;
 
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -13,7 +18,7 @@ import java.util.Map;
 
 public class Request {
     private final HttpServletRequest servletRequest;
-    private Map<String, String> pathVariables = new HashMap<>();
+    private final Map<String, String> pathVariables = new HashMap<>();
 
 
 
@@ -27,7 +32,7 @@ public class Request {
 
 
     /**
-     * @return the protocol of the request eg: http/https
+     * @return the protocol of the request ex: http/https
      */
     public String protocol() {
         return servletRequest.getScheme();
@@ -139,7 +144,7 @@ public class Request {
 
     /**
      *
-     * @return map
+     * @return map of all form parameters
      */
     public Map<String, String[]> formParams() {
         return servletRequest.getParameterMap();
@@ -187,7 +192,7 @@ public class Request {
 
     /**
      *
-     * @return all cookies of the request
+     * @return map of all request cookies
      */
     public Map<String, String> cookies() {
         Map<String, String> cookieMap = new HashMap<>();
@@ -203,41 +208,93 @@ public class Request {
 
     /**
      *
-     * @return returns current session related to this request. and if the request does not have a session, it will create one.
+     * @return returns the current session associated with this request; if there is no session, it will create one.
      */
     public HttpSession session() {
         return servletRequest.getSession();
     }
 
 
-
+    /**
+     *
+     * @return Returns the session ID specified by the client.
+     *         This may not be the same as the ID of the current valid session for this request.
+     *         If the client did not specify a session ID, this method returns null.
+     */
     public String requestSessionId() {
         return servletRequest.getRequestedSessionId();
     }
 
-
+    /**
+     *
+     * @return
+     */
     public String changeSessionId() {
         return servletRequest.changeSessionId();
     }
 
-
+    /**
+     *
+     * @return
+     */
     public boolean isRequestedSessionIdValid() {
         return servletRequest.isRequestedSessionIdValid();
     }
 
 
+    /**
+     *
+     * @return
+     */
     public boolean isRequestedSessionIdFromCookie() {
         return servletRequest.isRequestedSessionIdFromCookie();
     }
 
-
+    /**
+     *
+     * @return
+     */
     public boolean isRequestedSessionIdFromURL() {
         return servletRequest.isRequestedSessionIdFromURL();
     }
 
 
-    public RequestDispatcher getRequestDispatcher(String resource) {
-        return servletRequest.getRequestDispatcher(resource);
+    // request body as string
+    public String body() {
+        try {
+            ServletInputStream inputStream = servletRequest.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder requestBuilder = new StringBuilder();
+            String body;
+            String line;
+            while (!(line = br.readLine()).isBlank()) {
+                requestBuilder.append(line + "\r\n");
+            }
+            System.out.println(requestBuilder);
+            body = requestBuilder.toString();
+            return body;
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+
+    // request body as array of bytes
+    public byte[] bodyAsBytes()   {
+
+    return null;
+    }
+
+
+    // request body as input stream
+    public InputStream bodyAsInputStream() {
+        try {
+            return servletRequest.getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       return null;
     }
 
 
