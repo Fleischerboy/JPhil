@@ -3,8 +3,8 @@ import org.jphil.handler.Handler;
 import org.jphil.http.Mapping.HandlerWrapper;
 import org.jphil.utils.AntPathMatcher;
 import org.jphil.utils.PathMatcher;
-
 import java.util.*;
+import static org.jphil.utils.PathUtils.validateHandlerCreation;
 
 public class InterceptorFactory {
 
@@ -19,15 +19,7 @@ public class InterceptorFactory {
 
 
     public static void addInterceptor(Interceptor interceptor, String path, Handler handler) {
-        if (interceptor == null || path.isEmpty() || handler == null) {
-            return;
-        }
-        if (!path.startsWith("/")) {
-            return;
-        }
-        if (path.endsWith("/")) {
-            path = path.substring(0, path.length() - 1);
-        }
+         path = validateHandlerCreation(interceptor, path, handler);
          HandlerWrapper handlerWrapper = new HandlerWrapper(handler);
          interceptorMap.put(new InterceptorMapping(interceptor, path), handlerWrapper);
 
@@ -57,6 +49,8 @@ public class InterceptorFactory {
     public static void setAfterHandler(Handler afterHandler) {
         InterceptorFactory.afterHandler = afterHandler;
     }
+
+
 
     public static void printInterceptorMap() {
         for (InterceptorMapping i : interceptorMap.keySet()) {

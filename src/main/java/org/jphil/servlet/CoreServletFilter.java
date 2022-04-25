@@ -57,6 +57,10 @@ public class CoreServletFilter implements Filter {
             return;
         }
 
+        /*
+        if (
+        */
+
         handlerExecution = getHandler(request);
         try {
             handlerExecution.handle(request, response);

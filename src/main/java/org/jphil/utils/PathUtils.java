@@ -1,6 +1,7 @@
 package org.jphil.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.jphil.handler.Handler;
 
 import java.net.URL;
 
@@ -25,6 +26,18 @@ public class PathUtils {
                 .getResource(path);
     }
 
+    public static String validateHandlerCreation(Enum<?> method, String path, Handler handler) {
+        if (method == null || path.isEmpty() || handler == null) {
+            return null;
+        }
+        if (!path.startsWith("/")) {
+            return null;
+        }
+        if (path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
+        return path;
+    }
 
 
     public static String extractPathFromRequest(HttpServletRequest request) {

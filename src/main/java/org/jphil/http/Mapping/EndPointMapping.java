@@ -69,16 +69,4 @@ public class EndPointMapping {
                 ", roleSet=" + roleSet +
                 '}';
     }
-    static String validateEndpoint(HttpMethod method, String path, Handler handler) {
-        if (method == null || path.isEmpty() || handler == null) {
-            return null;
-        }
-        if (!path.startsWith("/")) {
-            return null;
-        }
-        if (path.endsWith("/")) {
-            path = path.substring(0, path.length() - 1);
-        }
-        return path;
-    }
 }

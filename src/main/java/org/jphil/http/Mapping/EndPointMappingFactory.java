@@ -6,7 +6,7 @@ import org.jphil.http.HttpMethod;
 import org.jphil.utils.AntPathMatcher;
 import org.jphil.utils.PathMatcher;
 import java.util.*;
-import static org.jphil.http.Mapping.EndPointMapping.validateEndpoint;
+import static org.jphil.utils.PathUtils.validateHandlerCreation;
 
 
 public class EndPointMappingFactory {
@@ -22,7 +22,7 @@ public class EndPointMappingFactory {
 
 
     public static void addRoute(HttpMethod method, String path, Handler handler) {
-        path = validateEndpoint(method, path, handler);
+        path = validateHandlerCreation(method, path, handler);
         HandlerWrapper handlerWrapper = new HandlerWrapper(handler);
         endpointHandleMap.put(new EndPointMapping(method, path), handlerWrapper);
     }
@@ -31,7 +31,7 @@ public class EndPointMappingFactory {
 
     public static void addRoute(HttpMethod method, String path, Handler handler, RouteRole... roles) {
         Set<RouteRole> roleSet = new HashSet<>(Arrays.asList(roles));
-        path = validateEndpoint(method, path, handler);
+        path = validateHandlerCreation(method, path, handler);
         HandlerWrapper handlerWrapper = new HandlerWrapper(handler);
         endpointHandleMap.put(new EndPointMapping(method, path, roleSet), handlerWrapper);
     }

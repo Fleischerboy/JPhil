@@ -19,6 +19,8 @@ public class Application {
 
 
     public static void main(String[] args) {
+
+
         /*
          * through all the scenarios down below it will be a result of a web application built in top of my backend framework called JPhil.
          *
@@ -65,7 +67,6 @@ public class Application {
         //Scenario 4: Create an endpoint on the webserver with the http method GET with URL-path: "/login" and send a html file to your clients.
         // and use the response object to call on file() with a file name "login.html" inside the parenthesis.
         app.get("/login", (request, response) -> {
-            // this will send login.html file which contains a login form.
             response.file("login.html");
         });
 
@@ -225,6 +226,8 @@ public class Application {
 
 
         });
+
+
 
 
 
