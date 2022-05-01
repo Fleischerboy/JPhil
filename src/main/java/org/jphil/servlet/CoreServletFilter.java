@@ -58,8 +58,6 @@ public class CoreServletFilter implements Filter {
         if (request.getRequestURI().equals("/favicon.ico")) {
             return;
         }
-
-
         handlerExecution = getHandler(request);
         try {
             handlerExecution.handle(request, response);

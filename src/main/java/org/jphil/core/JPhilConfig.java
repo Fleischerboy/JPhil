@@ -7,7 +7,6 @@ public class JPhilConfig {
 
     public static String templatesPath = "templates";
 
-    public static String pathToStaticFiles = null;
 
 
     public static void setStaticFilePath(String path) {
