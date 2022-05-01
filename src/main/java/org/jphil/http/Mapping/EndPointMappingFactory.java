@@ -56,6 +56,7 @@ public class EndPointMappingFactory {
      * @param method    HTTP
      * @param path      request path
      * @param variables /book/{id} => /book/666 = {id:666}
+     * @param roleSet Role.ADMIN, role.USER, role.ANYONE etc. as many roles you want!
      * @return
      */
     public static HandlerWrapper getHandlerWrapper(String method, String path, Map<String, String> variables, Set<RouteRole> roleSet) {

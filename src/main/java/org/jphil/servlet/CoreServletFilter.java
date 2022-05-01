@@ -24,7 +24,7 @@ public class CoreServletFilter implements Filter {
 
     Logger logger = LoggerFactory.getLogger(CoreServletFilter.class);
 
-
+    private ServletContext servletContext;
 
     /**
      *
@@ -34,6 +34,8 @@ public class CoreServletFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         logger.info("CoreServletFilter Init");
+        servletContext = filterConfig.getServletContext();
+
 
     }
 
@@ -57,9 +59,6 @@ public class CoreServletFilter implements Filter {
             return;
         }
 
-        /*
-        if (
-        */
 
         handlerExecution = getHandler(request);
         try {
@@ -70,7 +69,6 @@ public class CoreServletFilter implements Filter {
         finally {
             RequestFactory.remove();
             ResponseFactory.remove();
-
         }
 
 

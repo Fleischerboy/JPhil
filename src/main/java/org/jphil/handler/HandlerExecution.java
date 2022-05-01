@@ -50,7 +50,6 @@ public class HandlerExecution {
 
 
     private void invokeBeforeInterceptors(Request request, Response response) {
-        System.out.println(beforeInterceptors);
             for (HandlerWrapper oneHandler : beforeInterceptors) {
                  oneHandler.handle(request, response);
             }

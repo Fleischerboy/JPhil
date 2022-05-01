@@ -43,10 +43,10 @@ public class PathUtils {
     public static String extractPathFromRequest(HttpServletRequest request) {
         String path = "";
         String contextPath = request.getContextPath();
-        if (contextPath != "/") {
+        if (!(contextPath.equals("/"))) {
             path = request.getRequestURI().substring(contextPath.length());
         }
-        if (path.endsWith("/")) {
+        if (path.length() > 1 && path.endsWith("/")) {
             path = path.substring(0, path.length() - 1);
         }
         return path;

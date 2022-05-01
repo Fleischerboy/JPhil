@@ -125,7 +125,7 @@ public class JPhil {
      * @param handler
      */
     public void before(Handler handler) {
-        InterceptorFactory.setBeforeHandler(handler);
+        InterceptorFactory.addInterceptor(Interceptor.BEFORE, "/**", handler);
     }
 
     /**
@@ -153,7 +153,7 @@ public class JPhil {
      * @param handler
      */
     public void after(Handler handler) {
-        InterceptorFactory.setAfterHandler(handler);
+        InterceptorFactory.addInterceptor(Interceptor.AFTER, "/**", handler);
     }
 
 

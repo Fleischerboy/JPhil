@@ -11,10 +11,6 @@ public class InterceptorFactory {
     private static final Map<InterceptorMapping, HandlerWrapper> interceptorMap = new HashMap<>();
 
 
-    private static Handler beforeHandler;
-
-    private static Handler afterHandler;
-
     private static final PathMatcher pathMatcher = new AntPathMatcher();
 
 
@@ -40,15 +36,6 @@ public class InterceptorFactory {
         return interceptors;
     }
 
-
-
-    public static void setBeforeHandler(Handler beforeHandler) {
-        InterceptorFactory.beforeHandler = beforeHandler;
-    }
-
-    public static void setAfterHandler(Handler afterHandler) {
-        InterceptorFactory.afterHandler = afterHandler;
-    }
 
 
 
