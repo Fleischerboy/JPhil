@@ -27,6 +27,7 @@ public class HandlerExecution {
 
     private AccessManagerWrapper accessManagerWrapper;
 
+
     public HandlerExecution(Stack<HandlerWrapper> beforeInterceptors, HandlerWrapper handlerWrapper, Stack<HandlerWrapper> afterInterceptors) {
         this.beforeInterceptors = beforeInterceptors;
         this.handlerWrapper = handlerWrapper;
@@ -101,8 +102,12 @@ public class HandlerExecution {
     @Override
     public String toString() {
         return "HandlerExecution{" +
-                "handlerWrapper=" + handlerWrapper +
+                "beforeInterceptors=" + beforeInterceptors +
+                ", handlerWrapper=" + handlerWrapper +
+                ", afterInterceptors=" + afterInterceptors +
                 ", variables=" + variables +
+                ", roleSet=" + roleSet +
+                ", accessManagerWrapper=" + accessManagerWrapper +
                 '}';
     }
 }

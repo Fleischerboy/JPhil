@@ -11,7 +11,7 @@ public class jettyWebServer {
 
 
 
-    private static int serverPort = 7070;
+    private static int serverPort = 8080;
 
     private static final Server jettyServer = new Server();
 
@@ -25,6 +25,8 @@ public class jettyWebServer {
     public static void startServer() {
         new Thread(org.jphil.webserver.jettyWebServer::initJettyServer).start();
     }
+
+
 
      public static void initJettyServer() {
          ServerConnector serverConnector = new ServerConnector(jettyServer);
@@ -41,5 +43,14 @@ public class jettyWebServer {
              e.printStackTrace();
          }
      }
+
+
+    public static void stopServer(){
+        try {
+            jettyServer.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     }

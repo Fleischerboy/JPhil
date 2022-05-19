@@ -1,6 +1,5 @@
 package org.jphil.http;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,6 +36,7 @@ public class Request {
     public String protocol() {
         return servletRequest.getScheme();
     }
+
 
 
     /**

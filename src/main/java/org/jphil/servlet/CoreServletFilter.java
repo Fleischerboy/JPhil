@@ -12,6 +12,7 @@ import org.jphil.http.Mapping.Interceptor.Interceptor;
 import org.jphil.http.Mapping.Interceptor.InterceptorFactory;
 import org.jphil.http.RequestFactory;
 import org.jphil.http.ResponseFactory;
+import org.jphil.webserver.jettyWebServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static org.jphil.utils.PathUtils.extractPathFromRequest;
+
 
 public class CoreServletFilter implements Filter {
 
@@ -72,6 +74,7 @@ public class CoreServletFilter implements Filter {
 
     }
 
+    
 
     private static HandlerExecution getHandler(HttpServletRequest request) {
         Map<String, String> variables = new HashMap<>();
@@ -100,6 +103,6 @@ public class CoreServletFilter implements Filter {
 
     @Override
     public void destroy() {
-
+        jettyWebServer.stopServer();
     }
 }

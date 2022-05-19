@@ -46,7 +46,7 @@ public class PathUtils {
         if (!(contextPath.equals("/"))) {
             path = request.getRequestURI().substring(contextPath.length());
         }
-        if (path.length() > 1 && path.endsWith("/")) {
+        if (path.endsWith("/")) {
             path = path.substring(0, path.length() - 1);
         }
         return path;

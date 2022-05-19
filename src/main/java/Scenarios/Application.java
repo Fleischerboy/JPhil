@@ -1,13 +1,13 @@
 package Scenarios;
+
 import Scenarios.models.User;
 import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;
-import org.jphil.handler.Handler;
 import org.jphil.http.Request;
-import org.jphil.http.Response;
+
 import java.util.List;
+
 import static org.jphil.http.Mapping.EndPointMappingFactory.printMap;
-import static org.jphil.http.Mapping.Interceptor.InterceptorFactory.printInterceptorMap;
 
 
 /**
@@ -27,7 +27,7 @@ public class Application {
          * */
 
         // Scenario 1: start webserver (default port is 8080)
-        JPhil app = JPhil.startWebServer();
+        JPhil app = JPhil.startWebServer(7070);
 
         // optional: start webserver on port 7777.
        // JPhil app2 = JPhil.startServer(7777);
@@ -35,12 +35,8 @@ public class Application {
 
         //Scenario 2: Create an endpoint with url-path "/" on the webserver and send "Hello world" in text form.
         // use the response object to call on the method text() and write "Hello world"
-        app.get("/", new Handler() {
-            @Override
-            public void handle(Request request, Response response)  {
-                response.text("Hello World");
-            }
-        });
+        app.get("/", (request, response) -> response.text("Hello World"));
+
 
         //Scenario 2: Create an endpoint on the webserver with the http method "GET" with URL-path: "/" and give your clients some html code.
         // use the response object to call on html() with the html content inside the parenthesis/parameter.
@@ -50,7 +46,6 @@ public class Application {
                     "<style> body{background-color: #E7E8D1;}" +
                     ".button {background-color: #B85042; color:white; text-decoration: none; padding: 15px 32px; margin: 5px; text-align: center; cursor: pointer; font-size: 14;}" +
                     "</style>");
-            System.out.println("endpoint");
         });
 
 
@@ -210,7 +205,7 @@ public class Application {
 
 
         System.out.println("********aop***********");
-        printInterceptorMap();
+
 
         app.before("/book/{userId}", (request, response) -> {
             System.out.println("Hello before");
@@ -228,6 +223,22 @@ public class Application {
         });
 
 
+
+        app.before((request, response) -> {
+            // kjøres før alle requests
+        });
+
+        app.before("/path/*", (request, response) -> {
+            // kjøres før request til /path/*
+        });
+
+        app.after("/", (request, response) -> {
+            // kjøres etter request til /path/*
+        });
+
+        app.after((request, response) -> {
+            // kjøres etter alle requests
+        });
 
 
 

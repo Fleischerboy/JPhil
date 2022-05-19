@@ -1,9 +1,15 @@
 package org.jphil.http.Mapping.Interceptor;
+
 import org.jphil.handler.Handler;
 import org.jphil.http.Mapping.HandlerWrapper;
 import org.jphil.utils.AntPathMatcher;
 import org.jphil.utils.PathMatcher;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+
 import static org.jphil.utils.PathUtils.validateHandlerCreation;
 
 public class InterceptorFactory {
@@ -22,6 +28,9 @@ public class InterceptorFactory {
     }
 
     public static Stack<HandlerWrapper> getInterceptors(String path, Interceptor interceptor, Map<String, String> variables) {
+        if(path.isEmpty()) {
+            path = "/";
+        }
         Stack<HandlerWrapper> interceptors = new Stack<>();
         for (InterceptorMapping oneInterceptor: interceptorList) {
             if(oneInterceptor.getInterceptor() == interceptor) {
@@ -34,13 +43,4 @@ public class InterceptorFactory {
         }
         return interceptors;
     }
-
-
-
-
-    public static void printInterceptorMap() {
-
-    }
-
-
 }

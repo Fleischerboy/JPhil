@@ -157,9 +157,10 @@ public class JPhil {
     }
 
 
-
-
-
+    /**
+     *
+     * @param accessManager
+     */
     public void accessManager(AccessManager accessManager) {
         EndPointMappingFactory.setAccessManager(accessManager);
 
