@@ -5,6 +5,7 @@ import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;
 import org.jphil.http.Request;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.jphil.http.Mapping.EndPointMappingFactory.printMap;

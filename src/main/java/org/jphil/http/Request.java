@@ -4,6 +4,7 @@ import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.commons.io.IOUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -125,7 +127,14 @@ public class Request {
      * @return headers of the request
      */
     public Map<String, String> headers() {
-        return null;
+        Map<String, String> headersMap = new HashMap<>();
+        Enumeration<String> headerNames = servletRequest.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String key = headerNames.nextElement();
+            String value = servletRequest.getHeader(key);
+            headersMap.put(key, value);
+        }
+        return headersMap;
     }
 
 
@@ -261,29 +270,20 @@ public class Request {
 
     // request body as string
     public String body() {
-        try {
-            ServletInputStream inputStream = servletRequest.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuilder requestBuilder = new StringBuilder();
-            String body;
-            String line;
-            while (!(line = br.readLine()).isBlank()) {
-                requestBuilder.append(line + "\r\n");
-            }
-            System.out.println(requestBuilder);
-            body = requestBuilder.toString();
-            return body;
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-        return null;
+        byte[] bytes = bodyAsBytes();
+        return new String(bytes, StandardCharsets.UTF_8);
     }
 
 
     // request body as array of bytes
     public byte[] bodyAsBytes()   {
-
-    return null;
+        try {
+            InputStream byteBody = bodyAsInputStream();
+            return IOUtil.toByteArray(byteBody);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
