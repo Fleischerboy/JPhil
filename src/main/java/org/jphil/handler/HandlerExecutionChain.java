@@ -7,17 +7,19 @@ import org.jphil.http.Mapping.AccessManagerWrapper;
 import org.jphil.http.Mapping.HandlerWrapper;
 import org.jphil.http.Request;
 import org.jphil.http.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-public class HandlerExecution {
+public class HandlerExecutionChain {
 
 
     private final Stack<HandlerWrapper> beforeInterceptors;
     private final HandlerWrapper handlerWrapper;
     private final Stack<HandlerWrapper> afterInterceptors;
 
-
+    Logger logger = LoggerFactory.getLogger(HandlerExecutionChain.class);
     /**
      * /book/{id} => /book/666 = {id:666}
      */
@@ -28,7 +30,7 @@ public class HandlerExecution {
     private AccessManagerWrapper accessManagerWrapper;
 
 
-    public HandlerExecution(Stack<HandlerWrapper> beforeInterceptors, HandlerWrapper handlerWrapper, Stack<HandlerWrapper> afterInterceptors) {
+    public HandlerExecutionChain(Stack<HandlerWrapper> beforeInterceptors, HandlerWrapper handlerWrapper, Stack<HandlerWrapper> afterInterceptors) {
         this.beforeInterceptors = beforeInterceptors;
         this.handlerWrapper = handlerWrapper;
         this.afterInterceptors = afterInterceptors;
@@ -40,11 +42,20 @@ public class HandlerExecution {
         if(!(variables.isEmpty())) {
             req.addPathVariables(variables);
         }
-        if (!(beforeInterceptors.isEmpty())) {
+
+        if (!(beforeInterceptors.isEmpty()) && beforeInterceptors != null) {
             invokeBeforeInterceptors(req, res);
         }
-        invoke(req, res);
-        if(!(afterInterceptors.isEmpty())) {
+
+        if(handlerWrapper != null) {
+            invoke(req, res);
+        }
+        else {
+            logger.warn("Can't find mapping for any endpoints with (GET,POST,PUT OR DELETE) on path: " + req.baseUrl());
+            res.statusCode(404);
+        }
+
+        if(!(afterInterceptors.isEmpty()) && afterInterceptors != null) {
             invokeAfterInterceptors(req, res);
         }
     }

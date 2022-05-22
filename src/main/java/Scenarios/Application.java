@@ -4,39 +4,34 @@ import Scenarios.repository.UserDataRepository;
 import jakarta.servlet.http.HttpSession;
 import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;
-import org.jphil.handler.Handler;
 import org.jphil.http.Request;
-import org.jphil.http.Response;
 
 import java.util.List;
 
-import static org.jphil.http.Mapping.EndPointMappingFactory.printMap;
 
 
 public class Application {
 
     public static void main(String[] args) {
-
-
         /*
-         * through all the scenarios down below it will be a result of a web application built in top of my backend framework called JPhil.
-         *
+         * gjennom alle scenariene nedenfor vil det bli et resultat av enkel web applikasjon bygget oppå JPhil rammeverket.
+         * UserDataRepository, model klasser som (User, TodoList og TodoItem), login.html, user-detail.ftl, users.ftl, er ikke en del av rammeverket, men brukes for eksempel data og demonstrering.
          * */
 
-        // UserDataRepository er ikke en del av rammeverket, men trenger eksmpel data for Scenarioene.
         UserDataRepository userRepository = new UserDataRepository();
 
 
         // Scenario 1: Starte webserveren på port 8080.
         JPhil app = JPhil.startWebServer(7070);
 
+
         // optional: start webserver on port 7070.
-        // JPhil app2 = JPhil.startServer(7070);
+        //JPhil app2 = JPhil.startWebServer(7777);
 
 
         // valgfritt scenario
         // Lage et endepunkt på webserveren med HTTP-metoden: GET, med URL-sti «/» og send ren text i respons.
-        app.get("/", (request, response) -> response.text("Hello Worlddddd"));
+        app.get("/", (request, response) -> response.text("Hello World"));
 
 
         //Scenario 2: Lage et endepunkt på webserveren med HTTP-metoden: GET, med URL-sti «/home» og send HTML kode i respons.
@@ -102,7 +97,6 @@ public class Application {
 
         // Scenario 8:
         // Lage et parameterisert endepunkt med path «/profile/{userId}» på webserver med http metoden «get» og returner en dynamisk HTML-side basert på en template fil med navn «user-detail».
-
         app.get("/profile/{userId}", (request, response) -> {
             String userId = request.pathParam("userId");
             User user = userRepository.getSpecificUserById(Integer.parseInt(userId));
@@ -130,8 +124,22 @@ public class Application {
         });
 
 
-        printMap();
+        // Scenario 10: lage før-behandlere
 
+        app.before((request, response) -> {
+           // System.out.println(request.ip());
+
+        });
+
+
+
+
+        // Scenario 11: lage etter-behandlere
+
+
+        app.after((request, response) -> {
+           // System.out.println(request.isRequestedSessionIdValid());
+        });
 
 
 

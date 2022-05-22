@@ -41,6 +41,12 @@ public class InterceptorFactory {
                 }
             }
         }
-        return interceptors;
+        if(!interceptors.empty()) {
+            return interceptors;
+        }
+        else {
+            return null;
+        }
+
     }
 }

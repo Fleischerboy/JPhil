@@ -50,7 +50,7 @@ public class Request {
 
 
     /**
-     * @return url path part from the request
+     * @return url part from the request
      */
     public String pathUrl() {
         return servletRequest.getPathInfo();
