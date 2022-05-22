@@ -1,23 +1,19 @@
 package Scenarios;
-
 import Scenarios.models.User;
+import Scenarios.repository.UserDataRepository;
+import jakarta.servlet.http.HttpSession;
 import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;
+import org.jphil.handler.Handler;
 import org.jphil.http.Request;
+import org.jphil.http.Response;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.jphil.http.Mapping.EndPointMappingFactory.printMap;
 
 
-/**
- * @hidden Class made for demonstrating scenarios using JPhil framework. this code is not part of the framework.
- */
 public class Application {
-
-
-
 
     public static void main(String[] args) {
 
@@ -27,267 +23,142 @@ public class Application {
          *
          * */
 
-        // Scenario 1: start webserver (default port is 8080)
+        // UserDataRepository er ikke en del av rammeverket, men trenger eksmpel data for Scenarioene.
+        UserDataRepository userRepository = new UserDataRepository();
+
+
+        // Scenario 1: Starte webserveren på port 8080.
         JPhil app = JPhil.startWebServer(7070);
 
-        // optional: start webserver on port 7777.
-       // JPhil app2 = JPhil.startServer(7777);
+        // optional: start webserver on port 7070.
+        // JPhil app2 = JPhil.startServer(7070);
 
 
-        //Scenario 2: Create an endpoint with url-path "/" on the webserver and send "Hello world" in text form.
-        // use the response object to call on the method text() and write "Hello world"
-        app.get("/", (request, response) -> response.text("Hello World"));
+        // valgfritt scenario
+        // Lage et endepunkt på webserveren med HTTP-metoden: GET, med URL-sti «/» og send ren text i respons.
+        app.get("/", (request, response) -> response.text("Hello Worlddddd"));
 
 
-        //Scenario 2: Create an endpoint on the webserver with the http method "GET" with URL-path: "/" and give your clients some html code.
-        // use the response object to call on html() with the html content inside the parenthesis/parameter.
+        //Scenario 2: Lage et endepunkt på webserveren med HTTP-metoden: GET, med URL-sti «/home» og send HTML kode i respons.
         app.get("/home", (request, response) -> {
             response.html("<h1>Welcome to this amazing web application</h1><br>" +
-                    "<a href=\"http://localhost:7777/login\" class=\"button\">Go to login page</a>" +
-                    "<style> body{background-color: #E7E8D1;}" +
-                    ".button {background-color: #B85042; color:white; text-decoration: none; padding: 15px 32px; margin: 5px; text-align: center; cursor: pointer; font-size: 14;}" +
-                    "</style>");
+                    "<style> body{background-color: #E7E8D1;} </style>");
         });
 
 
 
-        // Scenario 3: set resource path for static files to a directory named "StaticFiles"
-        // step 1: create a directory named "StaticFiles" inside the folder called "resources" in your IDE/project.
-        // step 2: use app object and call on setStaticFilePath() with "staticFiles" as the parameter.
-        // full path will be: (.../src/main/resources/StaticFiles).
-        app.setStaticFilePath("StaticFiles");
-
-
-
-
-        //Scenario 4: Create an endpoint on the webserver with the http method GET with URL-path: "/login" and send a html file to your clients.
-        // and use the response object to call on file() with a file name "login.html" inside the parenthesis.
+        // Scenario 3: Lage et endepunkt på instansen av JPhil med HTTP-metoden «get», med en URL-sti: «/login» og send en HTML fil kalt login.html til klientene.
         app.get("/login", (request, response) -> {
             response.file("login.html");
         });
 
 
 
-        // optional:
-        // if you want to move out your handlers into a controller to achieve a
-        // Model-view-controller pattern for a better scalability and readability of your web app when it gets big!.
-
-        // option 1:
-        // app.endPoint("/login").with(LoginController.class);
-
-        // option 2:
-       // LoginController loginController = new LoginController();
-      // app.get("/login", loginController::login2);
+        // Scenario 4:
+        // Sette path hvor web-serveren skal servere statiske filer fra.
+       // app.setStaticFilePath("staticFiles");
 
 
+        //Scenario 5:
+        // Lage et endepunkt på webserveren med HTTP-metoden: GET, med URL-sti «/api/users» og send java objekter av «User» klassen i et json-format til klientene i respons.
+        app.get("/api/users", (request, response) -> {
+           List<User> users = userRepository.getAllUsers();
+           response.json(users);
+        });
 
 
+        // Scenario 6: Sette ressurs sti for mal-filer til en mappe kalt «templateFiles» som ligger inni resources mappen.
+       // app.setTemplatePath("templateFiles");
 
-        // Scenario 5: Create an endpoint on the webserver with http method POST with URL-path: "/login" to receive data from the clients.
-        // use the request object to call on getFormParam("uname") & getFormParam("psw") to fetch the username and password data values from the form.
+
+        // Scenario 7:
+        // Lage et endepunkt på webserveren med HTTP-metoden «post» for kunne motta data fra klientene etter de har fylt inn login skjemaet som ligger i "login.html".
         app.post("/login", (request, response) -> {
             String username = request.formParam("uname");
             String password = request.formParam("psw");
-            if(loginValidate(username, password)) {
-                User user = getSpecificUserByUsername(username);
-                if (user != null) {
-                    response.redirect("/profile/" + user.getUserId());
-                }
+            User user = userRepository.getSpecificUserByUsername(username);
+            if (user != null && user.getPassword().equalsIgnoreCase(password)) {
+                HttpSession session = request.session();
+                session.setMaxInactiveInterval(1800);
+                session.setAttribute("userId", user.getUserId());
+                response.redirect("/profile/" + user.getUserId());
+
+
             }
             else {
-                response.redirect("/login");
+                response.redirect("/");
             }
+        });
 
+        // log ut
+        app.get("/logout", (request, response) -> {
+            HttpSession session = request.session();
+            session.invalidate();
+            response.redirect("/login");
         });
 
 
 
 
-        // Scenario 6: set resource path for template files to a directory named "templateFiles".
-        // step 1: create a directory named "templateFiles" inside the folder called "resources" in your IDE/project.
-        // step 2: use app object and call on setTemplatePath() with "templateFiles" as the parameter.
-        // full path will be: (.../src/main/resources/templateFiles).
-        app.setTemplatePath("templateFiles");
+        // Scenario 8:
+        // Lage et parameterisert endepunkt med path «/profile/{userId}» på webserver med http metoden «get» og returner en dynamisk HTML-side basert på en template fil med navn «user-detail».
 
-
-
-
-        //Scenario 7: Create an endpoint on the webserver with http method GET, but now with parameterized url-path: "/{userId}".
-        // step 1: fetch the pathParameter/pathVariable with the getPathParam() with a key name "userId" inside the parenthesis/parameter.
-        // step 2: if the user was found in the database we will use the response object to call on renderTemplate() method which will
-        // take the file name of the template and the model as parameters.
         app.get("/profile/{userId}", (request, response) -> {
             String userId = request.pathParam("userId");
-            User user = getSpecificUserById(userId);
-            if(user != null) {
-                // This will generate the html code with the correct data variables/attributes from the user model.
+            User user = userRepository.getSpecificUserById(Integer.parseInt(userId));
+            String sessionAttribute = request.session().getAttribute("userId").toString();
+            if (user != null && sessionAttribute.equals(userId)) {
                 response.renderTemplate("user-detail", user);
-            }
-            else {
+            } else {
                 response.statusCode(400);
             }
-
         });
 
 
-
-
-
-        // authorization
-        // Scenario 8: put an admin role on an endpoint with the http method GET with a URL-path /admin.
-        // use response object and call on renderTemplate() method which will take the file name of the template and the list of models as parameters.
-        app.get("/admin", (request, response) -> {
-           if (getUserRole(request) == Role.ADMIN) {
-               // here we want to list out all our users on the platform.
-               List<User> allUsers = getAllUsers();
-               response.renderTemplate("users", allUsers);
-
-           } else {
-               response.statusCode(404);
-           }
-
-        // only users with an admin role will have access to this recourse.
+        // Scenario 9: Begrense tilgang til endepunktet med HTTP-metoden GET og path «/admin» med autoriserings logikk.
+        // admin API
+        app.get("/admin", (req, res) -> {
+            res.renderTemplate("users", "users", userRepository.getAllUsers());
         }, Role.ADMIN);
-
-
-
-
-
-
-
-
-        //Scenario 9: create a before-handler on path "/{userId}/*" and implement logic for authentication for our users before the actual endpoint-handler is executed.
-        app.before("/home", (request, response) -> {
-            System.out.println("before");
-
-        });
-
-
-
-
-
-
-
-
-
-        //Scenario 10: coming soon
-        app.after((request, response) -> {
-
-        });
-
-
-
         app.accessManager((handler, request, response, routeRoles) -> {
-            Role userRole = getUserRole(request);
-            if(routeRoles.contains(userRole)) {
-                  handler.handle(request, response);
+            Role userRole = getUserRole(request, userRepository);
+            if (routeRoles.contains(userRole)) {
+                handler.handle(request, response);
             } else {
                 response.statusCode(401);
             }
         });
 
-        app.get("/a", (request, response) -> {
-            response.cookie("role", "admin");
-        });
 
-
-        app.get("/abc", (request, response) -> {
-            response.html("<h1> hello </h1>");
-        }, Role.ADMIN, Role.USER);
-
-
-
-        app.before((request, response) -> {
-
-        });
-
-        System.out.println("*****************");
         printMap();
 
 
-        System.out.println("********aop***********");
-
-
-        app.before("/book/{userId}", (request, response) -> {
-            System.out.println("Hello before");
-            String id = request.pathParam("userId");
-            System.out.println(id);
-        });
-
-
-
-        app.get("/lol", (request, response) -> {
-            System.out.println(request.body());
-            response.text("hello");
-
-
-        });
-
-
-
-        app.before((request, response) -> {
-            // kjøres før alle requests
-        });
-
-        app.before("/path/*", (request, response) -> {
-            // kjøres før request til /path/*
-        });
-
-        app.after("/", (request, response) -> {
-            // kjøres etter request til /path/*
-        });
-
-        app.after((request, response) -> {
-            // kjøres etter alle requests
-        });
 
 
 
 
-}
+    }
 
+    public static Role getUserRole(Request request, UserDataRepository userRepository) {
+        String sessionAttribute = request.session().getAttribute("userId").toString();
+        User user = userRepository.getSpecificUserById(Integer.parseInt(sessionAttribute));
+        if (user != null) {
+            String role = user.getRole();
+            if (role == null) {
+                return Role.ANYONE;
+            } else if (role.equals("admin")) {
+                return Role.ADMIN;
+            } else if (role.equals("user")) {
+                return Role.USER;
+            } else {
+                return Role.ANYONE;
+            }
+        }
+        return Role.ANYONE;
+    }
 
     enum Role implements RouteRole {
-            ADMIN, USER, ANYONE
+        ADMIN, USER, ANYONE
     }
-    public static Role getUserRole(Request request) {
-        String role = request.cookie("role");
-        if(role == null) {
-            return Role.ANYONE;
-        }
-        else if(role.equalsIgnoreCase("admin")) {
-            return Role.ADMIN;
-        }
-        else if (role.equalsIgnoreCase("user")){
-            return Role.USER;
-        }
-        else {
-            return Role.ANYONE;
-        }
-    }
-
-    private static List<User> getAllUsers() {
-
-        return null;
-    }
-
-    private static User getSpecificUserByUsername(String username) {
-        return null;
-    }
-
-    private static boolean loginValidate(String username, String password) {
-
-        return false;
-    }
-
-
-    private static User getSpecificUserById(String userId) {
-        return null;
-    }
-
-
-
 
 }
-
-

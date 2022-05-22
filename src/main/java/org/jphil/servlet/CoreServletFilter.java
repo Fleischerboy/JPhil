@@ -3,6 +3,7 @@ package org.jphil.servlet;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.eclipse.jetty.util.Jetty;
 import org.jphil.core.security.RouteRole;
 import org.jphil.handler.HandlerExecution;
 import org.jphil.http.Mapping.AccessManagerWrapper;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static org.jphil.utils.PathUtils.extractPathFromRequest;
+import static org.jphil.webserver.jettyWebServer.stopServer;
 
 
 public class CoreServletFilter implements Filter {
@@ -99,7 +101,6 @@ public class CoreServletFilter implements Filter {
 
     @Override
     public void destroy() {
-
 
     }
 }

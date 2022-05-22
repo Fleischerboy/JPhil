@@ -1,32 +1,39 @@
 package Scenarios.models;
 
+import java.util.List;
+
 public class User {
-   private String userId;
-   private String firstName;
-   private String lastName;
-   private String email;
-   private String profileImage;
-   private String username;
-   private String password;
-   private String role;
+
+    private int userId;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String userName;
+    private String password;
+    private String role;
+
+    private final List<TodoList> todoList;
 
 
-    public User(String userId, String firstName, String lastName, String email, String profileImage, String username, String password, String role) {
+    public User(int userId, String firstName, String lastName, String email, String userName, String password, String role, List<TodoList> todoList) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.profileImage = profileImage;
-        this.username = username;
+        this.userName = userName;
         this.password = password;
         this.role = role;
+        this.todoList = todoList;
     }
 
-    public String getUserId() {
+
+
+
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -54,20 +61,12 @@ public class User {
         this.email = email;
     }
 
-    public String getProfileImage() {
-        return profileImage;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -86,19 +85,20 @@ public class User {
         this.role = role;
     }
 
+    public List<TodoList> getTodoList() {
+        return todoList;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "userId='" + userId + '\'' +
+                "userId=" + userId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", profileImage='" + profileImage + '\'' +
-                ", username='" + username + '\'' +
+                ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }
 }
-
-
