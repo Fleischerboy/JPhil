@@ -19,7 +19,7 @@ public class HandlerExecutionChain {
     private final HandlerWrapper handlerWrapper;
     private final Stack<HandlerWrapper> afterInterceptors;
 
-    Logger logger = LoggerFactory.getLogger(HandlerExecutionChain.class);
+   private static final Logger logger = LoggerFactory.getLogger(HandlerExecutionChain.class);
     /**
      * /book/{id} => /book/666 = {id:666}
      */

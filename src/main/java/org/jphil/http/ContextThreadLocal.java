@@ -28,13 +28,13 @@ public class ContextThreadLocal {
         return threadLocalResponse.get();
     }
 
-    public static void removeRequestThread(){
+    public static void removeRequestOnLocalThread(){
         threadLocalRequest.remove();
 
     }
 
 
-    public static void removeResponseThread(){
+    public static void removeResponseOnLocalThread(){
         threadLocalResponse.remove();
 
     }

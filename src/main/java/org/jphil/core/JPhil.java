@@ -15,6 +15,7 @@ public class JPhil {
     private static boolean isJettyServerRunning = false;
 
     private JPhil() {
+
     }
 
     public static JPhil startWebServer() {

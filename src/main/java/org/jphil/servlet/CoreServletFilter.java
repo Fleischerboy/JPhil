@@ -22,7 +22,7 @@ import static org.jphil.utils.PathUtils.extractPathFromRequest;
 
 public class CoreServletFilter implements Filter {
 
-    Logger logger = LoggerFactory.getLogger(CoreServletFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(CoreServletFilter.class);
 
     /**
      *
@@ -44,7 +44,7 @@ public class CoreServletFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException {
         logger.info("Filter is starting...");
-        HandlerExecutionChain handlerExecution = null;
+        HandlerExecutionChain handlerExecutionChain = null;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         request.setCharacterEncoding("UTF-8");
@@ -55,19 +55,19 @@ public class CoreServletFilter implements Filter {
         if (request.getRequestURI().equals("/favicon.ico")) {
             return;
         }
-        handlerExecution = getHandler(request);
-        if(handlerExecution != null) {
+        handlerExecutionChain = getHandler(request);
+        if(handlerExecutionChain != null) {
             try {
-                handlerExecution.handle(request, response);
+                handlerExecutionChain.handle(request, response);
             } catch (Exception e) {
                 System.out.println(Arrays.toString(e.getStackTrace()));
             } finally {
-                ContextThreadLocal.removeRequestThread();
-                ContextThreadLocal.removeResponseThread();
+                ContextThreadLocal.removeRequestOnLocalThread();
+                ContextThreadLocal.removeResponseOnLocalThread();
+
             }
         } else {
             logger.warn("Can't find mapping for path :" + path);
-            System.out.println("Can't find mapping for path:" + path);
         }
 
     }

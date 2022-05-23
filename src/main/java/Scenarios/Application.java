@@ -126,10 +126,22 @@ public class Application {
 
         // Scenario 10: lage før-behandlere
 
+
+
         app.before((request, response) -> {
-           // System.out.println(request.ip());
 
         });
+
+        app.before("/home",(request, response) -> {
+
+        });
+
+
+
+
+
+
+
 
 
 
@@ -140,6 +152,8 @@ public class Application {
         app.after((request, response) -> {
            // System.out.println(request.isRequestedSessionIdValid());
         });
+
+
 
 
 
