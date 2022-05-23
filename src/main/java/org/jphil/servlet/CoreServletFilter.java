@@ -13,11 +13,10 @@ import org.jphil.http.Mapping.Interceptor.Interceptor;
 import org.jphil.http.Mapping.Interceptor.InterceptorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.util.*;
-
 import static org.jphil.utils.PathUtils.extractPathFromRequest;
+
 
 
 public class CoreServletFilter implements Filter {

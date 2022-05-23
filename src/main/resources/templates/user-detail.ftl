@@ -56,7 +56,8 @@
         background: #231e39;
         color: #b3b8cd;
         border-radius: 5px;
-        width: 35%;
+        max-width: 40%;
+        min-width: 10%;
         text-align: center;
         box-shadow: 0 10px 20px -10px rgba(0, 0, 0, .75);
         padding-bottom: 50px;

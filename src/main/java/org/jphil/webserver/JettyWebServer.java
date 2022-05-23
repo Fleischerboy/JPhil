@@ -4,13 +4,15 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.jphil.servlet.CoreServletFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.EnumSet;
+import java.util.concurrent.TimeUnit;
 
-public class jettyWebServer {
+public class JettyWebServer {
 
-
-
+    private static final Logger logger = LoggerFactory.getLogger(JettyWebServer.class);
     private static int serverPort = 8080;
 
     private static final Server jettyServer = new Server();
@@ -23,7 +25,20 @@ public class jettyWebServer {
     }
 
     public static void startServer() {
-        new Thread(org.jphil.webserver.jettyWebServer::initJettyServer).start();
+        new Thread(JettyWebServer::initJettyServer).start();
+    }
+
+    public static void stopServer(){
+        try {
+            TimeUnit.SECONDS.sleep(3);
+            jettyServer.stop();
+            logger.info("WebServer stopped");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
     }
 
 
@@ -45,12 +60,6 @@ public class jettyWebServer {
      }
 
 
-    public static void stopServer(){
-        try {
-            jettyServer.stop();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
     }

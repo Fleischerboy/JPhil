@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpSession;
 import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;
 import org.jphil.http.Request;
-
 import java.util.List;
 
 
@@ -22,11 +21,12 @@ public class Application {
 
 
         // Scenario 1: Starte webserveren på port 8080.
+        //JPhil app = JPhil.startWebServer();
+
+
+        // Scenario 1: (optional) start webserver on port 7070.
         JPhil app = JPhil.startWebServer(7070);
 
-
-        // optional: start webserver on port 7070.
-        //JPhil app2 = JPhil.startWebServer(7777);
 
 
         // valgfritt scenario
@@ -143,15 +143,14 @@ public class Application {
 
 
 
-
-
-
         // Scenario 11: lage etter-behandlere
 
 
         app.after((request, response) -> {
-           // System.out.println(request.isRequestedSessionIdValid());
+
         });
+
+
 
 
 

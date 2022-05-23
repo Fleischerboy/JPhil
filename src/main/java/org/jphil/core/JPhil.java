@@ -6,23 +6,42 @@ import org.jphil.http.HttpMethod;
 import org.jphil.http.Mapping.EndPointMappingFactory;
 import org.jphil.http.Mapping.Interceptor.Interceptor;
 import org.jphil.http.Mapping.Interceptor.InterceptorFactory;
-import org.jphil.webserver.jettyWebServer;
+import org.jphil.webserver.JettyWebServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
+
 public class JPhil {
     private static final Logger logger = LoggerFactory.getLogger(JPhil.class);
-    private static boolean isJettyServerRunning = false;
+    private static boolean isWebServerRunning = false;
+    private static JPhil instance = null;
 
     private JPhil() {
 
     }
 
+    /**
+     *
+     * @return JPhil instance
+     */
+    public static JPhil getInstance() {
+        if(instance == null) {
+            instance = new JPhil();
+        }
+        return instance;
+    }
+
     public static JPhil startWebServer() {
-        JPhil app = new JPhil();
-        startJettyServer();
-        logger.info("Server started on port 8080");
-        return app;
+        if(isWebServerRunning) {
+            return getInstance();
+        }
+        else {
+            JPhil app = getInstance();
+            startJettyServer();
+            logger.info("Server started on port 8080");
+            return app;
+        }
     }
 
     /**
@@ -32,16 +51,21 @@ public class JPhil {
      * Instance of Application
      */
     public static JPhil startWebServer(int port) {
-        JPhil app = new JPhil();
-        jettyWebServer.setServerPort(port);
-        startJettyServer();
-        logger.info("Server started on port " + port);
-        return app;
+        if(isWebServerRunning) {
+            return getInstance();
+        }
+        else {
+            JPhil app = getInstance();
+            JettyWebServer.setServerPort(port);
+            startJettyServer();
+            logger.info("Server started on port " + port);
+            return app;
+        }
     }
 
     private static void startJettyServer() {
-        jettyWebServer.startServer();
-        isJettyServerRunning = true;
+        JettyWebServer.startServer();
+        isWebServerRunning = true;
     }
 
     /**
@@ -183,18 +207,36 @@ public class JPhil {
 
     }
 
+    /**
+     * stop jetty web server
+     */
+    public void stopWebServer(){
+        JettyWebServer.stopServer();
+    }
 
+
+    /**
+     *  set new path for static files
+     * @param path
+     */
     public void setStaticFilePath(String path) {
         JPhilConfig.setStaticFilePath(path);
     }
 
+    /**
+     * set new path for template files: (FTL)
+     * @param path
+     */
     public void setTemplatePath(String path) {
         JPhilConfig.setTemplatePath(path);
     }
 
-
+    /**
+     *
+     * @return isJettyServerRunning?
+     */
     public boolean isJettyServerRunning() {
-        return isJettyServerRunning;
+        return isWebServerRunning;
     }
 
 }

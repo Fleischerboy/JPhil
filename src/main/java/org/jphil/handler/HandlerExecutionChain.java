@@ -43,7 +43,7 @@ public class HandlerExecutionChain {
             req.addPathVariables(variables);
         }
 
-        if (!(beforeInterceptors.isEmpty()) && beforeInterceptors != null) {
+        if (beforeInterceptors != null) {
             invokeBeforeInterceptors(req, res);
         }
 
@@ -55,7 +55,7 @@ public class HandlerExecutionChain {
             res.statusCode(404);
         }
 
-        if(!(afterInterceptors.isEmpty()) && afterInterceptors != null) {
+        if(afterInterceptors != null) {
             invokeAfterInterceptors(req, res);
         }
     }
