@@ -31,7 +31,6 @@ public class EndPointMappingFactory {
     }
 
 
-
     public static void addRoute(HttpMethod method, String path, Handler handler, RouteRole... roles) {
         Set<RouteRole> roleSet = new HashSet<>(Arrays.asList(roles));
         path = validateHandlerCreation(method, path, handler);
@@ -40,14 +39,11 @@ public class EndPointMappingFactory {
     }
 
 
-
-   public static void setAccessManager(AccessManager accessManager) {
-        if(accessManager != null) {
+    public static void setAccessManager(AccessManager accessManager) {
+        if (accessManager != null) {
             accessManagerWrapper = new AccessManagerWrapper(accessManager);
         }
-   }
-
-
+    }
 
 
     public static Map<EndPointMapping, HandlerWrapper> getEndpointHandleMap() {
@@ -59,7 +55,7 @@ public class EndPointMappingFactory {
      * @param method    HTTP
      * @param path      request path
      * @param variables /book/{id} => /book/666 = {id:666}
-     * @param roleSet Role.ADMIN, role.USER, role.ANYONE etc. as many roles you want!
+     * @param roleSet   Role.ADMIN, role.USER, role.ANYONE etc. as many roles you want!
      * @return
      */
     public static HandlerWrapper getHandlerWrapper(String method, String path, Map<String, String> variables, Set<RouteRole> roleSet) {
@@ -68,20 +64,19 @@ public class EndPointMappingFactory {
             EndPointMapping mapping = entries.getKey();
             if (mapping.getMethod().toString().equals(method.toUpperCase())) {
                 if (pathMatcher.match(mapping.getPath(), path)) {
-                     matchedPaths.add(mapping.getPath());
-                     if(mapping.getRoleSet() != null) {
-                         roleSet.addAll(mapping.getRoleSet());
-                     }
+                    matchedPaths.add(mapping.getPath());
+                    if (mapping.getRoleSet() != null) {
+                        roleSet.addAll(mapping.getRoleSet());
+                    }
                 }
             }
         }
         if (!matchedPaths.isEmpty()) {
             String bestPath = findBestPath(matchedPaths);
             variables.putAll(pathMatcher.extractUriTemplateVariables(bestPath, path));
-            if(!(roleSet.isEmpty())) {
+            if (!(roleSet.isEmpty())) {
                 return endpointHandleMap.get(new EndPointMapping(getHttpMethod(method), bestPath, roleSet));
-            }
-            else {
+            } else {
                 return endpointHandleMap.get(new EndPointMapping(getHttpMethod(method), bestPath));
             }
         }
@@ -92,15 +87,14 @@ public class EndPointMappingFactory {
         String bestPath = "";
         if (matchedPaths.size() == 1) {
             bestPath = matchedPaths.get(0);
-        }
-        else {
-            for (String onePath: matchedPaths) {
-                if(onePath.length() == bestPath.length()) {
-                    if(measure(onePath, '*') < measure(bestPath,'*')){
+        } else {
+            for (String onePath : matchedPaths) {
+                if (onePath.length() == bestPath.length()) {
+                    if (measure(onePath, '*') < measure(bestPath, '*')) {
                         bestPath = onePath;
                     }
                 }
-                if(bestPath.length() < onePath.length()) {
+                if (bestPath.length() < onePath.length()) {
                     bestPath = onePath;
                 }
             }
@@ -137,16 +131,15 @@ public class EndPointMappingFactory {
     }
 
 
-    public static int measure(String str, char ch){
+    public static int measure(String str, char ch) {
         int count = 0;
-        for(char oneChar : str.toCharArray()){
-            if(oneChar==ch){
+        for (char oneChar : str.toCharArray()) {
+            if (oneChar == ch) {
                 count++;
             }
         }
         return count;
     }
-
 
 
 }

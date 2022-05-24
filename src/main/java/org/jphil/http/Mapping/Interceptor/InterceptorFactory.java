@@ -21,30 +21,29 @@ public class InterceptorFactory {
 
 
     public static void addInterceptor(Interceptor interceptor, String path, Handler handler) {
-         path = validateHandlerCreation(interceptor, path, handler);
-         HandlerWrapper handlerWrapper = new HandlerWrapper(handler);
-         interceptorList.add(new InterceptorMapping(interceptor, path, handlerWrapper));
+        path = validateHandlerCreation(interceptor, path, handler);
+        HandlerWrapper handlerWrapper = new HandlerWrapper(handler);
+        interceptorList.add(new InterceptorMapping(interceptor, path, handlerWrapper));
 
     }
 
     public static Stack<HandlerWrapper> getInterceptors(String path, Interceptor interceptor, Map<String, String> variables) {
-        if(path.isEmpty()) {
+        if (path.isEmpty()) {
             path = "/";
         }
         Stack<HandlerWrapper> interceptors = new Stack<>();
-        for (InterceptorMapping oneInterceptor: interceptorList) {
-            if(oneInterceptor.getInterceptor() == interceptor) {
-                if(pathMatcher.match(oneInterceptor.getPath(), path)) {
+        for (InterceptorMapping oneInterceptor : interceptorList) {
+            if (oneInterceptor.getInterceptor() == interceptor) {
+                if (pathMatcher.match(oneInterceptor.getPath(), path)) {
                     variables.putAll(pathMatcher.extractUriTemplateVariables(oneInterceptor.getPath(), path));
                     HandlerWrapper hw = oneInterceptor.getHandlerWrapper();
                     interceptors.add(hw);
                 }
             }
         }
-        if(!interceptors.empty()) {
+        if (!interceptors.empty()) {
             return interceptors;
-        }
-        else {
+        } else {
             return null;
         }
 

@@ -10,7 +10,6 @@ import java.util.Set;
 public interface AccessManager {
 
     /**
-     *
      * @param handler
      * @param request
      * @param response

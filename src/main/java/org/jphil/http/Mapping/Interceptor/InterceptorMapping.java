@@ -1,4 +1,5 @@
 package org.jphil.http.Mapping.Interceptor;
+
 import org.jphil.http.Mapping.HandlerWrapper;
 
 import java.util.Objects;
@@ -14,7 +15,6 @@ public class InterceptorMapping {
         this.path = path;
         this.handlerWrapper = handlerWrapper;
     }
-
 
 
     public Interceptor getInterceptor() {

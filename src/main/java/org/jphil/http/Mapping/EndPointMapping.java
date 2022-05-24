@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class EndPointMapping {
 
-    private HttpMethod method;
+    private final HttpMethod method;
     private String path;
     // A HashSet is a collection of items where every item is unique
     private Set<RouteRole> roleSet;

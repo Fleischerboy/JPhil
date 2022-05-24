@@ -1,10 +1,10 @@
 package org.jphil.http;
 
-import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtil;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
@@ -27,14 +27,12 @@ public class Request {
     }
 
 
-
     /**
      * @return the protocol of the request ex: http/https
      */
     public String protocol() {
         return servletRequest.getScheme();
     }
-
 
 
     /**
@@ -85,7 +83,6 @@ public class Request {
 
 
     /**
-     *
      * @return content length
      */
     public int contentLength() {
@@ -119,7 +116,6 @@ public class Request {
 
 
     /**
-     *
      * @return headers of the request
      */
     public Map<String, String> headers() {
@@ -132,7 +128,6 @@ public class Request {
         }
         return headersMap;
     }
-
 
 
     /*
@@ -148,7 +143,6 @@ public class Request {
 
 
     /**
-     *
      * @return map of all form parameters
      */
     public Map<String, String[]> formParams() {
@@ -157,7 +151,6 @@ public class Request {
 
 
     /**
-     *
      * @param name
      * @return path parameter by name as string
      */
@@ -170,7 +163,6 @@ public class Request {
     }
 
     /**
-     *
      * @return return map of all path parameters
      */
     public Map<String, String> pathParams() {
@@ -179,24 +171,22 @@ public class Request {
 
 
     /**
-     *
      * @param name of the cookie
      * @return cookie value of the given cookie name
      */
     public String cookie(String name) {
-      Cookie[] cookies = servletRequest.getCookies();
-      if(cookies != null) {
-          for (Cookie cookie: cookies) {
-              if(cookie.getName().equals(name)) {
-                  return cookie.getValue();
-              }
-          }
-      }
-      return null;
+        Cookie[] cookies = servletRequest.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(name)) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
     }
 
     /**
-     *
      * @return map of all request cookies
      */
     public Map<String, String> cookies() {
@@ -207,17 +197,15 @@ public class Request {
             String cookieValue = cookie.getValue();
             cookieMap.put(cookieName, cookieValue);
         }
-        if(!cookieMap.isEmpty()) {
+        if (!cookieMap.isEmpty()) {
             return cookieMap;
-        }
-        else {
+        } else {
             return null;
         }
     }
 
 
     /**
-     *
      * @return returns the current session associated with this request; if there is no session, it will create one.
      */
     public HttpSession session() {
@@ -226,10 +214,9 @@ public class Request {
 
 
     /**
-     *
      * @return Returns the session ID specified by the client.
-     *         This may not be the same as the ID of the current valid session for this request.
-     *         If the client did not specify a session ID, this method returns null.
+     * This may not be the same as the ID of the current valid session for this request.
+     * If the client did not specify a session ID, this method returns null.
      */
     public String requestSessionId() {
         return servletRequest.getRequestedSessionId();
@@ -237,6 +224,7 @@ public class Request {
 
     /**
      * This method changes the session id of the current request and returns the new session id.
+     *
      * @return new session id
      */
     public String changeSessionId() {
@@ -245,6 +233,7 @@ public class Request {
 
     /**
      * isRequestedSessionIdValid?
+     *
      * @return true or false
      */
     public boolean isRequestedSessionIdValid() {
@@ -254,6 +243,7 @@ public class Request {
 
     /**
      * isRequestedSessionIdFromCookie?
+     *
      * @return true or false
      */
     public boolean isRequestedSessionIdFromCookie() {
@@ -262,6 +252,7 @@ public class Request {
 
     /**
      * isRequestedSessionIdFromURL?
+     *
      * @return true or false
      */
     public boolean isRequestedSessionIdFromURL() {
@@ -277,7 +268,7 @@ public class Request {
 
 
     // request body as array of bytes
-    public byte[] bodyAsBytes()   {
+    public byte[] bodyAsBytes() {
         try {
             InputStream byteBody = bodyAsInputStream();
             return IOUtil.toByteArray(byteBody);
@@ -295,14 +286,13 @@ public class Request {
         } catch (IOException e) {
             e.printStackTrace();
         }
-       return null;
+        return null;
     }
 
 
     public void addPathVariable(String name, String value) {
         pathVariables.put(name, URLDecoder.decode(value, StandardCharsets.UTF_8));
     }
-
 
 
     public void addPathVariables(Map<String, String> map) {

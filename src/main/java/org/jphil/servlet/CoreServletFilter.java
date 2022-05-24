@@ -13,10 +13,11 @@ import org.jphil.http.Mapping.Interceptor.Interceptor;
 import org.jphil.http.Mapping.Interceptor.InterceptorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.*;
-import static org.jphil.utils.PathUtils.extractPathFromRequest;
 
+import static org.jphil.utils.PathUtils.extractPathFromRequest;
 
 
 public class CoreServletFilter implements Filter {
@@ -24,7 +25,6 @@ public class CoreServletFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(CoreServletFilter.class);
 
     /**
-     *
      * @param filterConfig
      * @throws ServletException
      */
@@ -55,7 +55,7 @@ public class CoreServletFilter implements Filter {
             return;
         }
         handlerExecutionChain = getHandler(request);
-        if(handlerExecutionChain != null) {
+        if (handlerExecutionChain != null) {
             try {
                 handlerExecutionChain.handle(request, response);
             } catch (Exception e) {
@@ -71,7 +71,6 @@ public class CoreServletFilter implements Filter {
 
     }
 
-    
 
     private static HandlerExecutionChain getHandler(HttpServletRequest request) {
         Map<String, String> pathVariables = new HashMap<>();
@@ -80,7 +79,7 @@ public class CoreServletFilter implements Filter {
         String path = extractPathFromRequest(request);
         HandlerWrapper handlerWrapper = EndPointMappingFactory.getHandlerWrapper(method, path, pathVariables, roleSet);
         Stack<HandlerWrapper> beforeInterceptors = InterceptorFactory.getInterceptors(path, Interceptor.BEFORE, pathVariables);
-        Stack<HandlerWrapper> afterInterceptors =  InterceptorFactory.getInterceptors(path, Interceptor.AFTER, pathVariables);
+        Stack<HandlerWrapper> afterInterceptors = InterceptorFactory.getInterceptors(path, Interceptor.AFTER, pathVariables);
         HandlerExecutionChain handlerExecutionChain = new HandlerExecutionChain(beforeInterceptors, handlerWrapper, afterInterceptors);
         if (!(pathVariables.isEmpty())) {
             handlerExecutionChain.setVariables(pathVariables);
@@ -88,10 +87,9 @@ public class CoreServletFilter implements Filter {
         if (!(roleSet.isEmpty())) {
             handlerExecutionChain.setRoleSet(roleSet);
             AccessManagerWrapper accessManager = EndPointMappingFactory.getAccessManagerWrapper();
-            if(accessManager != null) {
+            if (accessManager != null) {
                 handlerExecutionChain.setAccessManagerWrapper(accessManager);
-            }
-            else {
+            } else {
                 System.out.println("missing implementation of access manager");
             }
         }

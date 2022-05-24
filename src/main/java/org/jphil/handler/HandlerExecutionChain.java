@@ -20,7 +20,7 @@ public class HandlerExecutionChain {
     private final Stack<HandlerWrapper> afterInterceptors;
     private String path;
 
-   private static final Logger logger = LoggerFactory.getLogger(HandlerExecutionChain.class);
+    private static final Logger logger = LoggerFactory.getLogger(HandlerExecutionChain.class);
     /**
      * /book/{id} => /book/666 = {id:666}
      */
@@ -40,7 +40,7 @@ public class HandlerExecutionChain {
     public void handle(HttpServletRequest request, HttpServletResponse response) {
         Request req = new Request(request);
         Response res = new Response(response);
-        if(!(variables.isEmpty())) {
+        if (!(variables.isEmpty())) {
             req.addPathVariables(variables);
         }
 
@@ -48,50 +48,45 @@ public class HandlerExecutionChain {
             invokeBeforeInterceptors(req, res);
         }
 
-        if(handlerWrapper != null) {
+        if (handlerWrapper != null) {
             invoke(req, res);
-        }
-        else {
-            if(path.equalsIgnoreCase("/stylesheets/style.css")){
+        } else {
+            if (path.equalsIgnoreCase("/stylesheets/style.css")) {
                 return;
             }
             logger.warn("Can't find mapping for any endpoints with (GET,POST,PUT OR DELETE) on path: " + path);
             res.statusCode(404);
         }
 
-        if(afterInterceptors != null) {
+        if (afterInterceptors != null) {
             invokeAfterInterceptors(req, res);
         }
     }
 
 
     private void invokeBeforeInterceptors(Request request, Response response) {
-            for (HandlerWrapper oneHandler : beforeInterceptors) {
-                 oneHandler.handle(request, response);
-            }
+        for (HandlerWrapper oneHandler : beforeInterceptors) {
+            oneHandler.handle(request, response);
+        }
     }
 
 
-
     private void invoke(Request req, Response res) {
-        if(!(roleSet.isEmpty())) {
-            if(accessManagerWrapper != null) {
-                accessManagerWrapper.manage(handlerWrapper.getHandler(), req ,res, roleSet);
+        if (!(roleSet.isEmpty())) {
+            if (accessManagerWrapper != null) {
+                accessManagerWrapper.manage(handlerWrapper.getHandler(), req, res, roleSet);
             }
-        }
-        else {
+        } else {
             handlerWrapper.handle(req, res);
         }
     }
 
 
-
     private void invokeAfterInterceptors(Request req, Response res) {
-            for (HandlerWrapper oneHandler : afterInterceptors) {
-                oneHandler.handle(req, res);
-            }
+        for (HandlerWrapper oneHandler : afterInterceptors) {
+            oneHandler.handle(req, res);
+        }
     }
-
 
 
     public void setVariables(Map<String, String> templateVariables) {

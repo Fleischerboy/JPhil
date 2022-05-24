@@ -1,4 +1,5 @@
 package org.jphil.core;
+
 import org.jphil.core.security.AccessManager;
 import org.jphil.core.security.RouteRole;
 import org.jphil.handler.Handler;
@@ -24,7 +25,7 @@ public class JPhil {
      * @return JPhil instance
      */
     public static JPhil getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new JPhil();
         }
         return instance;
@@ -32,13 +33,13 @@ public class JPhil {
 
     /**
      * default port: 8080
+     *
      * @return Instance of JPhil
      */
     public static JPhil startWebServer() {
-        if(isWebServerRunning) {
+        if (isWebServerRunning) {
             return getInstance();
-        }
-        else {
+        } else {
             JPhil app = getInstance();
             startJettyServer();
             logger.info("Server started on port 8080");
@@ -47,16 +48,13 @@ public class JPhil {
     }
 
     /**
-     * @param port
-     * Port number for the server to listen on
-     * @return
-     * Instance of JPhil
+     * @param port Port number for the server to listen on
+     * @return Instance of JPhil
      */
     public static JPhil startWebServer(int port) {
-        if(isWebServerRunning) {
+        if (isWebServerRunning) {
             return getInstance();
-        }
-        else {
+        } else {
             JPhil app = getInstance();
             JettyWebServer.setServerPort(port);
             startJettyServer();
@@ -72,8 +70,9 @@ public class JPhil {
 
     /**
      * HTTP GET
-      @param path
-      @param handler
+     *
+     * @param path
+     * @param handler
      */
     public void get(String path, Handler handler) {
         EndPointMappingFactory.addRoute(HttpMethod.GET, path, handler);
@@ -81,6 +80,7 @@ public class JPhil {
 
     /**
      * HTTP POST
+     *
      * @param path
      * @param handler
      */
@@ -91,6 +91,7 @@ public class JPhil {
 
     /**
      * HTTP PUT
+     *
      * @param path
      * @param handler
      */
@@ -100,6 +101,7 @@ public class JPhil {
 
     /**
      * HTTP DELETE
+     *
      * @param path
      * @param handler
      */
@@ -108,7 +110,6 @@ public class JPhil {
     }
 
     /**
-     *
      * @param path
      * @param handler
      * @param roles
@@ -118,7 +119,6 @@ public class JPhil {
     }
 
     /**
-     *
      * @param path
      * @param handler
      * @param roles
@@ -128,7 +128,6 @@ public class JPhil {
     }
 
     /**
-     *
      * @param path
      * @param handler
      * @param roles
@@ -138,7 +137,6 @@ public class JPhil {
     }
 
     /**
-     *
      * @param path
      * @param handler
      * @param roles
@@ -149,6 +147,7 @@ public class JPhil {
 
     /**
      * will execute before all request
+     *
      * @param handler
      */
     public void before(Handler handler) {
@@ -157,6 +156,7 @@ public class JPhil {
 
     /**
      * will execute before request to /path
+     *
      * @param path
      * @param handler
      */
@@ -167,6 +167,7 @@ public class JPhil {
 
     /**
      * After handler that will run after request to /path.
+     *
      * @param path
      * @param handler
      */
@@ -177,6 +178,7 @@ public class JPhil {
 
     /**
      * After handler that will run after every request.
+     *
      * @param handler
      */
     public void after(Handler handler) {
@@ -185,7 +187,6 @@ public class JPhil {
 
 
     /**
-     *
      * @param accessManager
      */
     public void accessManager(AccessManager accessManager) {
@@ -195,10 +196,8 @@ public class JPhil {
     }
 
 
-
-
     public JPhil endPoint(String path) {
-       return null;
+        return null;
     }
 
     public JPhil endPoint(String path, RouteRole... roles) {
@@ -209,32 +208,38 @@ public class JPhil {
 
     }
 
+
     /**
      * stop jetty web server
      */
-    public void stopWebServer(){
+    public void stopWebServer() {
         JettyWebServer.stopServer();
     }
 
 
     /**
      * set new path for static files
+     *
      * @param path
      */
     public void setStaticFilePath(String path) {
         JPhilConfig.setStaticFilePath(path);
     }
 
+
     /**
      * set new path for template files: (FTL)
+     *
      * @param path
      */
     public void setTemplatePath(String path) {
         JPhilConfig.setTemplatePath(path);
     }
 
+
     /**
      * isJettyServerRunning?
+     *
      * @return true or false
      */
     public boolean isJettyServerRunning() {

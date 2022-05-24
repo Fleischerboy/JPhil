@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 /*
  * Copyright 2002-2022 the original author or authors.
  *
@@ -21,14 +22,16 @@ import java.util.regex.Pattern;
  */
 public class AntPathMatcher implements PathMatcher {
 
-    /** Default path separator: "/" */
+    /**
+     * Default path separator: "/"
+     */
     public static final String DEFAULT_PATH_SEPARATOR = "/";
 
     private static final int CACHE_TURNOFF_THRESHOLD = 65536;
 
     private static final Pattern VARIABLE_PATTERN = Pattern.compile("\\{[^/]+?\\}");
 
-    private static final char[] WILDCARD_CHARS = { '*', '?', '{' };
+    private static final char[] WILDCARD_CHARS = {'*', '?', '{'};
 
 
     private String pathSeparator;
@@ -56,6 +59,7 @@ public class AntPathMatcher implements PathMatcher {
 
     /**
      * A convenient, alternative constructor to use with a custom path separator.
+     *
      * @param pathSeparator the path separator to use, must not be {@code null}.
      * @since 4.1
      */
@@ -77,6 +81,7 @@ public class AntPathMatcher implements PathMatcher {
     /**
      * Specify whether to perform pattern matching in a case-sensitive fashion.
      * <p>Default is {@code true}. Switch this to {@code false} for case-insensitive matching.
+     *
      * @since 4.2
      */
     public void setCaseSensitive(boolean caseSensitive) {
@@ -100,8 +105,9 @@ public class AntPathMatcher implements PathMatcher {
      * turn it off when encountering too many patterns to cache at runtime
      * (the threshold is 65536), assuming that arbitrary permutations of patterns
      * are coming in, with little chance for encountering a recurring pattern.
-     * @since 4.0.1
+     *
      * @see #getStringMatcher(String)
+     * @since 4.0.1
      */
     public void setCachePatterns(boolean cachePatterns) {
         this.cachePatterns = cachePatterns;
@@ -131,10 +137,11 @@ public class AntPathMatcher implements PathMatcher {
 
     /**
      * Actually match the given {@code path} against the given {@code pattern}.
-     * @param pattern the pattern to match against
-     * @param path the path String to test
+     *
+     * @param pattern   the pattern to match against
+     * @param path      the path String to test
      * @param fullMatch whether a full pattern match is required (else a pattern match
-     * as far as the given base path goes is sufficient)
+     *                  as far as the given base path goes is sufficient)
      * @return {@code true} if the supplied {@code path} matched, {@code false} if it didn't
      */
     protected boolean doMatch(String pattern, String path, boolean fullMatch, Map<String, String> uriTemplateVariables) {
@@ -170,8 +177,7 @@ public class AntPathMatcher implements PathMatcher {
         if (pathIdxStart > pathIdxEnd) {
             // Path is exhausted, only match if rest of pattern is * or **'s
             if (pattIdxStart > pattIdxEnd) {
-                return (pattern.endsWith(this.pathSeparator) ? path.endsWith(this.pathSeparator) :
-                        !path.endsWith(this.pathSeparator));
+                return (pattern.endsWith(this.pathSeparator) == path.endsWith(this.pathSeparator));
             }
             if (!fullMatch) {
                 return true;
@@ -185,12 +191,10 @@ public class AntPathMatcher implements PathMatcher {
                 }
             }
             return true;
-        }
-        else if (pattIdxStart > pattIdxEnd) {
+        } else if (pattIdxStart > pattIdxEnd) {
             // String not exhausted, but pattern is. Failure.
             return false;
-        }
-        else if (!fullMatch && "**".equals(pattDirs[pattIdxStart])) {
+        } else if (!fullMatch && "**".equals(pattDirs[pattIdxStart])) {
             // Path start definitely matches due to "**" part in pattern.
             return true;
         }
@@ -313,6 +317,7 @@ public class AntPathMatcher implements PathMatcher {
      * Tokenize the given path pattern into parts, based on this matcher's settings.
      * <p>Performs caching based on {@link #setCachePatterns}, delegating to
      * {@link #tokenizePath(String)} for the actual tokenization algorithm.
+     *
      * @param pattern the pattern to tokenize
      * @return the tokenized pattern parts
      */
@@ -340,6 +345,7 @@ public class AntPathMatcher implements PathMatcher {
 
     /**
      * Tokenize the given path String into parts, based on this matcher's settings.
+     *
      * @param path the path to tokenize
      * @return the tokenized path parts
      */
@@ -349,8 +355,9 @@ public class AntPathMatcher implements PathMatcher {
 
     /**
      * Test whether or not a string matches against a pattern.
+     *
      * @param pattern the pattern to match against (never {@code null})
-     * @param str the String which must be matched against the pattern (never {@code null})
+     * @param str     the String which must be matched against the pattern (never {@code null})
      * @return {@code true} if the string matches against the pattern, or {@code false} otherwise
      */
     private boolean matchStrings(String pattern, String str, Map<String, String> uriTemplateVariables) {
@@ -366,6 +373,7 @@ public class AntPathMatcher implements PathMatcher {
      * it turns the default cache off, assuming that arbitrary permutations of patterns
      * are coming in, with little chance for encountering a recurring pattern.
      * <p>This method may be overridden to implement a custom cache strategy.
+     *
      * @param pattern the pattern to match against (never {@code null})
      * @return a corresponding AntPathStringMatcher (never {@code null})
      * @see #setCachePatterns
@@ -461,6 +469,7 @@ public class AntPathMatcher implements PathMatcher {
      * <tr><td>/*.html</td><td>/hotels</td><td>/hotels.html</td></tr>
      * <tr><td>/*.html</td><td>/*.txt</td><td>{@code IllegalArgumentException}</td></tr>
      * </table>
+     *
      * @param pattern1 the first pattern
      * @param pattern2 the second pattern
      * @return the combination of the two patterns
@@ -522,11 +531,9 @@ public class AntPathMatcher implements PathMatcher {
 
         if (path1EndsWithSeparator && path2StartsWithSeparator) {
             return path1 + path2.substring(1);
-        }
-        else if (path1EndsWithSeparator || path2StartsWithSeparator) {
+        } else if (path1EndsWithSeparator || path2StartsWithSeparator) {
             return path1 + path2;
-        }
-        else {
+        } else {
             return path1 + this.pathSeparator + path2;
         }
     }
@@ -544,6 +551,7 @@ public class AntPathMatcher implements PathMatcher {
      * the returned comparator will sort this list so that the order will be as indicated.
      * <p>The full path given as parameter is used to test for exact matches. So when the given path
      * is {@code /hotels/2}, the pattern {@code /hotels/2} will be sorted before {@code /hotels/1}.
+     *
      * @param path the full path to use for comparison
      * @return a comparator capable of sorting patterns in order of explicitness
      */
@@ -581,17 +589,14 @@ public class AntPathMatcher implements PathMatcher {
                 String match = matcher.group();
                 if ("?".equals(match)) {
                     patternBuilder.append('.');
-                }
-                else if ("*".equals(match)) {
+                } else if ("*".equals(match)) {
                     patternBuilder.append(".*");
-                }
-                else if (match.startsWith("{") && match.endsWith("}")) {
+                } else if (match.startsWith("{") && match.endsWith("}")) {
                     int colonIdx = match.indexOf(':');
                     if (colonIdx == -1) {
                         patternBuilder.append(DEFAULT_VARIABLE_PATTERN);
                         this.variableNames.add(matcher.group(1));
-                    }
-                    else {
+                    } else {
                         String variablePattern = match.substring(colonIdx + 1, match.length() - 1);
                         patternBuilder.append('(');
                         patternBuilder.append(variablePattern);
@@ -616,6 +621,7 @@ public class AntPathMatcher implements PathMatcher {
 
         /**
          * Main entry point.
+         *
          * @return {@code true} if the string matches against the pattern, or {@code false} otherwise.
          */
         public boolean matchStrings(String str, Map<String, String> uriTemplateVariables) {
@@ -636,8 +642,7 @@ public class AntPathMatcher implements PathMatcher {
                     }
                 }
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -668,6 +673,7 @@ public class AntPathMatcher implements PathMatcher {
         /**
          * Compare two patterns to determine which should match first, i.e. which
          * is the most specific regarding the current path.
+         *
          * @return a negative integer, zero, or a positive integer as pattern1 is
          * more specific, equally specific, or less specific than pattern2.
          */
@@ -678,11 +684,9 @@ public class AntPathMatcher implements PathMatcher {
 
             if (info1.isLeastSpecific() && info2.isLeastSpecific()) {
                 return 0;
-            }
-            else if (info1.isLeastSpecific()) {
+            } else if (info1.isLeastSpecific()) {
                 return 1;
-            }
-            else if (info2.isLeastSpecific()) {
+            } else if (info2.isLeastSpecific()) {
                 return -1;
             }
 
@@ -690,18 +694,15 @@ public class AntPathMatcher implements PathMatcher {
             boolean pattern2EqualsPath = pattern2.equals(path);
             if (pattern1EqualsPath && pattern2EqualsPath) {
                 return 0;
-            }
-            else if (pattern1EqualsPath) {
+            } else if (pattern1EqualsPath) {
                 return -1;
-            }
-            else if (pattern2EqualsPath) {
+            } else if (pattern2EqualsPath) {
                 return 1;
             }
 
             if (info1.isPrefixPattern() && info2.getDoubleWildcards() == 0) {
                 return 1;
-            }
-            else if (info2.isPrefixPattern() && info1.getDoubleWildcards() == 0) {
+            } else if (info2.isPrefixPattern() && info1.getDoubleWildcards() == 0) {
                 return -1;
             }
 
@@ -715,15 +716,13 @@ public class AntPathMatcher implements PathMatcher {
 
             if (info1.getSingleWildcards() < info2.getSingleWildcards()) {
                 return -1;
-            }
-            else if (info2.getSingleWildcards() < info1.getSingleWildcards()) {
+            } else if (info2.getSingleWildcards() < info1.getSingleWildcards()) {
                 return 1;
             }
 
             if (info1.getUriVars() < info2.getUriVars()) {
                 return -1;
-            }
-            else if (info2.getUriVars() < info1.getUriVars()) {
+            } else if (info2.getUriVars() < info1.getUriVars()) {
                 return 1;
             }
 
@@ -769,21 +768,17 @@ public class AntPathMatcher implements PathMatcher {
                     if (this.pattern.charAt(pos) == '{') {
                         this.uriVars++;
                         pos++;
-                    }
-                    else if (this.pattern.charAt(pos) == '*') {
+                    } else if (this.pattern.charAt(pos) == '*') {
                         if (pos + 1 < this.pattern.length() && this.pattern.charAt(pos + 1) == '*') {
                             this.doubleWildcards++;
                             pos += 2;
-                        }
-                        else if (pos > 0 && !this.pattern.substring(pos - 1).equals(".*")) {
+                        } else if (pos > 0 && !this.pattern.substring(pos - 1).equals(".*")) {
                             this.singleWildcards++;
                             pos++;
-                        }
-                        else {
+                        } else {
                             pos++;
                         }
-                    }
-                    else {
+                    } else {
                         pos++;
                     }
                 }
@@ -871,7 +866,6 @@ public class AntPathMatcher implements PathMatcher {
 
 
     /**
-     *
      * @param collection
      * @return
      */
@@ -893,6 +887,7 @@ public class AntPathMatcher implements PathMatcher {
      * StringUtils.hasLength(" ") = true
      * StringUtils.hasLength("Hello") = true
      * </pre>
+     *
      * @param str the {@code CharSequence} to check (may be {@code null})
      * @return {@code true} if the {@code CharSequence} is not {@code null} and has length
      * @see #hasText(String)
@@ -905,6 +900,7 @@ public class AntPathMatcher implements PathMatcher {
      * Check that the given {@code String} is neither {@code null} nor of length 0.
      * <p>Note: this method returns {@code true} for a {@code String} that
      * purely consists of whitespace.
+     *
      * @param str the {@code String} to check (may be {@code null})
      * @return {@code true} if the {@code String} is not {@code null} and has length
      * @see #hasLength(CharSequence)
@@ -919,6 +915,7 @@ public class AntPathMatcher implements PathMatcher {
      * <p>More specifically, this method returns {@code true} if the
      * {@code String} is not {@code null}, its length is greater than 0,
      * and it contains at least one non-whitespace character.
+     *
      * @param str the {@code String} to check (may be {@code null})
      * @return {@code true} if the {@code String} is not {@code null}, its
      * length is greater than 0, and it does not contain whitespace only
@@ -941,6 +938,7 @@ public class AntPathMatcher implements PathMatcher {
      * StringUtils.hasText("12345") = true
      * StringUtils.hasText(" 12345 ") = true
      * </pre>
+     *
      * @param str the {@code CharSequence} to check (may be {@code null})
      * @return {@code true} if the {@code CharSequence} is not {@code null},
      * its length is greater than 0, and it does not contain whitespace only
@@ -958,10 +956,6 @@ public class AntPathMatcher implements PathMatcher {
         }
         return false;
     }
-
-
-
-
 
 
 }

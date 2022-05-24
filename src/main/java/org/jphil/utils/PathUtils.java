@@ -13,7 +13,7 @@ public class PathUtils {
         URL urlPath = Thread.currentThread()
                 .getContextClassLoader()
                 .getResource(name);
-        if(urlPath!=null){
+        if (urlPath != null) {
             return urlPath.getPath();
         }
         return null;

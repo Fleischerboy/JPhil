@@ -8,7 +8,6 @@ public class JPhilConfig {
     public static String templatesPath = "templates";
 
 
-
     public static void setStaticFilePath(String path) {
         JPhilConfig.staticFilePath = path;
 

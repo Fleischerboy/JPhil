@@ -1,4 +1,5 @@
 package org.jphil.webserver;
+
 import jakarta.servlet.DispatcherType;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
@@ -18,7 +19,7 @@ public class JettyWebServer {
     private static final Server jettyServer = new Server();
 
     /**
-    * @param port
+     * @param port
      **/
     public static void setServerPort(int port) {
         serverPort = port;
@@ -28,7 +29,7 @@ public class JettyWebServer {
         new Thread(JettyWebServer::initJettyServer).start();
     }
 
-    public static void stopServer(){
+    public static void stopServer() {
         try {
             TimeUnit.SECONDS.sleep(3);
             jettyServer.stop();
@@ -42,24 +43,19 @@ public class JettyWebServer {
     }
 
 
+    public static void initJettyServer() {
+        ServerConnector serverConnector = new ServerConnector(jettyServer);
+        ServletContextHandler ctxHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        serverConnector.setPort(serverPort);
+        jettyServer.addConnector(serverConnector);
+        jettyServer.setHandler(ctxHandler);
+        ctxHandler.addFilter(CoreServletFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
+        try {
+            jettyServer.start();
+            jettyServer.join();
 
-     public static void initJettyServer() {
-         ServerConnector serverConnector = new ServerConnector(jettyServer);
-         ServletContextHandler ctxHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-         serverConnector.setPort(serverPort);
-         jettyServer.addConnector(serverConnector);
-         jettyServer.setHandler(ctxHandler);
-         ctxHandler.addFilter(CoreServletFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
-         try {
-             jettyServer.start();
-             jettyServer.join();
-
-         }catch (Exception e) {
-             e.printStackTrace();
-         }
-     }
-
-
-
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+}
