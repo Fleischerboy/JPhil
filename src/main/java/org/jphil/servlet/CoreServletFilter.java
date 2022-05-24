@@ -95,6 +95,7 @@ public class CoreServletFilter implements Filter {
                 System.out.println("missing implementation of access manager");
             }
         }
+        handlerExecutionChain.setPath(path);
         return handlerExecutionChain;
     }
 

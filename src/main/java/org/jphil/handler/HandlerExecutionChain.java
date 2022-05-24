@@ -18,6 +18,7 @@ public class HandlerExecutionChain {
     private final Stack<HandlerWrapper> beforeInterceptors;
     private final HandlerWrapper handlerWrapper;
     private final Stack<HandlerWrapper> afterInterceptors;
+    private String path;
 
    private static final Logger logger = LoggerFactory.getLogger(HandlerExecutionChain.class);
     /**
@@ -51,7 +52,10 @@ public class HandlerExecutionChain {
             invoke(req, res);
         }
         else {
-            logger.warn("Can't find mapping for any endpoints with (GET,POST,PUT OR DELETE) on path: " + req.baseUrl());
+            if(path.equalsIgnoreCase("/stylesheets/style.css")){
+                return;
+            }
+            logger.warn("Can't find mapping for any endpoints with (GET,POST,PUT OR DELETE) on path: " + path);
             res.statusCode(404);
         }
 
@@ -108,6 +112,14 @@ public class HandlerExecutionChain {
 
     public AccessManagerWrapper getAccessManagerWrapper() {
         return accessManagerWrapper;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     @Override

@@ -10,7 +10,6 @@ import org.jphil.webserver.JettyWebServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.TimeUnit;
 
 public class JPhil {
     private static final Logger logger = LoggerFactory.getLogger(JPhil.class);
@@ -21,8 +20,7 @@ public class JPhil {
 
     }
 
-    /**
-     *
+    /***
      * @return JPhil instance
      */
     public static JPhil getInstance() {
@@ -32,6 +30,10 @@ public class JPhil {
         return instance;
     }
 
+    /**
+     * default port: 8080
+     * @return Instance of JPhil
+     */
     public static JPhil startWebServer() {
         if(isWebServerRunning) {
             return getInstance();
@@ -48,7 +50,7 @@ public class JPhil {
      * @param port
      * Port number for the server to listen on
      * @return
-     * Instance of Application
+     * Instance of JPhil
      */
     public static JPhil startWebServer(int port) {
         if(isWebServerRunning) {
@@ -216,7 +218,7 @@ public class JPhil {
 
 
     /**
-     *  set new path for static files
+     * set new path for static files
      * @param path
      */
     public void setStaticFilePath(String path) {
@@ -232,8 +234,8 @@ public class JPhil {
     }
 
     /**
-     *
-     * @return isJettyServerRunning?
+     * isJettyServerRunning?
+     * @return true or false
      */
     public boolean isJettyServerRunning() {
         return isWebServerRunning;

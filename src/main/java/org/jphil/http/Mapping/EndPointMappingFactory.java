@@ -76,7 +76,7 @@ public class EndPointMappingFactory {
             }
         }
         if (!matchedPaths.isEmpty()) {
-            String bestPath = getBestPath(matchedPaths);
+            String bestPath = findBestPath(matchedPaths);
             variables.putAll(pathMatcher.extractUriTemplateVariables(bestPath, path));
             if(!(roleSet.isEmpty())) {
                 return endpointHandleMap.get(new EndPointMapping(getHttpMethod(method), bestPath, roleSet));
@@ -88,7 +88,7 @@ public class EndPointMappingFactory {
         return null;
     }
 
-    private static String getBestPath(List<String> matchedPaths) {
+    private static String findBestPath(List<String> matchedPaths) {
         String bestPath = "";
         if (matchedPaths.size() == 1) {
             bestPath = matchedPaths.get(0);

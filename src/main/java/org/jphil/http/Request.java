@@ -5,11 +5,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtil;
-
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
@@ -20,7 +17,6 @@ import java.util.Map;
 public class Request {
     private final HttpServletRequest servletRequest;
     private final Map<String, String> pathVariables = new HashMap<>();
-
 
 
     /**
@@ -211,7 +207,12 @@ public class Request {
             String cookieValue = cookie.getValue();
             cookieMap.put(cookieName, cookieValue);
         }
-        return cookieMap;
+        if(!cookieMap.isEmpty()) {
+            return cookieMap;
+        }
+        else {
+            return null;
+        }
     }
 
 
@@ -235,16 +236,16 @@ public class Request {
     }
 
     /**
-     *
-     * @return
+     * This method changes the session id of the current request and returns the new session id.
+     * @return new session id
      */
     public String changeSessionId() {
         return servletRequest.changeSessionId();
     }
 
     /**
-     *
-     * @return
+     * isRequestedSessionIdValid?
+     * @return true or false
      */
     public boolean isRequestedSessionIdValid() {
         return servletRequest.isRequestedSessionIdValid();
@@ -252,16 +253,16 @@ public class Request {
 
 
     /**
-     *
-     * @return
+     * isRequestedSessionIdFromCookie?
+     * @return true or false
      */
     public boolean isRequestedSessionIdFromCookie() {
         return servletRequest.isRequestedSessionIdFromCookie();
     }
 
     /**
-     *
-     * @return
+     * isRequestedSessionIdFromURL?
+     * @return true or false
      */
     public boolean isRequestedSessionIdFromURL() {
         return servletRequest.isRequestedSessionIdFromURL();
