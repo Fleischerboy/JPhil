@@ -8,18 +8,17 @@ import static org.junit.Assert.assertTrue;
 
 public class test_ant_path_matcher {
 
-   private final PathMatcher pathMatcher = new AntPathMatcher();
+    private final PathMatcher pathMatcher = new AntPathMatcher();
 
 
-   @Test
-   public void test_can_match() {
-      assertTrue(pathMatcher.match("/**", "/"));
-      assertTrue(pathMatcher.match("/**", "/dsfasdgfsdgsdfg/sdfagasfdgfd"));
-      assertTrue(pathMatcher.match("/*", "/"));
-      assertTrue(pathMatcher.match("/profile/{userId}", "/profile/1"));
-      assertTrue(pathMatcher.match("/home", "/home"));
-   }
-
+    @Test
+    public void test_can_match() {
+        assertTrue(pathMatcher.match("/**", "/"));
+        assertTrue(pathMatcher.match("/**", "/dsfasdgfsdgsdfg/sdfagasfdgfd"));
+        assertTrue(pathMatcher.match("/*", "/"));
+        assertTrue(pathMatcher.match("/profile/{userId}", "/profile/1"));
+        assertTrue(pathMatcher.match("/home", "/home"));
+    }
 
 
 }

@@ -1,11 +1,9 @@
-
 import model.User;
 import org.jphil.core.JPhil;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextPresent;
 
 public class test_json_application {
 
@@ -13,7 +11,7 @@ public class test_json_application {
     public static void prepare() {
         JPhil testApp = JPhil.startWebServer(7777);
         testApp.get("/api/userJson", (request, response) -> {
-            response.json(new User(1,"Philip", "Fleischer", "phila@hotmail.com", "phila", "phila123", "admin"));
+            response.json(new User(1, "Philip", "Fleischer", "phila@hotmail.com", "phila", "phila123", "admin"));
         });
         setBaseUrl("http://localhost:7777");
     }

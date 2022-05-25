@@ -1,14 +1,8 @@
-
 import org.jphil.core.JPhil;
-import org.jphil.handler.Handler;
-import org.jphil.http.Request;
-import org.jphil.http.Response;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextPresent;
 
 public class test_can_set_and_get_cookie {
 
@@ -28,14 +22,11 @@ public class test_can_set_and_get_cookie {
     }
 
     @Test
-    public void setCookie(){
+    public void setCookie() {
         beginAt("/setCookie");
         gotoPage("/getCookie");
         assertTextPresent("admin");
     }
-
-
-
 
 
 }

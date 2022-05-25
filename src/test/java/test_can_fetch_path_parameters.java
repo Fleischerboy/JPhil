@@ -1,4 +1,3 @@
-import model.User;
 import org.jphil.core.JPhil;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,7 +18,7 @@ public class test_can_fetch_path_parameters {
 
 
     @Test
-    public void name(){
+    public void name() {
         beginAt("/hello/philip");
         assertResponseCode(200);
         assertTextPresent("philip");

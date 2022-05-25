@@ -43,6 +43,7 @@ public class Response {
 
     /**
      * Send html in response
+     *
      * @param htmlString The html to send
      */
     public void html(String htmlString) {
@@ -77,6 +78,7 @@ public class Response {
 
     /**
      * will render an object as Json
+     *
      * @param json
      */
     public void json(Object json) {
@@ -148,6 +150,7 @@ public class Response {
 
     /**
      * set HTTP status
+     *
      * @param code HTTP status code
      */
     public Response statusCode(int code) {
@@ -238,6 +241,7 @@ public class Response {
 
     /**
      * add cookie
+     *
      * @param cookie
      */
     public void cookie(Cookie cookie) {
@@ -247,6 +251,7 @@ public class Response {
 
     /**
      * Set content type
+     *
      * @param contentType
      */
     public void setContentType(String contentType) {

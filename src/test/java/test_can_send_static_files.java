@@ -1,10 +1,8 @@
-import model.User;
 import org.jphil.core.JPhil;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextPresent;
 
 public class test_can_send_static_files {
 

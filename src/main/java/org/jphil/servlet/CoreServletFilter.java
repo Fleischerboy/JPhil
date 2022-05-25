@@ -71,7 +71,6 @@ public class CoreServletFilter implements Filter {
     }
 
 
-
     private static HandlerExecutionChain getHandler(HttpServletRequest request) {
         Map<String, String> pathVariables = new HashMap<>();
         Set<RouteRole> roleSet = new HashSet<>();
