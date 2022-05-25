@@ -4,7 +4,10 @@ import Scenarios.repository.UserDataRepository;
 import jakarta.servlet.http.HttpSession;
 import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;
+import org.jphil.handler.Handler;
 import org.jphil.http.Request;
+import org.jphil.http.Response;
+
 import java.util.List;
 
 
@@ -140,6 +143,17 @@ public class Application {
         });
 
 
+
+
+        app.get("/abc", (request, response) -> {
+            response.cookie("role", "admin");
+        });
+
+
+        app.get("/abcd", (request, response) -> {
+            System.out.println(request.cookie("role"));
+            response.text(request.cookie("role"));
+        });
 
 
 
