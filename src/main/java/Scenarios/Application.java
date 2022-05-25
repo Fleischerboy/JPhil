@@ -36,8 +36,7 @@ public class Application {
 
         //Scenario 2: Lage et endepunkt på webserveren med HTTP-metoden: GET, med URL-sti «/home» og send HTML kode i respons.
         app.get("/home", (request, response) -> {
-            response.html("<h1>Welcome to this amazing web application</h1><br>" +
-                    "<style> body{background-color: #E7E8D1;} </style>");
+            response.html("<h1>Hello home page</h1>");
         });
 
 
@@ -62,8 +61,9 @@ public class Application {
         });
 
 
-        // Scenario 6: Sette ressurs sti for mal-filer til en mappe kalt «templateFiles» som ligger inni resources mappen.
-       // app.setTemplatePath("templateFiles");
+        // Scenario 6:
+        // Sette ressurs sti for mal-filer til en mappe kalt «templateFiles» som ligger inni resources mappen.
+        // app.setTemplatePath("templateFiles");
 
 
         // Scenario 7:
@@ -114,6 +114,7 @@ public class Application {
         app.get("/admin", (req, res) -> {
             res.renderTemplate("users", "users", userRepository.getAllUsers());
         }, Role.ADMIN);
+
         app.accessManager((handler, request, response, routeRoles) -> {
             Role userRole = getUserRole(request, userRepository);
             if (routeRoles.contains(userRole)) {
@@ -125,8 +126,9 @@ public class Application {
 
 
         // Scenario 10: lage før-behandlere
+
         app.before((request, response) -> {
-            System.out.println(request.isRequestedSessionIdValid());
+            // kjøres før alle requests
         });
 
 
@@ -134,7 +136,7 @@ public class Application {
 
         // Scenario 11: lage etter-behandlere
         app.after((request, response) -> {
-            System.out.println(request.cookies());
+
         });
 
 

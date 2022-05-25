@@ -124,12 +124,6 @@ public class EndPointMappingFactory {
         return accessManagerWrapper;
     }
 
-    public static void printMap() {
-        for (EndPointMapping i : endpointHandleMap.keySet()) {
-            System.out.println("key: " + i + " value: " + endpointHandleMap.get(i));
-        }
-    }
-
 
     public static int measure(String str, char ch) {
         int count = 0;

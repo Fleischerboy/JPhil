@@ -68,7 +68,6 @@ public class CoreServletFilter implements Filter {
         } else {
             logger.warn("Can't find mapping for path :" + path);
         }
-
     }
 
 

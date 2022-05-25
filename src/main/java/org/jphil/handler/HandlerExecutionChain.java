@@ -40,6 +40,10 @@ public class HandlerExecutionChain {
     public void handle(HttpServletRequest request, HttpServletResponse response) {
         Request req = new Request(request);
         Response res = new Response(response);
+        if (path.equalsIgnoreCase("/stylesheets/style.css")) {
+            return;
+        }
+
         if (!(variables.isEmpty())) {
             req.addPathVariables(variables);
         }
@@ -51,9 +55,6 @@ public class HandlerExecutionChain {
         if (handlerWrapper != null) {
             invoke(req, res);
         } else {
-            if (path.equalsIgnoreCase("/stylesheets/style.css")) {
-                return;
-            }
             logger.warn("Can't find mapping for any endpoints with (GET,POST,PUT OR DELETE) on path: " + path);
             res.statusCode(404);
         }

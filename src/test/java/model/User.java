@@ -1,6 +1,4 @@
-package Scenarios.models;
-
-import java.util.List;
+package model;
 
 public class User {
 
@@ -12,10 +10,8 @@ public class User {
     private String password;
     private String role;
 
-    private final List<TodoList> todoList;
 
-
-    public User(int userId, String firstName, String lastName, String email, String userName, String password, String role, List<TodoList> todoList) {
+    public User(int userId, String firstName, String lastName, String email, String userName, String password, String role) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,10 +19,7 @@ public class User {
         this.userName = userName;
         this.password = password;
         this.role = role;
-        this.todoList = todoList;
     }
-
-
 
     public int getUserId() {
         return userId;
@@ -82,22 +75,5 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public List<TodoList> getTodoList() {
-        return todoList;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                '}';
     }
 }
