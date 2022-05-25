@@ -150,8 +150,9 @@ public class Response {
      * set HTTP status
      * @param code HTTP status code
      */
-    public void statusCode(int code) {
+    public Response statusCode(int code) {
         servletResponse.setStatus(code);
+        return this;
     }
 
     /**

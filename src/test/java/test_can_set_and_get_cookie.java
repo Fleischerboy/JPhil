@@ -18,6 +18,7 @@ public class test_can_set_and_get_cookie {
         JPhil testApp = JPhil.startWebServer(7777);
         testApp.get("/setCookie", (request, response) -> {
             response.cookie("role", "admin");
+            response.statusCode(200).html("Success!");
         });
 
         testApp.get("/getCookie", (request, response) -> {
