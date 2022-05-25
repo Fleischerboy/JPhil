@@ -146,13 +146,13 @@ public class Application {
 
 
         app.get("/abc", (request, response) -> {
-            response.cookie("role", "admin");
+            response.setHeader("testHeader", "test");
         });
 
 
         app.get("/abcd", (request, response) -> {
-            System.out.println(request.cookie("role"));
-            response.text(request.cookie("role"));
+
+            System.out.println(request.headers());
         });
 
 

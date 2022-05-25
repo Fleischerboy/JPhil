@@ -22,7 +22,7 @@ public class test_can_set_and_get_cookie {
     }
 
     @Test
-    public void setCookie() {
+    public void set_cookie_and_get_header() {
         beginAt("/setCookie");
         gotoPage("/getCookie");
         assertTextPresent("admin");

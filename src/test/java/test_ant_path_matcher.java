@@ -1,5 +1,3 @@
-package AntPathMatcher;
-
 import org.jphil.utils.AntPathMatcher;
 import org.jphil.utils.PathMatcher;
 import org.junit.Test;
@@ -17,7 +15,7 @@ public class test_ant_path_matcher {
         assertTrue(pathMatcher.match("/**", "/dsfasdgfsdgsdfg/sdfagasfdgfd"));
         assertTrue(pathMatcher.match("/*", "/"));
         assertTrue(pathMatcher.match("/profile/{userId}", "/profile/1"));
-        assertTrue(pathMatcher.match("/home", "/home"));
+        assertTrue(pathMatcher.match("/ho?me", "/hoLme"));
     }
 
 
