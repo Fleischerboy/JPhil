@@ -1,7 +1,7 @@
 # JPhil
 simple webserver Framwork for web development in java.
 
-#Quick start#
+# Quick start
 
 ````Java
 import org.jphil.core.JPhil;
@@ -13,9 +13,9 @@ public class HelloWorld {
 }
 ````
 
-##Basic Concept
+## Basic Concept
 
-###Route
+### Route
 
 Ant-style
 - Wildcard
@@ -25,4 +25,9 @@ Ant-style
 /he?llo
 ````
 
+### Handlers
+JPhil has three main handler types: before-handlers, endpoint-handlers, and after-handlers. 
+- A verb, one of: before, get, post, put, delete and after
+- A path, ex: /, /helloWorld, /hello{name}
+- A handler implementation, ex (request, response) -> {...}
 
