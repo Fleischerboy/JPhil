@@ -144,8 +144,8 @@ app.accessManager((handler, request, response, routeRoles) -> {
       });
 
   public static Role getUserRole(Request request) {
-    // bestemme brukerrolle basert på request.
-     // gjøres vanligvis ved å inspisere headere, cookies eller informasjonskapsler
+ // determine user role based on request.
+ // typically done by inspecting headers, cookies, or user session
   }
 
   enum Role implements RouteRole {
