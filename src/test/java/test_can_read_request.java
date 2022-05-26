@@ -1,4 +1,3 @@
-import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import net.sourceforge.jwebunit.htmlunit.HtmlUnitTestingEngineImpl;
 import net.sourceforge.jwebunit.junit.JWebUnit;
@@ -6,11 +5,11 @@ import org.jphil.core.JPhil;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.io.InputStream;
-import static net.sourceforge.jwebunit.junit.JWebUnit.*;
-import static org.junit.Assert.assertEquals;
 
+import static net.sourceforge.jwebunit.junit.JWebUnit.beginAt;
+import static net.sourceforge.jwebunit.junit.JWebUnit.setBaseUrl;
+import static org.junit.Assert.assertEquals;
 
 
 public class test_can_read_request {
@@ -49,7 +48,7 @@ public class test_can_read_request {
     @Test
     public void test_read_protocol() {
         beginAt("/home");
-        assertEquals(protocol,"http");
+        assertEquals(protocol, "http");
 
 
     }
@@ -58,7 +57,7 @@ public class test_can_read_request {
     @Test
     public void test_read_baseUrl() {
         beginAt("/home");
-        assertEquals(baseUrl,"/home");
+        assertEquals(baseUrl, "/home");
     }
 
     @Test
@@ -94,18 +93,11 @@ public class test_can_read_request {
     }
 
 
-
-
-
     @Test
     public void test() {
 
 
     }
-
-
-
-
 
 
 }

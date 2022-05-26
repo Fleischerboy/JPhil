@@ -52,7 +52,7 @@ public class Request {
 
 
     /**
-     * @return url part from the request
+     * @return servlet path from the request
      */
     public String servletPath() {
         return servletRequest.getServletPath();

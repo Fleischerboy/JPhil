@@ -2,7 +2,6 @@ package Scenarios.repository;
 
 import Scenarios.models.User;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface UserInterface {

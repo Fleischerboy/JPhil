@@ -1,15 +1,13 @@
 package Scenarios;
+
 import Scenarios.models.User;
 import Scenarios.repository.UserDataRepository;
 import jakarta.servlet.http.HttpSession;
 import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;
-import org.jphil.handler.Handler;
 import org.jphil.http.Request;
-import org.jphil.http.Response;
 
 import java.util.List;
-
 
 
 public class Application {
@@ -31,7 +29,6 @@ public class Application {
         JPhil app = JPhil.startWebServer(7070);
 
 
-
         // valgfritt scenario
         // Lage et endepunkt på webserveren med HTTP-metoden: GET, med URL-sti «/» og send ren text i respons.
         app.get("/", (request, response) -> response.text("Hello World"));
@@ -43,24 +40,22 @@ public class Application {
         });
 
 
-
         // Scenario 3: Lage et endepunkt på instansen av JPhil med HTTP-metoden «get», med en URL-sti: «/login» og send en HTML fil kalt login.html til klientene.
         app.get("/login", (request, response) -> {
             response.file("login.html");
         });
 
 
-
         // Scenario 4:
         // Sette path hvor web-serveren skal servere statiske filer fra.
-       // app.setStaticFilePath("staticFiles");
+        // app.setStaticFilePath("staticFiles");
 
 
         //Scenario 5:
         // Lage et endepunkt på webserveren med HTTP-metoden: GET, med URL-sti «/api/users» og send java objekter av «User» klassen i et json-format til klientene i respons.
         app.get("/api/users", (request, response) -> {
-           List<User> users = userRepository.getAllUsers();
-           response.json(users);
+            List<User> users = userRepository.getAllUsers();
+            response.json(users);
         });
 
 
@@ -80,8 +75,7 @@ public class Application {
                 session.setMaxInactiveInterval(1800);
                 session.setAttribute("userId", user.getUserId());
                 response.redirect("/profile/" + user.getUserId());
-            }
-            else {
+            } else {
                 response.redirect("/");
             }
         });
@@ -92,8 +86,6 @@ public class Application {
             session.invalidate();
             response.redirect("/login");
         });
-
-
 
 
         // Scenario 8:
@@ -133,14 +125,10 @@ public class Application {
         });
 
 
-
-
         // Scenario 11: lage etter-behandlere
         app.after((request, response) -> {
 
         });
-
-
 
 
         app.get("/abc", (request, response) -> {
@@ -152,11 +140,6 @@ public class Application {
 
             System.out.println(request.headers());
         });
-
-
-
-
-
 
 
     }

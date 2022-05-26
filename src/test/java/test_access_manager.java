@@ -1,8 +1,5 @@
-import com.gargoylesoftware.htmlunit.WebResponse;
 import model.User;
 import net.sourceforge.jwebunit.exception.TestingEngineResponseException;
-import net.sourceforge.jwebunit.htmlunit.HtmlUnitTestingEngineImpl;
-import net.sourceforge.jwebunit.junit.JWebUnit;
 import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;
 import org.junit.BeforeClass;
@@ -15,9 +12,6 @@ import static org.junit.Assert.assertTrue;
 
 
 public class test_access_manager {
-
-
-
 
 
     @BeforeClass
@@ -86,8 +80,6 @@ public class test_access_manager {
     enum Role implements RouteRole {
         ADMIN, USER, ANYONE
     }
-
-
 
 
 }

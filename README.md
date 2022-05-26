@@ -130,6 +130,7 @@ cookie(String name, String value) // set en respons cookie med navn og verdi.
 cookie("name", "value", maxAge)   // set en respons cookie med navn, verdi og max-age.
 ````
 
+
 ### Access manager
 JPhil has a functional interface AccessManager, which let’s you set per-endpoint authentication and/or authorization. It’s also common to use before-handlers for this, but enforcing per-endpoint roles give you much more explicit and readable code. You can implement your access-manager however you want. Below is an example implementation:
 
