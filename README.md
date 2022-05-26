@@ -40,7 +40,7 @@ JPhil has three main handler types: before-handlers, endpoint-handlers, and afte
 - A handler implementation, ex (request, response) -> {...}
 
 
-### before Handlers
+### Before Handlers
 ````Java
 // You might know before-handlers as filters, interceptors, or middleware from other libraries.
 app.before((request, response) -> {
@@ -67,7 +67,7 @@ app.post("/input", (request, response) -> {
 
 ````
 
-### after handlers
+### After handlers
 
 ````Java
 // You might know after-handlers as filters, interceptors, or middleware from other libraries.
