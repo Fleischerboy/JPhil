@@ -1,5 +1,5 @@
 # JPhil
-simple webserver Framwork for web development in java.
+A simple java web server framework for web development in java.
 
 # Quick start
 
@@ -20,7 +20,7 @@ public class HelloWorld {
 Ant-style
 
 - path-parameters These are available via request.pathParam("key");
-`````Java
+````Java
 app.get("/hello/{name}", (request, response) -> {
    response.text("Hello: " + request.pathParam("name"));
 });
@@ -39,3 +39,15 @@ JPhil has three main handler types: before-handlers, endpoint-handlers, and afte
 - A path, ex: /, /helloWorld, /hello{name}
 - A handler implementation, ex (request, response) -> {...}
 
+
+### before Handlers
+````Java
+// You might know before-handlers as filters, interceptors, or middleware from other libraries.
+app.before((request, response) -> {
+    // runs before all requests
+});
+
+app.before("/path/*", (request, response) -> {
+   // runs before request to /path/*
+});
+````
