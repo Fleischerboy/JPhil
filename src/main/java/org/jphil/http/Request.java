@@ -50,6 +50,14 @@ public class Request {
         return servletRequest.getPathInfo();
     }
 
+
+    /**
+     * @return url part from the request
+     */
+    public String servletPath() {
+        return servletRequest.getServletPath();
+    }
+
     /**
      * @return the uri without queryString
      */
@@ -77,7 +85,7 @@ public class Request {
     /**
      * @return query string
      */
-    public String QueryString() {
+    public String queryString() {
         return servletRequest.getQueryString();
     }
 

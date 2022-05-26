@@ -80,8 +80,6 @@ public class Application {
                 session.setMaxInactiveInterval(1800);
                 session.setAttribute("userId", user.getUserId());
                 response.redirect("/profile/" + user.getUserId());
-
-
             }
             else {
                 response.redirect("/");
