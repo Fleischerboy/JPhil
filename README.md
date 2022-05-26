@@ -18,6 +18,14 @@ public class HelloWorld {
 ### Route
 
 Ant-style
+
+- path-parameters These are available via request.pathParam("key");
+`````Java
+app.get("/hello/{name}", (request, response) -> {
+   response.text("Hello: " + request.pathParam("name"));
+});
+````
+
 - Wildcard
 ````
 /hello/*
