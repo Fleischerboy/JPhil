@@ -66,3 +66,20 @@ app.post("/input", (request, response) -> {
 });
 
 ````
+
+### after handlers
+
+````Java
+// You might know after-handlers as filters, interceptors, or middleware from other libraries.
+app.after((request, response) -> {
+    // run after all requests
+});
+
+app.after("/path/*", (request, response) -> {
+    // runs after request to /path/*
+});
+
+````
+
+
+
