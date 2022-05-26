@@ -51,3 +51,18 @@ app.before("/path/*", (request, response) -> {
    // runs before request to /path/*
 });
 ````
+
+### Endpoint handlers
+Endpoint handlers are the main handler type, and defines your API. You can add a GET handler to server data to a client, or a POST handler to receive some data.
+````Java
+app.get("/output", (request, response) -> {
+    // some code
+    response.json(object);
+});
+
+app.post("/input", (request, response) -> {
+    // some code
+    response.statusCode(201);
+});
+
+````
