@@ -156,3 +156,10 @@ app.get("/secured", (request, response) -> response.text("Hello"), Role.ROLE_ONE
 
 ````
 
+### Configuration
+
+````Java
+app.setStaticFilePath("staticFiles");
+app.setTemplatePath("templateFiles");
+
+````
