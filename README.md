@@ -1,7 +1,7 @@
 # JPhil
-A simple java web server framework for web development in java.
+et enkelt web server rammeverk for webutvikling in java.
 
-# Quick start
+# Kom i gang med JPhil
 
 ````Java
 import org.jphil.core.JPhil;
