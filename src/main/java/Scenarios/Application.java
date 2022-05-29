@@ -119,26 +119,16 @@ public class Application {
 
 
         // Scenario 10: lage før-behandlere
-
         app.before((request, response) -> {
-            // kjøres før alle requests
+            System.out.println("before everything do something: ");
+            // din kode her
         });
 
 
         // Scenario 11: lage etter-behandlere
         app.after((request, response) -> {
-
-        });
-
-
-        app.get("/abc", (request, response) -> {
-            response.setHeader("testHeader", "test");
-        });
-
-
-        app.get("/abcd", (request, response) -> {
-
-            System.out.println(request.headers());
+            System.out.println("after everything do something: ");
+            // din kode her
         });
 
 

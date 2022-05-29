@@ -22,6 +22,10 @@ public class InterceptorFactory {
 
     public static void addInterceptor(Interceptor interceptor, String path, Handler handler) {
         path = validateHandlerCreation(interceptor, path, handler);
+        if(path.isEmpty()) {
+            System.out.println("yes");
+            path = "/";
+        }
         HandlerWrapper handlerWrapper = new HandlerWrapper(handler);
         interceptorList.add(new InterceptorMapping(interceptor, path, handlerWrapper));
 
