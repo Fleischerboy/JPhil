@@ -1,5 +1,5 @@
 # JPhil
-et enkelt web server rammeverk for webutvikling in java.
+et enkelt web server rammeverk for webutvikling i java.
 
 # Kom i gang med JPhil
 
