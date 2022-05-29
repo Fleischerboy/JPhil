@@ -13,18 +13,18 @@ public class HelloWorld {
 }
 ````
 
-## Basic Concept
+## Kom i gang med JPhil
 
-### Route
 
-Ant-style
 
-- path-parameters These are available via request.pathParam("key");
+- Handler paths kan ha path-parameters. disse er tilgjengelig via request.pathParam("name");
 ````Java
 app.get("/hello/{name}", (request, response) -> {
    response.text("Hello: " + request.pathParam("name"));
 });
 ````
+
+### Ant-style:
 
 - Wildcard
 ````
@@ -34,26 +34,27 @@ app.get("/hello/{name}", (request, response) -> {
 ````
 
 ### Handlers
-JPhil has three main handler types: before-handlers, endpoint-handlers, and after-handlers. 
-- A verb, one of: before, get, post, put, delete and after
-- A path, ex: /, /helloWorld, /hello{name}
-- A handler implementation, ex (request, response) -> {...}
+JPhil har tre typer behandlere: before-handlers, endpoint-handlers, og after-handlers. before, endpoint og after-handlers trenger tre deler:
+- et verb, en av: before, get, post, put, delete and after
+- en path, feks /, /helloWorld, /hello{name}
+- en handler implementasjon, (request, response) -> {...}
 
 
 ### Before Handlers
+Before-handlere matches før hver request
 ````Java
-// You might know before-handlers as filters, interceptors, or middleware from other libraries.
+// Before-handlers kan refereres til som filtre, interceptorer eller middleware i andre biblioteker.
 app.before((request, response) -> {
-    // runs before all requests
+   // kjøres før alle requests
 });
 
 app.before("/path/*", (request, response) -> {
-   // runs before request to /path/*
+     // kjøres før request til /path/*
 });
 ````
 
 ### Endpoint handlers
-Endpoint handlers are the main handler type, and defines your API. You can add a GET handler to server data to a client, or a POST handler to receive some data.
+Ditt API er definert av endepunkt-behandlere, som er hovedtypen. med en GET-handler kan du sende server data til klienten, eller i POST-handler kan du motta data.
 ````Java
 app.get("/output", (request, response) -> {
     // some code
@@ -68,15 +69,15 @@ app.post("/input", (request, response) -> {
 ````
 
 ### After handlers
-
+After-handlers kjøres etter hver request
 ````Java
-// You might know after-handlers as filters, interceptors, or middleware from other libraries.
+//after-handlers kan refereres til som filtre, interceptorer eller middleware i andre biblioteker.
 app.after((request, response) -> {
-    // run after all requests
+    // kjøres etter alle requests
 });
 
 app.after("/path/*", (request, response) -> {
-    // runs after request to /path/*
+    // kjøres etter request til /path/*
 });
 
 ````
@@ -132,7 +133,7 @@ cookie("name", "value", maxAge)   // set en respons cookie med navn, verdi og ma
 
 
 ### Access manager
-JPhil has a functional interface AccessManager, which let’s you set per-endpoint authentication and/or authorization. It’s also common to use before-handlers for this, but enforcing per-endpoint roles give you much more explicit and readable code. You can implement your access-manager however you want. Below is an example implementation:
+I JPhil er det et "functional interface" kalt AccessManager, som lar deg angi autentisering og autorisasjon per endepunkt. Før-handlere kan også brukes til dette, men å sette roller per endepunkt gjør koden mye mer eksplisitt og lesbar. Access-managers kan implementeres slik du vil. Nedenfor er et eksempel på implementering:
 
 ````Java
 app.accessManager((handler, request, response, routeRoles) -> {
@@ -145,8 +146,8 @@ app.accessManager((handler, request, response, routeRoles) -> {
       });
 
   public static Role getUserRole(Request request) {
- // determine user role based on request.
- // typically done by inspecting headers, cookies, or user session
+     // bestemme brukerrolle basert på request.
+     // gjøres vanligvis ved å inspisere headere, cookies eller informasjonskapsler
   }
 
   enum Role implements RouteRole {
@@ -158,7 +159,9 @@ app.get("/secured", (request, response) -> response.text("Hello"), Role.ROLE_ONE
 ````
 
 ### Configuration
-
+Veldig lite configurerings muligheter i dette stadie av JPhil rammeverket, men du har muligheten til å endre hvilken mappe JPhil skal lete etter filer inni resources mappen.
+- Standarverdi for statiske filer er satt til: static inni resources mappen. Dessverre ikke mulig å endre fulle sti/path per idag.
+- Standarverdi for dynamiske/template files er satt til:templates inni resources mappen. Dessverre ikke mulig å endre fulle sti/path per idag.
 ````Java
 app.setStaticFilePath("staticFiles");
 app.setTemplatePath("templateFiles");
