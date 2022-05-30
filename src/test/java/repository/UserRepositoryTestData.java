@@ -15,9 +15,9 @@ public class UserRepositoryTestData {
         userList.add(fred);
     }
 
-    public User getUserByFirstName(String username) {
+    public User getUserByFirstName(String firstName) {
         for (User oneUser : userList) {
-            if (oneUser.getFirstName().equalsIgnoreCase(username)) {
+            if (oneUser.getFirstName().equalsIgnoreCase(firstName)) {
                 return oneUser;
             }
         }

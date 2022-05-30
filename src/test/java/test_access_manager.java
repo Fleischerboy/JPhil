@@ -20,8 +20,8 @@ public class test_access_manager {
         UserRepositoryTestData userDataRepositoryTestData = new UserRepositoryTestData();
 
         testApp.accessManager((handler, request, response, routeRoles) -> {
-            String uname = request.pathParam("name");
-            Role userRole = getUserRole(userDataRepositoryTestData.getUserByFirstName(uname));
+            String name = request.pathParam("name");
+            Role userRole = getUserRole(userDataRepositoryTestData.getUserByFirstName(name));
             if (routeRoles.contains(userRole)) {
                 handler.handle(request, response);
             } else {

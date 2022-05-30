@@ -63,7 +63,6 @@ public class CoreServletFilter implements Filter {
             } finally {
                 ContextThreadLocal.removeRequestOnLocalThread();
                 ContextThreadLocal.removeResponseOnLocalThread();
-
             }
         } else {
             logger.warn("Can't find mapping for path :" + path);
