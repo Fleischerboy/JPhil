@@ -1,4 +1,4 @@
-package Scenarios.models;
+package scenarios.models;
 
 import java.util.List;
 

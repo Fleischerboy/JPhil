@@ -1,8 +1,8 @@
-package Scenarios.repository;
+package scenarios.repository;
 
-import Scenarios.models.TodoItem;
-import Scenarios.models.TodoList;
-import Scenarios.models.User;
+import scenarios.models.TodoItem;
+import scenarios.models.TodoList;
+import scenarios.models.User;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,4 @@
 package org.jphil.servlet;
-
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,10 +9,9 @@ import org.jphil.http.Mapping.AccessManagerWrapper;
 import org.jphil.http.Mapping.EndPointMappingFactory;
 import org.jphil.http.Mapping.HandlerWrapper;
 import org.jphil.http.Mapping.Interceptor.Interceptor;
-import org.jphil.http.Mapping.Interceptor.InterceptorFactory;
+import org.jphil.http.Mapping.Interceptor.InterceptorMappingFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -76,8 +74,8 @@ public class CoreServletFilter implements Filter {
         String method = request.getMethod();
         String path = extractPathFromRequest(request);
         HandlerWrapper handlerWrapper = EndPointMappingFactory.getHandlerWrapper(method, path, pathVariables, roleSet);
-        Stack<HandlerWrapper> beforeInterceptors = InterceptorFactory.getInterceptors(path, Interceptor.BEFORE, pathVariables);
-        Stack<HandlerWrapper> afterInterceptors = InterceptorFactory.getInterceptors(path, Interceptor.AFTER, pathVariables);
+        Stack<HandlerWrapper> beforeInterceptors = InterceptorMappingFactory.getInterceptors(path, Interceptor.BEFORE, pathVariables);
+        Stack<HandlerWrapper> afterInterceptors = InterceptorMappingFactory.getInterceptors(path, Interceptor.AFTER, pathVariables);
         HandlerExecutionChain handlerExecutionChain = new HandlerExecutionChain(beforeInterceptors, handlerWrapper, afterInterceptors);
         if (!(pathVariables.isEmpty())) {
             handlerExecutionChain.setVariables(pathVariables);

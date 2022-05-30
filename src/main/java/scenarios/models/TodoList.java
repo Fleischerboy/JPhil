@@ -1,4 +1,4 @@
-package Scenarios.models;
+package scenarios.models;
 
 public class TodoList {
     private int todoListId;

@@ -6,7 +6,7 @@ import org.jphil.handler.Handler;
 import org.jphil.http.HttpMethod;
 import org.jphil.http.Mapping.EndPointMappingFactory;
 import org.jphil.http.Mapping.Interceptor.Interceptor;
-import org.jphil.http.Mapping.Interceptor.InterceptorFactory;
+import org.jphil.http.Mapping.Interceptor.InterceptorMappingFactory;
 import org.jphil.webserver.JettyWebServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -151,7 +151,7 @@ public class JPhil {
      * @param handler
      */
     public void before(Handler handler) {
-        InterceptorFactory.addInterceptor(Interceptor.BEFORE, "/**", handler);
+        InterceptorMappingFactory.addInterceptor(Interceptor.BEFORE, "/**", handler);
     }
 
     /**
@@ -161,7 +161,7 @@ public class JPhil {
      * @param handler
      */
     public void before(String path, Handler handler) {
-        InterceptorFactory.addInterceptor(Interceptor.BEFORE, path, handler);
+        InterceptorMappingFactory.addInterceptor(Interceptor.BEFORE, path, handler);
     }
 
 
@@ -172,7 +172,7 @@ public class JPhil {
      * @param handler
      */
     public void after(String path, Handler handler) {
-        InterceptorFactory.addInterceptor(Interceptor.AFTER, path, handler);
+        InterceptorMappingFactory.addInterceptor(Interceptor.AFTER, path, handler);
     }
 
 
@@ -182,7 +182,7 @@ public class JPhil {
      * @param handler
      */
     public void after(Handler handler) {
-        InterceptorFactory.addInterceptor(Interceptor.AFTER, "/**", handler);
+        InterceptorMappingFactory.addInterceptor(Interceptor.AFTER, "/**", handler);
     }
 
 

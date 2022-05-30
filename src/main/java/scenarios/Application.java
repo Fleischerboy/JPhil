@@ -1,7 +1,7 @@
-package Scenarios;
+package scenarios;
 
-import Scenarios.models.User;
-import Scenarios.repository.UserDataRepository;
+import scenarios.models.User;
+import scenarios.repository.UserDataRepository;
 import jakarta.servlet.http.HttpSession;
 import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;

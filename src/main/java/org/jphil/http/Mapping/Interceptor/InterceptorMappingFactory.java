@@ -12,7 +12,7 @@ import java.util.Stack;
 
 import static org.jphil.utils.PathUtils.validateHandlerCreation;
 
-public class InterceptorFactory {
+public class InterceptorMappingFactory {
 
     private static final List<InterceptorMapping> interceptorList = new ArrayList<>();
 

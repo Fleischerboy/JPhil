@@ -1,6 +1,6 @@
-package Scenarios.repository;
+package scenarios.repository;
 
-import Scenarios.models.User;
+import scenarios.models.User;
 
 import java.util.List;
 
