@@ -24,11 +24,11 @@ public class Application {
 
 
         // Scenario 1: Starte webserveren på port 8080.
-        //JPhil app = JPhil.startWebServer();
+        JPhil app = JPhil.startWebServer();
 
 
         // Scenario 1: (optional) start webserver on port 7070.
-        JPhil app = JPhil.startWebServer(7070);
+       // JPhil app = JPhil.startWebServer(7070);
 
 
         // valgfritt scenario

@@ -1,0 +1,84 @@
+nav  {
+    background-color: cadetblue;
+    color: white;
+
+    ul {
+        text-align: left;
+        margin:  0;
+        padding: 0;
+        list-style-type: none;
+  
+
+
+        .li-item {
+            display: inline-block;
+            text-align: left;
+            font-size:  1.5rem;
+            border-bottom: 0px;
+            transition: background-color 0.2s;
+            padding: 16px;
+            cursor: pointer;
+        
+            &:hover {
+                background-color: black;
+            }
+
+           
+        }
+
+      
+    }
+
+    @include tablet {
+        
+        ul {
+            text-align: center;
+        }
+       
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+background-color: cadetblue;
+color: white;
+
+ul {
+    margin:  0;
+    padding: 0;
+    list-style-type:  none;
+
+
+
+
+    li {
+        padding: 16px;
+        text-align: center;
+        font-size:  1.2rem;
+        border-bottom: 1px solid black;
+        transition: background-color 0.2s;
+
+
+
+      
+    }
+
+    li:hover {
+        background-color: black;
+    }
+
+
+}
+*/

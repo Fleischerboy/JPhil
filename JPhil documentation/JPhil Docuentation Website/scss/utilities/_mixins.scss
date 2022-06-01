@@ -1,0 +1,14 @@
+
+/*Media Queries*/
+@mixin tablet {
+    @media only screen and (max-width: 1028px) {
+        @content;
+    }
+}
+
+@mixin phone {
+    @media only screen and (max-width: 768px) {
+        @content;
+    }
+}
+

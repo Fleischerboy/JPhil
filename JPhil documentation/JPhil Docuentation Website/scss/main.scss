@@ -1,0 +1,15 @@
+@import 'utilities/config';
+@import 'utilities/prism';
+@import 'utilities/variables';
+@import 'utilities/mixins';
+
+
+
+/*Layout*/
+@import 'layout/header';
+@import 'layout/navbar';
+@import 'layout/footer';
+
+
+/*Pages*/
+@import 'pages/doc'

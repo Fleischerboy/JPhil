@@ -1,0 +1,40 @@
+
+/*Flexbox mixins*/
+
+@mixin flexCenter($direction) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+ }
+
+ @mixin flex($justify, $aline, $direct) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $aline;
+    flex-direction: $direct;
+ }
+
+ @mixin flexSection($direct) {
+    display: flex;
+    flex-direction: $direct;
+
+ }
+
+
+ @mixin flexEvenly($direction) {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: $direction;
+
+}
+
+
+/*Grid mixins*/
+
+@mixin grid($columns) {
+    display: grid;
+    grid-template-columns: $columns;
+}

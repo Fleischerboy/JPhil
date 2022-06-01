@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>JPhil Documentation</title>
+  </head>
+  <body>
+    <nav class="nav">
+      <ul>
+          <li class="li-item">Hjem</li>
+          <li class="li-item">Doc</li>
+          <li class="li-item">Tutorials</li>
+      </ul>
+  </nav>
+    <h1>Kom i gang med JPhil</h1>
+    <div class="conatiner-wrapper">
+      <div class="container">
+        <div class="code-wrapper">
+          <pre>
+            <code id="code" class="language-java">
+              import org.jphil.core.JPhil;
+              public class HelloWorld {
+                  public static void main(String[] args) {
+                      JPhil app = JPhil.startWebServer();
+                      app.get("/", (request, response) -> response.text("Hello World"));
+                  }
+              }
+        </code>
+        </pre>
+        </div>
+      </div>
+    </div>
+    <div>
+
+      <div class="conatiner-wrapper">
+        <div class="container">
+          <h1>Ant-style</h1>
+          <div class="code-wrapper">
+            <h2>Wildcard:</h2>
+            <pre>
+                <code id="code" class="language-java">
+                /*
+                - /hello/* matcher med 0 eller flere tegn
+                - /hello/**  matcher med 0 eller flere 'directories'
+                - /he?llo  matcher med et tegn
+                */
+      
+              </code>
+            </pre>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="conatiner-wrapper">
+        <div class="container">
+          <h1>Handlers/Behandlere</h1>
+          <p>
+             JPhil har tre typer behandlere: before-handlers, endpoint-handlers, og after-handlers. before, endpoint og after-handlers trenger tre deler:
+             <ol>
+               <li>et verb, en av: <strong class="highlighter">before</strong>,
+                <strong class="highlighter">get</strong>,
+                <strong class="highlighter">post</strong>,
+                <strong class="highlighter">put</strong>,
+                <strong class="highlighter">delete</strong> og <strong class="highlighter">after</strong> </li>
+               <li>en path, feks <strong class="highlighter">/</strong>, <strong class="highlighter">/helloWorld</strong>, <strong class="highlighter">/hello{name}</strong></li> 
+               <li>en handler implementasjon, <strong class="highlighter">(request, response) -> {...}</strong></li>
+             </ol>  
+          </p>
+        </div>  
+      </div>
+    </div>
+    <h1>Before handlers</h1>
+    <div class="conatiner-wrapper">
+      <div class="container">
+      <p>Before-handlere matches før hver request</p>
+        <div class="code-wrapper">
+          <pre>
+        
+              <code id="code" class="language-java">
+              //Before-handlers kan refereres til som filtre, interceptorer eller middleware i andre biblioteker.
+              app.before((request, response) -> {
+                  // kjøres før alle requests
+              });
+      
+              app.before("/path/*", (request, response) -> {
+                  // kjøres før request til /path/*
+              });
+    
+            </code>
+          </pre>
+        </div>
+      </div>
+    </div>
+
+
+
+    <h1>Endpoint handlers</h1>
+    <div class="conatiner-wrapper">
+      <div class="container">
+        <p>
+          Ditt API er definert av endepunkt-behandlere, som er hovedtypen. med en GET-handler kan du sende server data til klienten, eller i POST-handler kan du motta data.
+        </p>
+        <div class="code-wrapper">
+          <pre>
+              <code id="code" class="language-java">
+                app.get("/output", (request, response) -> {
+                  // some code
+                  response.json(object);
+              });
+      
+              app.post("/input", (request, response) -> {
+                  // some code
+                  response.statusCode(201);
+              });
+            </code>
+          </pre>
+        </div>
+      </div>
+    </div>
+
+
+  
+
+    
+    <div class="conatiner-wrapper">
+      <div class="container">
+        <p>
+          Handler paths kan ha path-parameters. disse er tilgjengelig via <strong class="highlighter">request.pathParam("name");</strong>
+        </p>
+        <div class="code-wrapper">
+          <pre>
+              <code id="code" class="language-java">
+                app.get("/hello/{name}", (request, response) -> {
+                  response.text("Hello: " + request.pathParam("name"));
+               });
+            </code>
+          </pre>
+        </div>
+      </div>
+    </div>
+
+
+
+
+   <h1>After handlers</h1>
+  </div>
+    <div class="conatiner-wrapper">
+      <div class="container">
+        <p>
+          After-handlers kjøres etter hver request
+      </p>
+        <div class="code-wrapper">
+          <pre>
+              <code id="code" class="language-java">
+                //after-handlers kan refereres til som filtre, interceptorer eller middleware i andre biblioteker.
+                app.after((request, response) -> {
+                  // kjøres etter alle requests
+              });
+      
+              app.after("/path/*", (request, response) -> {
+                  // kjøres etter request til /path/*
+              });
+    
+            </code>
+          </pre>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    
+    <div class="conatiner-wrapper">
+      <div class="container">
+        <h1>Request methods</h1>
+        <p>
+            
+        </p>
+      </div>  
+    </div>
+  </div>
+    <div class="conatiner-wrapper">
+      <div class="container">
+        <div class="code-wrapper">
+          <pre>
+              <code id="code" class="language-java">
+                protocol() // returnerer protokollen fra request eks: http/https
+                HttpMethod() //returnerer http-metode fra request
+                pathUrl() //  returnerer query url sti fra request
+                baseUrl() //  returnerer query uri uten queryString
+                contentType() // contentType fra request
+                contextPath() // context sti
+                QueryString() // returnerer query string
+                contentLength() //  returnerer innhold lengde
+                ip() // returnerer ip
+                host() // returnerer host
+                body() // returnerer body som en String
+                bodyAsBytes() // returnerer body som byte array
+                bodyAsInputStream() // returnerer Inputstream fra request
+                header(String name) // returnerer request header fra git header navn
+                headers() // returnerer alle headere i et map (header name, value)
+                formParam(String name) // form parameter fra navn
+                formParams() // map av alle form parametere
+                pathParam(String name) // path-parameter fra navn
+                pathParams() // map av alle path parametere
+                cookie(String name) // cookie verdi av git cookie navn
+                cookies() // map av alle cookies
+                session() // returnerer denne sessionen assosiert med denne requesten; hvis ingen session, vil den lage en.
+                requestSessionId() 
+                changeSessionId() // Denne metoden endrer session id til gjeldende forespørsel/request og returnerer den nye session.
+                isRequestedSessionIdValid() // returnerer true eller false om session er gyldig.
+                isRequestedSessionIdFromCookie() // returnerer true eller false om session er fra cookie.
+                isRequestedSessionIdFromURL() // returnerer true eller false om session er fra URL.
+           
+    
+            </code>
+          </pre>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="conatiner-wrapper">
+      <div class="container">
+        <h1>Response methods</h1>
+        <p>
+        </p>
+      </div>  
+    </div>
+  </div>
+    <div class="conatiner-wrapper">
+      <div class="container">
+        <div class="code-wrapper">
+          <pre>
+              <code id="code" class="language-java">
+                text(String text) // Send text i respons
+                html(String htmlString) // Send html i respons
+                file(String fileName) // Send statisk fil i respons
+                json(Object json) // vil rendre object til Json
+                statusCode(int code) // set HTTP status kode
+                setContentType(String contentType) // set content type feks text/html, application/json;charset=UTF-8 etc.
+                redirect(String pathTo) // redirect klienten til den gitte pathen
+                setHeader(String headerName, String value) // set header i respons med å gi header navn og en verdi.
+                renderTemplate(String fileName, Map<String, Object> models) // render templatefil (.ftl) med FreeMarker template engine, fra git filnavn og modeler/objekter i et map.
+                renderTemplate(String fileName, Object model) // rendrer templatefil (.ftl) med FreeMarker template engine, fra git filnavn og model.
+                renderTemplate(String fileName, String key, List<?> models) // render templatefil (.ftl) med FreeMarker template engine, fra git filnavn, nøkkel referanse til lista(som et hashmap (key,value), og modeler/objekter i en liste)
+                cookie(String name, String value) // set en respons cookie med navn og verdi.
+                cookie("name", "value", maxAge)   // set en respons cookie med navn, verdi og max-age.
+            </code>
+          </pre>
+        </div>
+      </div>
+    </div>
+
+
+
+  <h1>Access manager</h1>
+  </div>
+    <div class="conatiner-wrapper">
+      <div class="container">
+        <p>
+          I JPhil er det et "functional interface" kalt AccessManager, som lar deg angi autentisering og autorisasjon per endepunkt.
+          Før-handlere kan også brukes til dette, men å sette roller per endepunkt gjør koden mye mer eksplisitt og lesbar.
+          Access-managers kan implementeres slik du vil. Nedenfor er et eksempel på implementering:
+        </p>
+        <div class="code-wrapper">
+          <pre>
+              <code id="code" class="language-java">
+                app.accessManager((handler, request, response, routeRoles) -> {
+                  Role userRole = getUserRole(request);
+                  if (routeRoles.contains(userRole)) {
+                      handler.handle(request, response);
+                  } else {
+                      response.statusCode(401);
+                  }
+              });
+      
+          public static Role getUserRole(Request request) {
+            // bestemme brukerrolle basert på request.
+             // gjøres vanligvis ved å inspisere headere, cookies eller informasjonskapsler   
+          }
+      
+          enum Role implements RouteRole {
+            ANYONE, ROLE_ONE, ROLE_TWO, ROLE_THREE;
+        }
+        app.get("/un-secured", (request, response) -> response.text("Hello"), Role.ANYONE);
+        app.get("/secured", (request, response) -> response.text("Hello"), Role.ROLE_ONE);
+
+         
+
+    
+            </code>
+          </pre>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="conatiner-wrapper">
+      <div class="container">
+        <h1>Configuration</h1>
+        <p>
+            Veldig lite configurerings muligheter i dette stadie av JPhil rammeverket, men du har muligheten til å endre hvilken mappe JPhil skal lete etter filer inni resources mappen.
+            <ol>
+              <li>
+                Standarverdi for statiske filer er satt til: <Strong class="highlighter">static</Strong> inni resources mappen. Dessverre ikke mulig å endre fulle sti/path per idag.
+              </li>
+              <li>
+                Standarverdi for dynamiske/template files er satt til:<Strong class="highlighter">templates</Strong> inni resources mappen. Dessverre ikke mulig å endre fulle sti/path per idag.
+              </li>
+            </ol>
+            
+        </p>
+      </div>  
+    </div>
+  </div>
+    <div class="conatiner-wrapper">
+      <div class="container">
+        <div class="code-wrapper">
+          <pre>
+              <code id="code" class="language-java">
+                app.setStaticFilePath("staticFiles");
+                app.setTemplatePath("templateFiles");
+    
+            </code>
+          </pre>
+        </div>
+      </div>
+    </div>
+
+
+  </body>
+  <script src="prism.js"></script>
+</html>
