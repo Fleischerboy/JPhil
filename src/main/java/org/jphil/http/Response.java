@@ -158,6 +158,17 @@ public class Response {
         return this;
     }
 
+
+    /**
+     * Set content type
+     *
+     * @param contentType
+     */
+    public void setContentType(String contentType) {
+        servletResponse.setContentType(contentType);
+    }
+
+
     /**
      * @param headerName for the header
      * @param value      for the header
@@ -204,7 +215,6 @@ public class Response {
 
     /**
      * Adds cookie to the response.
-     *
      * @param name     of the cookie
      * @param value    of the cookie
      * @param maxAge   max age of the cookie in seconds (negative for the not persistent cookie, zero - deletes the cookie)
@@ -218,7 +228,6 @@ public class Response {
 
     /**
      * Adds cookie to the response.
-     *
      * @param path     of the cookie
      * @param name     of the cookie
      * @param value    of the cookie
@@ -249,12 +258,4 @@ public class Response {
     }
 
 
-    /**
-     * Set content type
-     *
-     * @param contentType
-     */
-    public void setContentType(String contentType) {
-        servletResponse.setContentType(contentType);
-    }
 }

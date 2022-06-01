@@ -17,6 +17,7 @@ public class test_ant_path_matcher {
         assertTrue(pathMatcher.match("/profile/{userId}", "/profile/1"));
         assertTrue(pathMatcher.match("/ho?me", "/hoLme"));
         assertTrue(pathMatcher.match("/", "/"));
+        assertTrue(pathMatcher.match("/ho?me/*/nyheter/**", "/hoLme/hello/nyheter/asdgrsdf"));
     }
 
 

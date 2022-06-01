@@ -1,5 +1,7 @@
 package scenarios;
 
+import org.jphil.handler.Handler;
+import org.jphil.http.Response;
 import scenarios.models.User;
 import scenarios.repository.UserDataRepository;
 import jakarta.servlet.http.HttpSession;
@@ -46,7 +48,7 @@ public class Application {
         });
 
 
-        // Scenario 4:
+        // Scenario 4: (valgfritt)
         // Sette path hvor web-serveren skal servere statiske filer fra.
         // app.setStaticFilePath("staticFiles");
 
@@ -59,7 +61,7 @@ public class Application {
         });
 
 
-        // Scenario 6:
+        // Scenario 6: (valgfritt)
         // Sette ressurs sti for mal-filer til en mappe kalt «templateFiles» som ligger inni resources mappen.
         // app.setTemplatePath("templateFiles");
 
@@ -121,6 +123,7 @@ public class Application {
         // Scenario 10: lage før-behandlere
         app.before((request, response) -> {
             System.out.println("before everything do something: ");
+            // kjøres før alle requests
             // din kode her
         });
 
@@ -128,6 +131,7 @@ public class Application {
         // Scenario 11: lage etter-behandlere
         app.after((request, response) -> {
             System.out.println("after everything do something: ");
+            // kjøres etter alle requests
             // din kode her
         });
 

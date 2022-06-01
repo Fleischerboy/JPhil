@@ -8,6 +8,8 @@ import org.jphil.servlet.CoreServletFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.EnumSet;
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +51,14 @@ public class JettyWebServer {
         serverConnector.setPort(serverPort);
         jettyServer.addConnector(serverConnector);
         jettyServer.setHandler(ctxHandler);
+        int port = serverConnector.getPort();
+        String info = String.format("http://localhost:%s",port);
+        try {
+            URL url = new URL(info);
+            System.out.println(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         ctxHandler.addFilter(CoreServletFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
         try {
             jettyServer.start();

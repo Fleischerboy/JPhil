@@ -53,17 +53,13 @@ public class CoreServletFilter implements Filter {
             return;
         }
         handlerExecutionChain = getHandler(request);
-        if (handlerExecutionChain != null) {
-            try {
-                handlerExecutionChain.handle(request, response);
-            } catch (Exception e) {
-                System.out.println(Arrays.toString(e.getStackTrace()));
-            } finally {
-                ContextThreadLocal.removeRequestOnLocalThread();
-                ContextThreadLocal.removeResponseOnLocalThread();
-            }
-        } else {
-            logger.warn("Can't find mapping for path :" + path);
+        try {
+            handlerExecutionChain.handle(request, response);
+        } catch (Exception e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        } finally {
+            ContextThreadLocal.removeRequestOnLocalThread();
+            ContextThreadLocal.removeResponseOnLocalThread();
         }
     }
 

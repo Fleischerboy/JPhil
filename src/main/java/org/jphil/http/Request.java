@@ -17,6 +17,7 @@ import java.util.Map;
 public class Request {
     private final HttpServletRequest servletRequest;
     private final Map<String, String> pathVariables = new HashMap<>();
+    private final Map<String, String> headersMap = new HashMap<>();
 
 
     /**
@@ -127,7 +128,6 @@ public class Request {
      * @return headers of the request
      */
     public Map<String, String> headers() {
-        Map<String, String> headersMap = new HashMap<>();
         Enumeration<String> headerNames = servletRequest.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String key = headerNames.nextElement();
