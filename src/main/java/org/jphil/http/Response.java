@@ -16,7 +16,10 @@ import java.util.Map;
 
 import static org.eclipse.jetty.util.StringUtil.isEmpty;
 
-
+/**
+ * Class of Response
+ * @author Philip
+ */
 public class Response {
     private final HttpServletResponse servletResponse;
 

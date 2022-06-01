@@ -1,5 +1,6 @@
 package org.jphil.core;
 
+
 public class JPhilConfig {
 
     /**
@@ -11,6 +12,7 @@ public class JPhilConfig {
      * template file path (default: templates)
      */
     public static String templatesPath = "templates";
+
 
 
     public static void setStaticFilePath(String path) {

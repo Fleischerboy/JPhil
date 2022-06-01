@@ -11,7 +11,10 @@ import org.jphil.webserver.JettyWebServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ * Class of JPhil
+ * @author Philip
+ */
 public class JPhil {
     private static final Logger logger = LoggerFactory.getLogger(JPhil.class);
     private static boolean isWebServerRunning = false;
@@ -21,7 +24,8 @@ public class JPhil {
 
     }
 
-    /***
+    /**
+     *
      * @return JPhil instance
      */
     public static JPhil getInstance() {
@@ -72,8 +76,8 @@ public class JPhil {
      * HTTP GET
      * Adds a GET request handler for the specified path.
      *
-     * @param path
-     * @param handler
+     * @param path specified path to the handler
+     * @param handler a handler implementation
      */
     public void get(String path, Handler handler) {
         EndPointMappingFactory.addRoute(HttpMethod.GET, path, handler);
@@ -83,8 +87,8 @@ public class JPhil {
      * HTTP POST
      * adds a POST request handler for the specified path.
      *
-     * @param path
-     * @param handler
+     * @param path specified path to the handler
+     * @param handler a handler implementation
      */
     public void post(String path, Handler handler) {
         EndPointMappingFactory.addRoute(HttpMethod.POST, path, handler);
@@ -95,8 +99,8 @@ public class JPhil {
      * HTTP PUT
      * Adds a PUT request handler for the specified path.
      *
-     * @param path
-     * @param handler
+     * @param path specified path to the handler
+     * @param handler a handler implementation
      */
     public void put(String path, Handler handler) {
         EndPointMappingFactory.addRoute(HttpMethod.PUT, path, handler);
@@ -106,8 +110,8 @@ public class JPhil {
      * HTTP DELETE
      * Adds a DELETE request handler for the specified path.
      *
-     * @param path
-     * @param handler
+     * @param path specified path to the handler
+     * @param handler a handler implementation
      */
     public void delete(String path, Handler handler) {
         EndPointMappingFactory.addRoute(HttpMethod.DELETE, path, handler);
@@ -116,9 +120,9 @@ public class JPhil {
     /**
      * Adds a GET request handler with the given roles for the specified path. Requires an access manager implementation.
      *
-     * @param path
-     * @param handler
-     * @param roles
+     * @param path specified path to the handler
+     * @param handler a handler implementation
+     * @param roles given roles
      */
     public void get(String path, Handler handler, RouteRole... roles) {
         EndPointMappingFactory.addRoute(HttpMethod.GET, path, handler, roles);
@@ -127,9 +131,9 @@ public class JPhil {
     /**
      * Adds a POST request handler with the given roles for the specified path. Requires an access manager implementation.
      *
-     * @param path
-     * @param handler
-     * @param roles
+     * @param path specified path to the handler
+     * @param handler a handler implementation
+     * @param roles given roles
      */
     public void post(String path, Handler handler, RouteRole... roles) {
         EndPointMappingFactory.addRoute(HttpMethod.POST, path, handler, roles);
@@ -138,9 +142,9 @@ public class JPhil {
     /**
      * Adds a PUT request handler with the given roles for the specified, Requires an access manager implementation.
      *
-     * @param path
-     * @param handler
-     * @param roles
+     * @param path specified path to the handler
+     * @param handler a handler implementation
+     * @param roles given roles
      */
     public void put(String path, Handler handler, RouteRole... roles) {
         EndPointMappingFactory.addRoute(HttpMethod.PUT, path, handler, roles);
@@ -149,9 +153,9 @@ public class JPhil {
     /**
      * Adds a DELETE request handler with the given roles for the specified path. Requires an access manager implementation.
      *
-     * @param path
-     * @param handler
-     * @param roles
+     * @param path specified path to the handler
+     * @param handler a handler implementation
+     * @param roles given roles
      */
     public void delete(String path, Handler handler, RouteRole... roles) {
         EndPointMappingFactory.addRoute(HttpMethod.DELETE, path, handler, roles);
@@ -161,7 +165,7 @@ public class JPhil {
      * Adds a BEFORE request handler for all routes
      * will execute before all request
      *
-     * @param handler
+     * @param handler a handler implementation
      */
     public void before(Handler handler) {
         InterceptorMappingFactory.addInterceptor(Interceptor.BEFORE, "/**", handler);
@@ -171,8 +175,8 @@ public class JPhil {
      * Adds a BEFORE request handler for the specified path.
      * will execute before request to /path
      *
-     * @param path
-     * @param handler
+     * @param path specified path to the handler
+     * @param handler a handler implementation
      */
     public void before(String path, Handler handler) {
         InterceptorMappingFactory.addInterceptor(Interceptor.BEFORE, path, handler);
@@ -183,8 +187,8 @@ public class JPhil {
      * Adds an AFTER request handler for the specified path.
      * After handler that will run after request to /path.
      *
-     * @param path
-     * @param handler
+     * @param path specified path to the handler
+     * @param handler a handler implementation
      */
     public void after(String path, Handler handler) {
         InterceptorMappingFactory.addInterceptor(Interceptor.AFTER, path, handler);
@@ -195,7 +199,7 @@ public class JPhil {
      * Adds an AFTER request handler for all routes in the instance.
      * After handler that will run after every request.
      *
-     * @param handler
+     * @param handler a handler implementation
      */
     public void after(Handler handler) {
         InterceptorMappingFactory.addInterceptor(Interceptor.AFTER, "/**", handler);
@@ -205,7 +209,7 @@ public class JPhil {
     /**
      * Adds a accessManager implementation that will execute before every handler that contains roles.
      *
-     * @param accessManager
+     * @param accessManager a accessManager implementation
      */
     public void accessManager(AccessManager accessManager) {
         EndPointMappingFactory.setAccessManager(accessManager);
@@ -227,7 +231,7 @@ public class JPhil {
     /**
      * set new path for static files
      *
-     * @param path
+     * @param path path for static files
      */
     public void setStaticFilePath(String path) {
         JPhilConfig.setStaticFilePath(path);
@@ -237,7 +241,7 @@ public class JPhil {
     /**
      * set new path for template files: (FTL)
      *
-     * @param path
+     * @param path path for static files
      */
     public void setTemplatePath(String path) {
         JPhilConfig.setTemplatePath(path);

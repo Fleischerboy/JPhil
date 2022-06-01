@@ -13,7 +13,10 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Class of request
+ * @author Philip
+ */
 public class Request {
     private final HttpServletRequest servletRequest;
     private final Map<String, String> pathVariables = new HashMap<>();
