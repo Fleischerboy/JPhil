@@ -214,17 +214,6 @@ public class JPhil {
     }
 
 
-    public JPhil endPoint(String path) {
-        return null;
-    }
-
-    public JPhil endPoint(String path, RouteRole... roles) {
-        return null;
-    }
-
-    public void with(Class<?> cls) {
-
-    }
 
 
     /**
@@ -263,5 +252,23 @@ public class JPhil {
     public boolean isJettyServerRunning() {
         return isWebServerRunning;
     }
+
+
+/*
+/*
+* this got never implemented, and I don't want to remove it. I might do it in the future.
+
+    public JPhil endPoint(String path) {
+        return null;
+    }
+
+    public JPhil endPoint(String path, RouteRole... roles) {
+        return null;
+    }
+
+    public void with(Class<?> cls) {
+
+    }
+ */
 
 }
