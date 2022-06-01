@@ -18,9 +18,9 @@ public class HelloWorld {
 Documentation: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/util/AntPathMatcher.html
 - Wildcard
 ````
-/hello/*
-/hello/**
-/he?llo
+/hello/* matcher med 0 eller flere tegn
+/hello/** matcher med 0 eller flere 'directories'
+/he?llo matcher med et tegn
 ````
 
 ### Handlers
