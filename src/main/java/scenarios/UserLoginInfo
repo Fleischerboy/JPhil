@@ -1,0 +1,8 @@
+user 1 (role = Admin):
+username: phila
+password: phila123
+
+user 2 (role = User):
+username: fred
+password: fred123
+
