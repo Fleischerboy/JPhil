@@ -24,8 +24,8 @@ app.get("/hello/{name}", (request, response) -> {
 });
 ````
 
-### Ant-style:
-
+### Ant-style
+Documentation: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/util/AntPathMatcher.html
 - Wildcard
 ````
 /hello/*
