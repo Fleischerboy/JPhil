@@ -9,8 +9,6 @@ import org.jphil.utils.PathMatcher;
 
 import java.util.*;
 
-import static org.jphil.utils.PathUtils.validateHandlerCreation;
-
 
 public class EndPointMappingFactory {
 
@@ -26,6 +24,7 @@ public class EndPointMappingFactory {
 
     /**
      * adds A endpoint route to the hashmap called 'endpointHandleMap'
+     *
      * @param method
      * @param path
      * @param handler
@@ -38,6 +37,7 @@ public class EndPointMappingFactory {
 
     /**
      * adds A endpoint route to the hashmap called 'endpointHandleMap'
+     *
      * @param method
      * @param path
      * @param handler
@@ -51,7 +51,8 @@ public class EndPointMappingFactory {
     }
 
     /**
-     * sets the accessManager implementation 
+     * sets the accessManager implementation
+     *
      * @param accessManager
      */
     public static void setAccessManager(AccessManager accessManager) {
@@ -148,6 +149,19 @@ public class EndPointMappingFactory {
             }
         }
         return count;
+    }
+
+    public static String validateHandlerCreation(Enum<?> method, String path, Handler handler) {
+        if (method == null || path.isEmpty() || handler == null) {
+            return null;
+        }
+        if (!path.startsWith("/")) {
+            return null;
+        }
+        if (path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
+        return path;
     }
 
 

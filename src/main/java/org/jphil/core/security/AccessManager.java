@@ -7,7 +7,7 @@ import org.jphil.http.Response;
 import java.util.Set;
 
 /**
- *  The interface for access manager is a way of implementing endpoint security management
+ * The interface for access manager is a way of implementing endpoint security management
  */
 @FunctionalInterface
 public interface AccessManager {

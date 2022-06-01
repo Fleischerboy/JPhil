@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import static org.jphil.utils.PathUtils.validateHandlerCreation;
+import static org.jphil.http.Mapping.EndPointMappingFactory.validateHandlerCreation;
+
 
 public class InterceptorMappingFactory {
 
@@ -22,7 +23,7 @@ public class InterceptorMappingFactory {
 
     public static void addInterceptor(Interceptor interceptor, String path, Handler handler) {
         path = validateHandlerCreation(interceptor, path, handler);
-        if(path.isEmpty()) {
+        if (path.isEmpty()) {
             path = "/";
         }
         HandlerWrapper handlerWrapper = new HandlerWrapper(handler);

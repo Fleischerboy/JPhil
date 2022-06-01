@@ -1,4 +1,5 @@
 package org.jphil.servlet;
+
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import org.jphil.http.Mapping.Interceptor.Interceptor;
 import org.jphil.http.Mapping.Interceptor.InterceptorMappingFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -22,22 +24,14 @@ public class CoreServletFilter implements Filter {
 
     private static final Logger logger = LoggerFactory.getLogger(CoreServletFilter.class);
 
-    /**
-     * @param filterConfig
-     * @throws ServletException
-     */
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         logger.info("CoreServletFilter Init");
 
     }
 
-    /**
-     * @param servletRequest
-     * @param servletResponse
-     * @param filterChain
-     * @throws IOException
-     */
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException {
         logger.info("Filter is starting...");
@@ -64,6 +58,10 @@ public class CoreServletFilter implements Filter {
     }
 
 
+    /**
+     * @param request
+     * @return handlerExecutionChain that can contain different handlers that we want to process for the client.
+     */
     private static HandlerExecutionChain getHandler(HttpServletRequest request) {
         Map<String, String> pathVariables = new HashMap<>();
         Set<RouteRole> roleSet = new HashSet<>();

@@ -71,6 +71,7 @@ public class JPhil {
     /**
      * HTTP GET
      * Adds a GET request handler for the specified path.
+     *
      * @param path
      * @param handler
      */
@@ -81,6 +82,7 @@ public class JPhil {
     /**
      * HTTP POST
      * adds a POST request handler for the specified path.
+     *
      * @param path
      * @param handler
      */
@@ -92,6 +94,7 @@ public class JPhil {
     /**
      * HTTP PUT
      * Adds a PUT request handler for the specified path.
+     *
      * @param path
      * @param handler
      */
@@ -102,6 +105,7 @@ public class JPhil {
     /**
      * HTTP DELETE
      * Adds a DELETE request handler for the specified path.
+     *
      * @param path
      * @param handler
      */
@@ -111,6 +115,7 @@ public class JPhil {
 
     /**
      * Adds a GET request handler with the given roles for the specified path. Requires an access manager implementation.
+     *
      * @param path
      * @param handler
      * @param roles
@@ -120,7 +125,8 @@ public class JPhil {
     }
 
     /**
-     *  Adds a POST request handler with the given roles for the specified path. Requires an access manager implementation.
+     * Adds a POST request handler with the given roles for the specified path. Requires an access manager implementation.
+     *
      * @param path
      * @param handler
      * @param roles
@@ -130,7 +136,8 @@ public class JPhil {
     }
 
     /**
-     *  Adds a PUT request handler with the given roles for the specified, Requires an access manager implementation.
+     * Adds a PUT request handler with the given roles for the specified, Requires an access manager implementation.
+     *
      * @param path
      * @param handler
      * @param roles
@@ -140,7 +147,8 @@ public class JPhil {
     }
 
     /**
-     *  Adds a DELETE request handler with the given roles for the specified path. Requires an access manager implementation.
+     * Adds a DELETE request handler with the given roles for the specified path. Requires an access manager implementation.
+     *
      * @param path
      * @param handler
      * @param roles
@@ -152,6 +160,7 @@ public class JPhil {
     /**
      * Adds a BEFORE request handler for all routes
      * will execute before all request
+     *
      * @param handler
      */
     public void before(Handler handler) {
@@ -161,6 +170,7 @@ public class JPhil {
     /**
      * Adds a BEFORE request handler for the specified path.
      * will execute before request to /path
+     *
      * @param path
      * @param handler
      */
@@ -172,6 +182,7 @@ public class JPhil {
     /**
      * Adds an AFTER request handler for the specified path.
      * After handler that will run after request to /path.
+     *
      * @param path
      * @param handler
      */
@@ -183,6 +194,7 @@ public class JPhil {
     /**
      * Adds an AFTER request handler for all routes in the instance.
      * After handler that will run after every request.
+     *
      * @param handler
      */
     public void after(Handler handler) {
@@ -192,6 +204,7 @@ public class JPhil {
 
     /**
      * Adds a accessManager implementation that will execute before every handler that contains roles.
+     *
      * @param accessManager
      */
     public void accessManager(AccessManager accessManager) {

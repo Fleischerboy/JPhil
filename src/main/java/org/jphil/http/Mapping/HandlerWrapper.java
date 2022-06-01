@@ -4,7 +4,9 @@ import org.jphil.handler.Handler;
 import org.jphil.http.Request;
 import org.jphil.http.Response;
 
-
+/**
+ * wraps a handler implementation
+ */
 public class HandlerWrapper {
 
     private final Handler handler;
@@ -14,7 +16,9 @@ public class HandlerWrapper {
         this.handler = handler;
     }
 
-
+    /**
+     * executes the handler
+     */
     public void handle(Request request, Response response) {
         handler.handle(request, response);
     }

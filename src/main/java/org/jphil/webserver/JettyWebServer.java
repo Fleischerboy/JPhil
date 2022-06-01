@@ -52,7 +52,7 @@ public class JettyWebServer {
         jettyServer.addConnector(serverConnector);
         jettyServer.setHandler(ctxHandler);
         int port = serverConnector.getPort();
-        String info = String.format("http://localhost:%s",port);
+        String info = String.format("http://localhost:%s", port);
         try {
             URL url = new URL(info);
             System.out.println(url);

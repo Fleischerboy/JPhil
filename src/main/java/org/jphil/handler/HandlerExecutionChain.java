@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-public class HandlerExecutionChain  {
+public class HandlerExecutionChain {
 
 
     private final Stack<HandlerWrapper> beforeInterceptors;
@@ -40,18 +40,31 @@ public class HandlerExecutionChain  {
     public void handle(HttpServletRequest request, HttpServletResponse response) {
         Request req = new Request(request);
         Response res = new Response(response);
+
+
         if (path.equalsIgnoreCase("/stylesheets/style.css")) {
             return;
         }
 
+        /*
+         * adds path-variables/path-parameters to the request object
+         */
         if (!(variables.isEmpty())) {
             req.addPathVariables(variables);
         }
 
+
+        /**
+         * executes all the before handlers if the chain has any
+         */
         if (beforeInterceptors != null) {
             invokeBeforeInterceptors(req, res);
         }
 
+
+        /**
+         * executes the endpoint if the chain has a handleWrapper
+         */
         if (handlerWrapper != null) {
             invoke(req, res);
         } else {
@@ -59,6 +72,10 @@ public class HandlerExecutionChain  {
             res.statusCode(404);
         }
 
+
+        /**
+         * executes all the after handlers if the chain has any.
+         */
         if (afterInterceptors != null) {
             invokeAfterInterceptors(req, res);
         }
@@ -72,6 +89,9 @@ public class HandlerExecutionChain  {
     }
 
 
+    /**
+     * executes the endpoint handler, if the chain contains any roles we execute the access manager implementation
+     */
     private void invoke(Request req, Response res) {
         if (!(roleSet.isEmpty())) {
             if (accessManagerWrapper != null) {
@@ -118,15 +138,4 @@ public class HandlerExecutionChain  {
         this.path = path;
     }
 
-    @Override
-    public String toString() {
-        return "HandlerExecution{" +
-                "beforeInterceptors=" + beforeInterceptors +
-                ", handlerWrapper=" + handlerWrapper +
-                ", afterInterceptors=" + afterInterceptors +
-                ", variables=" + variables +
-                ", roleSet=" + roleSet +
-                ", accessManagerWrapper=" + accessManagerWrapper +
-                '}';
-    }
 }
