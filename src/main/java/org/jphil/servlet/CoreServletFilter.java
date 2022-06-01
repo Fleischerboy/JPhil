@@ -75,9 +75,9 @@ public class CoreServletFilter implements Filter {
             handlerExecutionChain.setVariables(pathVariables);
         }
         if (!(roleSet.isEmpty())) {
-            handlerExecutionChain.setRoleSet(roleSet);
             AccessManagerWrapper accessManager = EndPointMappingFactory.getAccessManagerWrapper();
             if (accessManager != null) {
+                handlerExecutionChain.setRoleSet(roleSet);
                 handlerExecutionChain.setAccessManagerWrapper(accessManager);
             } else {
                 System.out.println("missing implementation of access manager");
