@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * Class of request
+ *
  * @author Philip
  */
 public class Request {

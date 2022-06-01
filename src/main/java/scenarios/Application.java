@@ -1,13 +1,11 @@
 package scenarios;
 
-import org.jphil.handler.Handler;
-import org.jphil.http.Response;
-import scenarios.models.User;
-import scenarios.repository.UserDataRepository;
 import jakarta.servlet.http.HttpSession;
 import org.jphil.core.JPhil;
 import org.jphil.core.security.RouteRole;
 import org.jphil.http.Request;
+import scenarios.models.User;
+import scenarios.repository.UserDataRepository;
 
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class Application {
 
 
         // Scenario 1: (optional) start webserver on port 7070.
-       // JPhil app = JPhil.startWebServer(7070);
+        // JPhil app = JPhil.startWebServer(7070);
 
 
         // valgfritt scenario

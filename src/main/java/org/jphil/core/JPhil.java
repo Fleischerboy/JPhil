@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Class of JPhil
+ *
  * @author Philip
  */
 public class JPhil {
@@ -25,7 +26,6 @@ public class JPhil {
     }
 
     /**
-     *
      * @return JPhil instance
      */
     public static JPhil getInstance() {
@@ -76,7 +76,7 @@ public class JPhil {
      * HTTP GET
      * Adds a GET request handler for the specified path.
      *
-     * @param path specified path to the handler
+     * @param path    specified path to the handler
      * @param handler a handler implementation
      */
     public void get(String path, Handler handler) {
@@ -87,7 +87,7 @@ public class JPhil {
      * HTTP POST
      * adds a POST request handler for the specified path.
      *
-     * @param path specified path to the handler
+     * @param path    specified path to the handler
      * @param handler a handler implementation
      */
     public void post(String path, Handler handler) {
@@ -99,7 +99,7 @@ public class JPhil {
      * HTTP PUT
      * Adds a PUT request handler for the specified path.
      *
-     * @param path specified path to the handler
+     * @param path    specified path to the handler
      * @param handler a handler implementation
      */
     public void put(String path, Handler handler) {
@@ -110,7 +110,7 @@ public class JPhil {
      * HTTP DELETE
      * Adds a DELETE request handler for the specified path.
      *
-     * @param path specified path to the handler
+     * @param path    specified path to the handler
      * @param handler a handler implementation
      */
     public void delete(String path, Handler handler) {
@@ -120,9 +120,9 @@ public class JPhil {
     /**
      * Adds a GET request handler with the given roles for the specified path. Requires an access manager implementation.
      *
-     * @param path specified path to the handler
+     * @param path    specified path to the handler
      * @param handler a handler implementation
-     * @param roles given roles
+     * @param roles   given roles
      */
     public void get(String path, Handler handler, RouteRole... roles) {
         EndPointMappingFactory.addRoute(HttpMethod.GET, path, handler, roles);
@@ -131,9 +131,9 @@ public class JPhil {
     /**
      * Adds a POST request handler with the given roles for the specified path. Requires an access manager implementation.
      *
-     * @param path specified path to the handler
+     * @param path    specified path to the handler
      * @param handler a handler implementation
-     * @param roles given roles
+     * @param roles   given roles
      */
     public void post(String path, Handler handler, RouteRole... roles) {
         EndPointMappingFactory.addRoute(HttpMethod.POST, path, handler, roles);
@@ -142,9 +142,9 @@ public class JPhil {
     /**
      * Adds a PUT request handler with the given roles for the specified, Requires an access manager implementation.
      *
-     * @param path specified path to the handler
+     * @param path    specified path to the handler
      * @param handler a handler implementation
-     * @param roles given roles
+     * @param roles   given roles
      */
     public void put(String path, Handler handler, RouteRole... roles) {
         EndPointMappingFactory.addRoute(HttpMethod.PUT, path, handler, roles);
@@ -153,9 +153,9 @@ public class JPhil {
     /**
      * Adds a DELETE request handler with the given roles for the specified path. Requires an access manager implementation.
      *
-     * @param path specified path to the handler
+     * @param path    specified path to the handler
      * @param handler a handler implementation
-     * @param roles given roles
+     * @param roles   given roles
      */
     public void delete(String path, Handler handler, RouteRole... roles) {
         EndPointMappingFactory.addRoute(HttpMethod.DELETE, path, handler, roles);
@@ -175,7 +175,7 @@ public class JPhil {
      * Adds a BEFORE request handler for the specified path.
      * will execute before request to /path
      *
-     * @param path specified path to the handler
+     * @param path    specified path to the handler
      * @param handler a handler implementation
      */
     public void before(String path, Handler handler) {
@@ -187,7 +187,7 @@ public class JPhil {
      * Adds an AFTER request handler for the specified path.
      * After handler that will run after request to /path.
      *
-     * @param path specified path to the handler
+     * @param path    specified path to the handler
      * @param handler a handler implementation
      */
     public void after(String path, Handler handler) {
@@ -216,8 +216,6 @@ public class JPhil {
 
 
     }
-
-
 
 
     /**
