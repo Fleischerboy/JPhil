@@ -24,13 +24,25 @@ public class EndPointMappingFactory {
     private static final PathMatcher pathMatcher = new AntPathMatcher();
 
 
+    /**
+     * adds A endpoint route to the hashmap called 'endpointHandleMap'
+     * @param method
+     * @param path
+     * @param handler
+     */
     public static void addRoute(HttpMethod method, String path, Handler handler) {
         path = validateHandlerCreation(method, path, handler);
         HandlerWrapper handlerWrapper = new HandlerWrapper(handler);
         endpointHandleMap.put(new EndPointMapping(method, path), handlerWrapper);
     }
 
-
+    /**
+     * adds A endpoint route to the hashmap called 'endpointHandleMap'
+     * @param method
+     * @param path
+     * @param handler
+     * @param roles
+     */
     public static void addRoute(HttpMethod method, String path, Handler handler, RouteRole... roles) {
         Set<RouteRole> roleSet = new HashSet<>(Arrays.asList(roles));
         path = validateHandlerCreation(method, path, handler);
@@ -38,7 +50,10 @@ public class EndPointMappingFactory {
         endpointHandleMap.put(new EndPointMapping(method, path, roleSet), handlerWrapper);
     }
 
-
+    /**
+     * sets the accessManager implementation 
+     * @param accessManager
+     */
     public static void setAccessManager(AccessManager accessManager) {
         if (accessManager != null) {
             accessManagerWrapper = new AccessManagerWrapper(accessManager);

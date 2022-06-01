@@ -2,6 +2,21 @@ package org.jphil.http;
 
 
 public enum HttpMethod {
-    GET, POST, PUT, DELETE
+    /**
+     * HTTP METHOD GET
+     */
+    GET,
+    /**
+     * HTTP METHOD POST
+     */
+    POST,
+    /**
+     * HTTP METHOD PUT
+     */
+    PUT,
+    /**
+     * HTTP METHOD DELETE
+     */
+    DELETE
 }
 
