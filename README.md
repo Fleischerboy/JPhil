@@ -13,16 +13,6 @@ public class HelloWorld {
 }
 ````
 
-## Kom i gang med JPhil
-
-
-
-- Handler paths kan ha path-parameters. disse er tilgjengelig via request.pathParam("name");
-````Java
-app.get("/hello/{name}", (request, response) -> {
-   response.text("Hello: " + request.pathParam("name"));
-});
-````
 
 ### Ant-style
 Documentation: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/util/AntPathMatcher.html
@@ -81,6 +71,16 @@ app.after("/path/*", (request, response) -> {
 });
 
 ````
+
+
+- Handler paths kan ha path-parameters. disse er tilgjengelig via request.pathParam("name");
+````Java
+app.get("/hello/{name}", (request, response) -> {
+   response.text("Hello: " + request.pathParam("name"));
+});
+````
+
+
 ### Request methods
 ````Java
 protocol() // returnerer protokollen fra request eks: http/https
